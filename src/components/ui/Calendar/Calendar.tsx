@@ -9,7 +9,7 @@ import { MyxIcon } from '@/components/icons'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
+function Calendar({ className, classNames, showOutsideDays = true, ...props }: any) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
