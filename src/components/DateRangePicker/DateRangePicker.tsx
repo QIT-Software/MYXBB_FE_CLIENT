@@ -64,6 +64,7 @@ export function DatePickerWithRange({
             onSelect={handleSelectDate}
             numberOfMonths={2}
             className='bg-white'
+            classNames={null}
           />
         </PopoverContent>
       </Popover>
