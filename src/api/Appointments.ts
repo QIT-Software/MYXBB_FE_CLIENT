@@ -8,6 +8,7 @@ export const appointmentsApi = mainApi.injectEndpoints({
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: ['Profile'],
     }),
     getCustomBlends: builder.query({
       query: () => ({
