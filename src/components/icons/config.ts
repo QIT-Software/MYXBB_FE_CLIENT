@@ -36,6 +36,8 @@ import Facebook from '@/public/icons/facebook-icon.svg'
 import Google from '@/public/icons/google-icon.svg'
 import Event from '@/public/icons/event-icon.svg'
 import Info from '@/public/icons/info-icon.svg'
+import Instagram from '@/public/icons/instagram-icon.svg'
+import Share from '@/public/icons/share-icon.svg'
 // types
 import type { TIconConfig } from './types'
 
@@ -77,4 +79,6 @@ export const IconConfig: TIconConfig = {
   google: Google,
   event: Event,
   info: Info,
+  instagram: Instagram,
+  share: Share,
 }
