@@ -49,6 +49,8 @@ const config = {
           'light-grey': '#CBCBCB',
           'site-grey': '#ADAFB3',
           'black-blue': '#2C3539',
+          pink: '#F00073',
+          'facebook-blue': '#1877F2',
         },
         system: {
           error: '#EE5555',

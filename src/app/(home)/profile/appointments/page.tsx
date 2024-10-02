@@ -3,33 +3,68 @@ import { MyxIcon } from '@/components/icons'
 import PageHeader from '@/components/PageHeader/PageHeader'
 import ScheduleAppointment from '@/components/ScheduleAppointment/ScheduleAppointment'
 import { Button } from '@/components/ui/Button/Button'
+import { getUser } from '@/redux/slices/user/selectors'
+import { isAfter, isBefore, parseISO } from 'date-fns'
+import { get } from 'http'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const AppointmentPage = () => {
+  const profile = useSelector(getUser)
+
   const [status, setStatus] = useState<'Upcoming' | 'Past'>('Upcoming')
-  const appointments = []
-  // const upcomingList = appointments.filter((appointment: any) => {
-  //   const appointmentDateTime = new Date(parseISO(appointment.date))
-  //   const [hours, minutes] = appointment.time.split(':')
-  //   appointmentDateTime.setHours(Number(hours), Number(minutes))
 
-  //   return isAfter(appointmentDateTime, new Date())
-  // })
+  const upcomingList = profile?.appointments.filter((appointment: any) => {
+    const appointmentDateTime = new Date(parseISO(appointment.date))
+    const [hours, minutes] = appointment.time.split(/:| /)
+    const period = appointment.time.split(' ')[1]
+    const isPM = period === 'PM' && hours !== '12'
+    appointmentDateTime.setHours(Number(hours) + (isPM ? 12 : 0), Number(minutes))
 
-  // const pastList = appointments.filter((appointment: any) => {
-  //   const appointmentDateTime = new Date(parseISO(appointment.date))
-  //   const [hours, minutes] = appointment.time.split(':')
-  //   appointmentDateTime.setHours(Number(hours), Number(minutes))
+    return isAfter(appointmentDateTime, new Date())
+  })
 
-  //   return isBefore(appointmentDateTime, new Date())
-  // })
-  const pastList = null
-  const upcomingList = null
+  const pastList = profile?.appointments.filter((appointment: any) => {
+    const appointmentDateTime = new Date(parseISO(appointment.date))
+    const [hours, minutes] = appointment.time.split(/:| /)
+    const period = appointment.time.split(' ')[1]
+    const isPM = period === 'PM' && hours !== '12'
+    appointmentDateTime.setHours(Number(hours) + (isPM ? 12 : 0), Number(minutes))
+
+    return isBefore(appointmentDateTime, new Date())
+  })
+
   const listToDisplay = status === 'Upcoming' ? upcomingList : pastList
+
+  const generateGoogleCalendarLink = (appointment: any) => {
+    const baseUrl = 'https://calendar.google.com/calendar/r/eventedit'
+    const params = new URLSearchParams({
+      text: appointment.service_title, // Event title
+      details: `Service: ${appointment.service_title}\nPersons: ${appointment.total_number_of_persons}
+      \nNotes: ${appointment.notes}`,
+      location: appointment.location_title, // Location
+      dates: `${formatDateForGoogle(appointment.date, appointment.time)}/${formatDateForGoogle(
+        appointment.date,
+        appointment.finish_time
+      )}`, // Start/End in Google Calendar format
+    })
+
+    return `${baseUrl}?${params.toString()}`
+  }
+
+  const formatDateForGoogle = (date: any, time: any) => {
+    const [hours, minutes] = time.split(/:| /)
+    const period = time.split(' ')[1]
+    const isPM = period === 'PM' && hours !== '12'
+    const appointmentDateTime = new Date(date)
+    appointmentDateTime.setHours(Number(hours) + (isPM ? 12 : 0), Number(minutes))
+    return appointmentDateTime.toISOString().replace(/-|:|\.\d{3}/g, '') // Google Calendar format
+  }
+
   return (
     <div className='flex w-full h-full flex-col gap-8 text-primary-black'>
       <PageHeader title='My Appointments' />
-      {appointments.length ? (
+      {profile?.appointments?.length ? (
         <div className='flex flex-col gap-5'>
           <div className='w-max flex rounded-lg overflow-hidden border border-gray-300'>
             <Button
@@ -49,52 +84,61 @@ const AppointmentPage = () => {
               Past
             </Button>
           </div>
-          <div className='flex flex-col border border-secondary-black-blue'>
-            <div className='flex justify-between p-5'>
-              <div className='flex flex-col gap-6 items-start'>
-                <div className='flex gap-8 items-center justify-center'>
-                  <div className='flex gap-2 max-w-[88px] w-full items-center'>
-                    <MyxIcon name='pin' className='size-5' />
-                    <span className='text-base'>WHERE</span>
+          {listToDisplay &&
+            listToDisplay.map((appointment: any) => (
+              <div className='flex flex-col border border-secondary-black-blue' key={appointment.id}>
+                <div className='flex justify-between p-5'>
+                  <div className='flex flex-col gap-6 items-start'>
+                    <div className='flex gap-8 items-center justify-center'>
+                      <div className='flex gap-2 max-w-[88px] w-full items-center'>
+                        <MyxIcon name='pin' className='size-5' />
+                        <span className='text-base'>WHERE</span>
+                      </div>
+                      <div className='flex flex-col gap-2 font-semibold'>
+                        <span>{appointment.location_title}</span>
+                        <span>
+                          {appointment.address.city}, {appointment.address.state}
+                        </span>
+                      </div>
+                    </div>
+                    <div className='flex gap-8 items-center justify-center'>
+                      <div className='flex gap-2 max-w-[88px] w-full items-center'>
+                        <MyxIcon name='clock' className='size-5' />
+                        <span className='text-base'>WHEN</span>
+                      </div>
+                      <div className='flex flex-col gap-2 font-semibold'>
+                        <span>{appointment.date}</span>
+                        <span>
+                          {appointment.time} - {appointment.finish_time}
+                        </span>
+                      </div>
+                    </div>
+                    <div className='flex gap-8 items-center justify-center'>
+                      <div className='flex gap-2 max-w-[88px] w-full items-center'>
+                        <MyxIcon name='event' className='size-5' />
+                        <span className='text-base'>WHAT</span>
+                      </div>
+                      <div className='flex flex-col gap-2 font-semibold'>
+                        <p>{appointment.service_title}</p>
+                        <p>{appointment.total_number_of_persons} persons</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className='flex flex-col gap-2 font-semibold'>
-                    <span>Dallas office, 3517 W. Gray St. Utica, Pennsylvania 57867</span>
-                  </div>
+                  {status === 'Upcoming' && (
+                    <div className='flex gap-6'>
+                      <ScheduleAppointment appointment={appointment} trigger={<MyxIcon name='edit' className='size-5' />} />
+                    </div>
+                  )}
                 </div>
-                <div className='flex gap-8 items-center justify-center'>
-                  <div className='flex gap-2 max-w-[88px] w-full items-center'>
-                    <MyxIcon name='clock' className='size-5' />
-                    <span className='text-base'>WHEN</span>
+                {status === 'Upcoming' && (
+                  <div className='flex px-5 py-[11px] border-t border-secondary-light-grey justify-end'>
+                    <Button onClick={() => window.open(generateGoogleCalendarLink(appointment), '_blank')}>
+                      Add to Google Calendar
+                    </Button>
                   </div>
-                  <div className='flex flex-col gap-2 font-semibold'>
-                    <span>Friday, 01/02/2023</span>
-                    <span>09:00-11.00</span>
-                  </div>
-                </div>
-                <div className='flex gap-8 items-center justify-center'>
-                  <div className='flex gap-2 max-w-[88px] w-full items-center'>
-                    <MyxIcon name='event' className='size-5' />
-                    <span className='text-base'>WHAT</span>
-                  </div>
-                  <div className='flex flex-col gap-2 font-semibold'>
-                    <span>MIX IT UP Service</span>
-                    <span>6 person</span>
-                  </div>
-                </div>
+                )}
               </div>
-              {status === 'Upcoming' && (
-                <div className='flex gap-6'>
-                  <ScheduleAppointment trigger={<MyxIcon name='edit' className='size-5' />} />
-                  <MyxIcon name='delete' className='size-5' />
-                </div>
-              )}
-            </div>
-            {status === 'Upcoming' && (
-              <div className='flex px-5 py-[11px] border-t border-secondary-light-grey justify-end'>
-                <Button>Add to Google Calendar</Button>
-              </div>
-            )}
-          </div>
+            ))}
         </div>
       ) : (
         <div className='flex mt-20 flex-col gap-10 items-center justify-center'>

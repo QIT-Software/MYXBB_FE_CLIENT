@@ -36,6 +36,8 @@ export type TIconName =
   | 'google'
   | 'event'
   | 'info'
+  | 'instagram'
+  | 'share'
 export type TIconElement = React.FunctionComponent<React.SVGAttributes<SVGElement>>
 
 export type TIconConfig = Record<TIconName, TIconElement>
