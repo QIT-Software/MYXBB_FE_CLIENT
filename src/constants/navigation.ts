@@ -3,7 +3,7 @@ import { TNavigationLinks } from '@/types/types'
 export const navigationLinks: TNavigationLinks = [
   {
     name: 'Home',
-    link: '/profile',
+    link: '/',
   },
   {
     name: 'Reserve your spot',
