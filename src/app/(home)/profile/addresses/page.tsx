@@ -128,12 +128,10 @@ const AddressBookPage = () => {
   ]
 
   const renderAddress = (address: any) => (
-    <>
-      <div>
-        <div>{`${address.firstName} ${address.lastName}`}</div>
-        <div>{`${address.address}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.region}`}</div>
-      </div>
-    </>
+    <div>
+      <div>{`${address.firstName} ${address.lastName}`}</div>
+      <div>{`${address.address}, ${address.city}, ${address.state}, ${address.zipCode}, ${address.region}`}</div>
+    </div>
   )
   const billingRegion = watch('billing_address.region')
   const billingStateOptions = getStateOptions(billingRegion, states)
