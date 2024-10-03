@@ -23,11 +23,7 @@ const ProductCard = ({ product }: TProductCard) => {
           <div className='uppercase'>Date</div>
           <div className='font-semibold'>{format(parseISO(product.created_at), 'dd.MM.yyyy')}</div>
         </div>
-        {/* </div> */}
-        {/* <div className='flex flex-col gap-4'>
-          <div className='uppercase'>Status</div>
-          <div className='font-semibold'>Cherry Red</div>
-        </div> */}
+
         <div className='flex flex-col gap-4'>
           <ConfirmDialog
             submit={() => {}}

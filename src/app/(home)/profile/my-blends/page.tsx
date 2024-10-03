@@ -17,19 +17,17 @@ const MyCustomBlendsPage = () => {
     setSearch(event.target.value)
   }
 
-  // Функція для форматування поля created_at у формат дати для пошуку
   const formatDateForSearch = (createdAt: string) => {
-    return format(new Date(createdAt), 'yyyy-MM-dd') // Формат дати для пошуку
+    return format(new Date(createdAt), 'yyyy-MM-dd') 
   }
 
-  // Функція для фільтрації по name або created_at (переведено у формат дати)
   const filteredBlends = blends?.results?.filter((blend: any) => {
-    const searchTerm = search.toLowerCase() // Нормалізуємо пошуковий запит
-    const formattedDate = formatDateForSearch(blend.created_at) // Форматуємо created_at у формат дати
+    const searchTerm = search.toLowerCase() 
+    const formattedDate = formatDateForSearch(blend.created_at) 
 
     return (
-      blend.name.toLowerCase().includes(searchTerm) || // Пошук по імені бленду
-      formattedDate.includes(searchTerm) // Пошук по відформатованій даті
+      blend.name.toLowerCase().includes(searchTerm) || 
+      formattedDate.includes(searchTerm) 
     )
   })
 
