@@ -42,7 +42,6 @@ const ScheduleAppointment = ({ trigger, appointment }: { trigger: React.ReactNod
     }
 
     const formattedDate = format(selectedDate, 'yyyy-MM-dd')
-    const formattedTime = selectedTime.replace(/(AM|PM)/i, '').trim()
 
     const updatedAppointment = {
       date: formattedDate,
@@ -111,7 +110,9 @@ const ScheduleAppointment = ({ trigger, appointment }: { trigger: React.ReactNod
         </p>
         <DialogFooter className='flex gap-6 flex-row items-center w-full justify-center'>
           <Button onClick={handleUpdateAppointment}>Update appointment</Button>
-          <Button variant='blackUnderline'>Do not update</Button>
+          <Button variant='blackUnderline' onClick={() => setOpen(false)}>
+            Do not update
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
