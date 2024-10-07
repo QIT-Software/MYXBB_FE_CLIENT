@@ -18,17 +18,14 @@ const MyCustomBlendsPage = () => {
   }
 
   const formatDateForSearch = (createdAt: string) => {
-    return format(new Date(createdAt), 'yyyy-MM-dd') 
+    return format(new Date(createdAt), 'yyyy-MM-dd')
   }
 
   const filteredBlends = blends?.results?.filter((blend: any) => {
-    const searchTerm = search.toLowerCase() 
-    const formattedDate = formatDateForSearch(blend.created_at) 
+    const searchTerm = search.toLowerCase()
+    const formattedDate = formatDateForSearch(blend.created_at)
 
-    return (
-      blend.name.toLowerCase().includes(searchTerm) || 
-      formattedDate.includes(searchTerm) 
-    )
+    return blend.name.toLowerCase().includes(searchTerm) || formattedDate.includes(searchTerm)
   })
 
   return (
@@ -38,7 +35,7 @@ const MyCustomBlendsPage = () => {
         <SearchInput
           value={search}
           onChange={handleSearchChange}
-          className='m-0 max-w-[346px]'
+          className='m-0 !max-w-[346px]'
           placeholder='Search by Custom Blends name or date'
         />
         {filteredBlends?.length ? (

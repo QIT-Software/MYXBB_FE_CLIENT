@@ -12,7 +12,7 @@ type SearchInputProps = {
 
 const SearchInput = ({ value, onChange, className, placeholder }: SearchInputProps) => {
   return (
-    <div className='relative w-full max-w-[340px]'>
+    <div className={`relative w-full max-w-[346px]`}>
       <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
         <MyxIcon name='search' width={20} height={20} />
       </span>
