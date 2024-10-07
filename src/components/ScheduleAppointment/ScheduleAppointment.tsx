@@ -75,14 +75,14 @@ const ScheduleAppointment = ({ trigger, appointment }: { trigger: React.ReactNod
             }}
             className='w-full'
           />
-          <div className='max-w-[134px] w-full'>
+          <div className='max-w-[140px] w-full max-h-[310px] h-full overflow-y-auto'>
             <RadioGroup value={selectedTime} onValueChange={setSelectedTime} className='flex flex-col gap-1'>
               {times.length ? (
                 times.map((time: string) => (
                   <div
                     key={time}
                     className={cn(
-                      'h-[54px] max-w-[134px] w-full border flex gap-2 items-center px-[18px] py-[17px]',
+                      'h-[54px] max-w-[140px] w-full border flex gap-2 items-center px-[18px] py-[17px]',
                       selectedTime === time ? 'bg-black text-white border-black' : 'border-gray-300'
                     )}
                     onClick={() => setSelectedTime(time)} // Оновлюємо selectedTime при кліку
