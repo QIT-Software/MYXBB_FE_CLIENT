@@ -15,7 +15,6 @@ const ScheduleAppointment = ({ trigger, appointment }: { trigger: React.ReactNod
   const [selectedDate, setSelectedDate] = useState<Date | null>(parseISO(appointment.date))
   const [selectedTime, setSelectedTime] = useState('')
 
-  // Fetch time slots when the dialog is open or date is changed
   const { data: timeSlot, refetch } = useGetTimeSlotsQuery(
     {
       date: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '',
@@ -47,7 +46,7 @@ const ScheduleAppointment = ({ trigger, appointment }: { trigger: React.ReactNod
 
     const updatedAppointment = {
       date: formattedDate,
-      time: formattedTime,
+      time: selectedTime,
     }
 
     await patchSelectedAppointment({

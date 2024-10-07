@@ -39,14 +39,14 @@ const AppointmentPage = () => {
   const generateGoogleCalendarLink = (appointment: any) => {
     const baseUrl = 'https://calendar.google.com/calendar/r/eventedit'
     const params = new URLSearchParams({
-      text: appointment.service_title, // Event title
+      text: appointment.service_title,
       details: `Service: ${appointment.service_title}\nPersons: ${appointment.total_number_of_persons}
       \nNotes: ${appointment.notes}`,
-      location: appointment.location_title, // Location
+      location: appointment.location_title,
       dates: `${formatDateForGoogle(appointment.date, appointment.time)}/${formatDateForGoogle(
         appointment.date,
         appointment.finish_time
-      )}`, // Start/End in Google Calendar format
+      )}`,
     })
 
     return `${baseUrl}?${params.toString()}`
