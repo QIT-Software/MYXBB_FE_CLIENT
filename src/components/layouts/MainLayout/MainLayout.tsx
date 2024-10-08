@@ -8,10 +8,10 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   const { data: profile } = useGetProfileQuery({})
 
   return (
-    <div className='flex flex-col gap-[60px]'>
+    <div className='flex flex-col'>
       <Header />
-      <div className='flex h-full px-[70px]'>
-        <div className='w-full pl-[54px]'>{children}</div>
+      <div className='flex'>
+        <div className='w-full'>{children}</div>
       </div>
       <Footer />
     </div>

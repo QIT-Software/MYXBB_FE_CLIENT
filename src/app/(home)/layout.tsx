@@ -11,22 +11,13 @@ import ProfileLayout from '@/components/layouts/ProfileLayout'
 import { useGetProfileQuery } from '@/api/Auth'
 import MainLayout from '@/components/layouts/MainLayout/MainLayout'
 
-const inter = Inter({ subsets: ['latin'], weight: ['400', '600', '200', '500'] })
+const inter = Inter({ subsets: ['latin'], weight: ['400', '600', '200', '500', '900'] })
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const token = getFromStorage(storageKeys.AUTH)
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/auth')
-    }
-  }, [pathname])
   return (
     <Providers>
       <html lang='en'>
