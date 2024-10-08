@@ -11,7 +11,7 @@ const PackageCard = ({ item }: any) => {
       <div className='pt-3'>
         <ul className='pl-[14px] text-sm leading-[43px] font-semibold' style={{ listStyleType: 'circle' }}>
           {item.description.map((desc: string) => (
-            <li>{desc}</li>
+            <li key={desc}>{desc}</li>
           ))}
         </ul>
       </div>
