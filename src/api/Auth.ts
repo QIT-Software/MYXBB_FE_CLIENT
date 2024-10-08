@@ -4,6 +4,8 @@ import { mainApi } from './index'
 import { saveAuthToken } from './utils/SaveToken'
 import { store } from '@/redux/store'
 import { setUserProfile, setUserRole } from '@/redux/slices/user/userSlice'
+import { set } from 'date-fns'
+import { send } from 'process'
 
 export const authApi = mainApi.injectEndpoints({
   endpoints: builder => ({
@@ -47,14 +49,21 @@ export const authApi = mainApi.injectEndpoints({
       },
       transformResponse: saveAuthToken,
     }),
-    googleAuth: builder.mutation({
+    googleAuth: builder.query({
+      query: () => ({
+        url: `/user/social/google/get-link/`,
+        method: 'GET',
+      }),
+    }),
+    sendGoogleAuth: builder.mutation({
       query: data => {
         return {
-          url: `user/social/google/`,
+          url: `user/social/google/login`,
           method: 'POST',
           body: data,
         }
       },
+      transformResponse: saveAuthToken,
     }),
     getProfile: builder.query({
       query: () => ({
@@ -105,5 +114,6 @@ export const {
   usePatchProfileMutation,
   usePatchAvatarMutation,
   useSignupMutation,
-  useGoogleAuthMutation,
+  useLazyGoogleAuthQuery,
+  useSendGoogleAuthMutation,
 } = authApi

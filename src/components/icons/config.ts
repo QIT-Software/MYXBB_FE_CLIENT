@@ -36,6 +36,12 @@ import Facebook from '@/public/icons/facebook-icon.svg'
 import Google from '@/public/icons/google-icon.svg'
 import Event from '@/public/icons/event-icon.svg'
 import Info from '@/public/icons/info-icon.svg'
+import Instagram from '@/public/icons/instagram-icon.svg'
+import Share from '@/public/icons/share-icon.svg'
+import GrayInstagram from '@/public/icons/instagram-gray-icon.svg'
+import GrayTwitter from '@/public/icons/twitter-gray-icon.svg'
+import GrayFacebook from '@/public/icons/facebook-gray-icon.svg'
+
 // types
 import type { TIconConfig } from './types'
 
@@ -77,4 +83,9 @@ export const IconConfig: TIconConfig = {
   google: Google,
   event: Event,
   info: Info,
+  instagram: Instagram,
+  share: Share,
+  grayFacebook: GrayFacebook,
+  grayInstagram: GrayInstagram,
+  grayTwitter: GrayTwitter,
 }

@@ -29,15 +29,15 @@ const nextConfig = {
   images: {
     domains: ['api.dev.myxblendbardev.site'],
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/profile',
-        permanent: true,
-      },
-    ]
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/profile',
+  //       permanent: true,
+  //     },
+  //   ]
+  // },
 }
 
 export default nextConfig

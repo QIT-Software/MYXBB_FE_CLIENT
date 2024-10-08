@@ -9,10 +9,12 @@ import { MyxIcon } from '@/components/icons'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }: any) {
+function Calendar({ className, classNames, showOutsideDays = true, selected, onSelect, ...props }: any) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      selected={selected} 
+      onDayClick={onSelect} 
       className={cn('p-3', className)}
       classNames={{
         months: 'flex flex-col space-y-4',

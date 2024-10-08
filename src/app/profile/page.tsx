@@ -14,6 +14,8 @@ import Image from 'next/image'
 import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import toast from 'react-hot-toast'
 import { format } from 'date-fns'
+import { useSelector } from 'react-redux'
+import { getUser } from '@/redux/slices/user/selectors'
 
 type TPasswordChange = {
   current_password: string
@@ -25,7 +27,7 @@ const ProfilePage = () => {
   const [patchProfile, { isLoading }] = usePatchProfileMutation()
   const [patchAvatar] = usePatchAvatarMutation()
 
-  const { data: profile } = useGetProfileQuery({})
+  const profile = useSelector(getUser)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [showPasswordForm, setShowPasswordForm] = useState(false)

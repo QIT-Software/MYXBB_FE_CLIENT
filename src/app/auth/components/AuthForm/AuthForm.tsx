@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/Input/Input'
 import Label from '@/components/ui/Label/Label'
 import { Button } from '@/components/ui/Button/Button'
-import { useLoginMutation } from '@/api/Auth'
+import { useLazyGoogleAuthQuery, useLoginMutation } from '@/api/Auth'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { TLoginForm } from '@/types/types'
@@ -17,6 +17,7 @@ import { baseURL } from '@/api/baseUrl'
 const AuthForm = () => {
   const router = useRouter()
   const [login, { isLoading: loginLoading }] = useLoginMutation()
+  const [googleAuth] = useLazyGoogleAuthQuery({})
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
 
@@ -73,7 +74,11 @@ const AuthForm = () => {
   }
 
   const handleGoogleSignup = async () => {
-    router.push(`${baseURL}accounts/google/login/?next=`)
+    try {
+      const response = await googleAuth({}).unwrap()
+      console.log(response, 'test')
+      router.push(`${response.google_login_link}`)
+    } catch (err: any) {}
   }
 
   const handleFacebookSignup = async () => {

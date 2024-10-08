@@ -104,6 +104,8 @@ export type TProfileDetails = {
   password?: string
   username: string
   birthdate: string
+  orders: any[]
+  appointments: any[]
 }
 
 export type TPasswordChange = {

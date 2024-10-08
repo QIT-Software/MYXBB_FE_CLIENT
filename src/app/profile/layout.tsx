@@ -1,5 +1,5 @@
 'use client'
-import { Libre_Franklin, Open_Sans, Inter } from 'next/font/google'
+import { Libre_Franklin, Open_Sans } from 'next/font/google'
 import '../../styles/globals.css'
 import { Providers } from '@/redux/provider'
 import { useEffect } from 'react'
@@ -9,9 +9,8 @@ import { Toaster } from 'react-hot-toast'
 import { storageKeys } from '@/constants/storage'
 import ProfileLayout from '@/components/layouts/ProfileLayout'
 import { useGetProfileQuery } from '@/api/Auth'
-import MainLayout from '@/components/layouts/MainLayout/MainLayout'
 
-const inter = Inter({ subsets: ['latin'], weight: ['400', '600', '200', '500'] })
+const libre_franklin = Libre_Franklin({ subsets: ['latin'], weight: ['400', '600', '200', '500'] })
 
 export default function RootLayout({
   children,
@@ -30,9 +29,9 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang='en'>
-        <body className={inter.className}>
+        <body className={libre_franklin.className}>
           <Toaster position='top-right' />
-          <MainLayout>{children}</MainLayout>
+          <ProfileLayout>{children}</ProfileLayout>
         </body>
       </html>
     </Providers>

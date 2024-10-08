@@ -3,7 +3,7 @@ import { TNavigationLinks } from '@/types/types'
 export const navigationLinks: TNavigationLinks = [
   {
     name: 'Home',
-    link: '/profile',
+    link: '/',
   },
   {
     name: 'Reserve your spot',
@@ -24,5 +24,28 @@ export const navigationLinks: TNavigationLinks = [
   {
     name: 'Card',
     link: '/card',
+  },
+]
+
+export const mainNavigationLinks: TNavigationLinks = [
+  {
+    name: 'Reserve Your Spot',
+    link: '/reserve',
+  },
+  {
+    name: 'About us',
+    link: '/about',
+  },
+  {
+    name: 'MYXperience ',
+    link: '/experience',
+  },
+  {
+    name: 'Myx Merch',
+    link: '/merch',
+  },
+  {
+    name: 'Contact',
+    link: '/contact',
   },
 ]

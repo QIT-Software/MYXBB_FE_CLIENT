@@ -39,6 +39,7 @@ const config = {
           lightYellow: '#FDF3D8',
           lightRed: '#FDF1EA',
           red: '#F9DCCB',
+          hover: '#e72d3a',
           black: '#232323',
           blue: '#DCDCF9',
           white: '#F5F5F5',
@@ -49,6 +50,8 @@ const config = {
           'light-grey': '#CBCBCB',
           'site-grey': '#ADAFB3',
           'black-blue': '#2C3539',
+          pink: '#F00073',
+          'facebook-blue': '#1877F2',
         },
         system: {
           error: '#EE5555',
