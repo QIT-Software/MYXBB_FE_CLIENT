@@ -55,7 +55,13 @@ export const authApi = mainApi.injectEndpoints({
         method: 'GET',
       }),
     }),
-    sendGoogleAuth: builder.mutation({
+    facebookAuth: builder.query({
+      query: () => ({
+        url: `/user/social/facebook/get-link/`,
+        method: 'GET',
+      }),
+    }),
+    socialAuth: builder.mutation({
       query: data => {
         return {
           url: `user/social/google/login`,
@@ -115,5 +121,6 @@ export const {
   usePatchAvatarMutation,
   useSignupMutation,
   useLazyGoogleAuthQuery,
-  useSendGoogleAuthMutation,
+  useLazyFacebookAuthQuery,
+  useSocialAuthMutation,
 } = authApi

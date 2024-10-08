@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSendGoogleAuthMutation } from '@/api/Auth'
 import { Providers } from '@/redux/provider'
+import { useSocialAuthMutation } from '@/api/Auth'
 
 const GoogleOAuthCallback = () => {
-  const [sendGoogleToken] = useSendGoogleAuthMutation()
+  const [socialAuth] = useSocialAuthMutation()
   const router = useRouter()
 
   useEffect(() => {
@@ -15,8 +15,7 @@ const GoogleOAuthCallback = () => {
     const accessToken = params.get('access_token')
 
     if (accessToken) {
-      console.log('Access Token:', accessToken)
-      sendGoogleToken({ access_token: accessToken })
+      socialAuth({ access_token: accessToken })
       router.push('/profile')
     } else {
       console.error('Access Token не знайдено')
