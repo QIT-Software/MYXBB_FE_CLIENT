@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/Input/Input'
 import Label from '@/components/ui/Label/Label'
 import { Button } from '@/components/ui/Button/Button'
-import { useGoogleAuthMutation, useSignupMutation } from '@/api/Auth'
+import { useLazyGoogleAuthQuery, useSignupMutation } from '@/api/Auth'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { TRegisterForm } from '@/types/types'
@@ -18,7 +18,7 @@ import { baseURL } from '@/api/baseUrl'
 const RegistrationForm = () => {
   const router = useRouter()
   const [signup, { isLoading: loginLoading }] = useSignupMutation()
-  const [googleAuth, { isLoading: googleLoading }] = useGoogleAuthMutation()
+  const [googleAuth] = useLazyGoogleAuthQuery({})
   const [showPassword, setShowPassword] = useState(false)
 
   const {
@@ -57,7 +57,10 @@ const RegistrationForm = () => {
   }
 
   const handleGoogleSignup = async () => {
-    router.push(`${baseURL}accounts/google/login/?next=`)
+    try {
+      const response = await googleAuth({}).unwrap()
+      router.push(`${response.google_login_link}`)
+    } catch (err: any) {}
   }
 
   const handleFacebookSignup = async () => {
@@ -266,7 +269,7 @@ const RegistrationForm = () => {
               <MyxIcon name='facebook' width={16} height={16} />
             </Button>
             <Button type='button' variant={'outlineBlack'} className='size-8 p-2' onClick={handleGoogleSignup}>
-              {googleLoading ? <ClipLoader size={16} color={'#000'} /> : <MyxIcon name='google' width={16} height={16} />}
+              <MyxIcon name='google' width={16} height={16} />
             </Button>
           </div>
         </div>
