@@ -26,3 +26,26 @@ export const navigationLinks: TNavigationLinks = [
     link: '/card',
   },
 ]
+
+export const mainNavigationLinks: TNavigationLinks = [
+  {
+    name: 'Reserve Your Spot',
+    link: '/reserve',
+  },
+  {
+    name: 'About us',
+    link: '/about',
+  },
+  {
+    name: 'MYXperience ',
+    link: '/experience',
+  },
+  {
+    name: 'Myx Merch',
+    link: '/merch',
+  },
+  {
+    name: 'Contact',
+    link: '/contact',
+  },
+]
