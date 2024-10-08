@@ -9,7 +9,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className='flex flex-col gap-[60px]'>
-      {/* <Header /> */}
+      <Header />
       <div className='flex h-full px-[70px]'>
         <div className='w-full pl-[54px]'>{children}</div>
       </div>

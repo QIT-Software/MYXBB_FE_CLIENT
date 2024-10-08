@@ -32,7 +32,6 @@ export default function RootLayout({
       <html lang='en'>
         <body className={inter.className}>
           <Toaster position='top-right' />
-          {/* <ProfileLayout>{children}</ProfileLayout> */}
           <MainLayout>{children}</MainLayout>
         </body>
       </html>
