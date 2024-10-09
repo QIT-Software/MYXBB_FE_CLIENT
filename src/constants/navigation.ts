@@ -30,7 +30,7 @@ export const navigationLinks: TNavigationLinks = [
 export const mainNavigationLinks: TNavigationLinks = [
   {
     name: 'Reserve Your Spot',
-    link: '/reserve',
+    link: '/booking',
   },
   {
     name: 'About us',

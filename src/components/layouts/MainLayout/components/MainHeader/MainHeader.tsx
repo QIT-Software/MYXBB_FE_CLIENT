@@ -3,7 +3,7 @@ import { mainNavigationLinks } from '@/constants/navigation'
 import Link from 'next/link'
 import React from 'react'
 
-const Header = () => {
+const MainHeader = () => {
   return (
     <div
       className='relative bg-cover bg-center bg-no-repeat h-screen'
@@ -36,4 +36,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default MainHeader
