@@ -33,6 +33,9 @@ const config = {
         primary: {
           red: '#F54848',
           black: '#000000',
+          brown: '#CFAE8B',
+          gray: '#8B8D94',
+          'status-red': '#DD3333',
         },
         secondary: {
           yellow: '#FAE19D',
@@ -74,6 +77,7 @@ const config = {
           600: '#353535',
           650: '#4D4D4D',
           700: '#4D4D4E',
+          800: '#BEC3C7',
         },
       },
       borderRadius: {
