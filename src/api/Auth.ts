@@ -71,6 +71,16 @@ export const authApi = mainApi.injectEndpoints({
       },
       transformResponse: saveAuthToken,
     }),
+    facebookToken: builder.mutation({
+      query: data => {
+        return {
+          url: `user/social/facebook/login`,
+          method: 'POST',
+          body: data,
+        }
+      },
+      transformResponse: saveAuthToken,
+    }),
     getProfile: builder.query({
       query: () => ({
         url: `/user/me/`,
@@ -122,5 +132,6 @@ export const {
   useSignupMutation,
   useLazyGoogleAuthQuery,
   useLazyFacebookAuthQuery,
+  useFacebookTokenMutation,
   useSocialAuthMutation,
 } = authApi
