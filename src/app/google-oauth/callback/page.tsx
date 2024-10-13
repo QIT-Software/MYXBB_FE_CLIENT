@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Providers } from '@/redux/provider'
 import { useSocialAuthMutation } from '@/api/Auth'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const GoogleOAuthCallback = () => {
   const [socialAuth] = useSocialAuthMutation()
@@ -22,7 +23,11 @@ const GoogleOAuthCallback = () => {
     }
   }, [router])
 
-  return <div>Обробка аутентифікації...</div>
+  return (
+    <div className='flex w-full h-screen items-center justify-center'>
+      <ClipLoader size={150} color={'#DD3333'} loading={true} />
+    </div>
+  )
 }
 
 export default GoogleOAuthCallback
