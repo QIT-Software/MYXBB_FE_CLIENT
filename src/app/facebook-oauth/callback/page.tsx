@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Providers } from '@/redux/provider'
 import { useFacebookTokenMutation, useSocialAuthMutation } from '@/api/Auth'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const FacebookOAuthCallback = () => {
   // const [socialAuth] = useSocialAuthMutation()
@@ -23,7 +24,11 @@ const FacebookOAuthCallback = () => {
     }
   }, [router])
 
-  return <div>Обробка аутентифікації...</div>
+  return (
+    <div className='flex w-full h-screen items-center justify-center'>
+      <ClipLoader size={150} color={'#DD3333'} loading={true} />
+    </div>
+  )
 }
 
 export default FacebookOAuthCallback
