@@ -1,5 +1,5 @@
 'use client'
-import { useGetTimeSlotsQuery } from '@/api/Appointments'
+import { useCreateAppointmentMutation, useGetTimeSlotsQuery } from '@/api/Appointments'
 import { useGetStatesQuery } from '@/api/Locations'
 import Calendar from '@/components/ui/Calendar/Calendar'
 import { Input } from '@/components/ui/Input/Input'
@@ -11,201 +11,155 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import Select, { StylesConfig } from 'react-select'
-
-const customStyles: StylesConfig<{ value: string | number; label: string }> = {
-  control: (provided, state) => ({
-    ...provided,
-    width: '176px',
-    minHeight: '40px',
-    marginTop: '0',
-  }),
-  valueContainer: (provided, state) => ({
-    ...provided,
-    height: '40px',
-    display: 'flex',
-    alignItems: 'center',
-  }),
-  input: (provided, state) => ({
-    ...provided,
-    height: '40px',
-    padding: '0',
-    margin: '0',
-  }),
-  indicatorsContainer: (provided, state) => ({
-    ...provided,
-    height: '40px',
-  }),
-}
+import ServiceStep from './steps/ServiceStep/ServiceStep'
+import { Button } from '@/components/ui/Button/Button'
+import DetailsStep from './steps/DetailsStep/DetailsStep'
+import TimeStep from './steps/TimeStep/TimeStep'
+import FinalStep from './steps/FInalStep/FinalStep'
 
 const FaceForm = () => {
   const { data: states, isSuccess } = useGetStatesQuery({})
+  const [currentStep, setCurrentStep] = useState(0)
+  const [createAppointment, { data }] = useCreateAppointmentMutation()
 
   const {
     register,
     reset,
+    watch,
     control,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       location: '',
       service: '',
       party_size: '',
       date: '',
+      time: '',
+      customer: {
+        first_name: '',
+        last_name: '',
+        phone: '',
+        email: '',
+        birthdate: '',
+      },
     },
     mode: 'onChange',
   })
 
-  const getStateOptions = (region: string, states: Record<string, string[]>): TOption[] => {
-    if (!states || !region) return []
-    return (
-      states[region]?.map((state: string) => ({
-        value: state,
-        label: state,
-      })) || []
-    )
+  const onSubmit = async (data: any) => {
+    try {
+      const updatedData = {
+        ...data,
+        date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
+        customer: {
+          ...data.customer,
+          birthdate: data.customer.birthdate ? format(new Date(data.customer.birthdate), 'yyyy-MM-dd') : undefined,
+        },
+      }
+
+      await createAppointment({ data: updatedData }).unwrap()
+      setCurrentStep(3)
+    } catch (err: any) {}
   }
 
-  const regionOptions = [
-    {
-      value: 'United States',
-      label: 'United States',
-    },
-    {
-      value: 'Canada',
-      label: 'Canada',
-    },
-    {
-      value: 'Mexico',
-      label: 'Mexico',
-    },
-  ]
+  // Handle next step
+  const handleNextStep = () => {
+    if (currentStep === 0) {
+      const { service } = watch()
+      if (service) {
+        setCurrentStep(prev => prev + 1)
+      } else {
+        alert('Please fill in all required fields before proceeding.')
+      }
+    } else if (currentStep === 1) {
+      const { date, time } = watch()
+      if (date && time) {
+        setCurrentStep(prev => prev + 1)
+      } else {
+        alert('Please select both a date and time.')
+      }
+    }
+  }
+
+  const handleBackStep = () => {
+    setCurrentStep(prev => prev - 1)
+  }
+
   return (
     <div className='flex flex-col gap-[1.2rem] items-center'>
       <div className='flex font-bold text-sm leading-[1.625rem] text-primary-gray'>
+        {/* Step 1 - Service */}
         <div className='flex flex-col gap-1 items-center'>
-          <div className='text-primary-status-red'>1. Service</div>
-          <div className='rounded-l-[5px] h-[15px] w-[6.563rem] bg-primary-status-red'></div>
+          <div className={currentStep >= 0 ? 'text-primary-status-red' : ''}>1. Service</div>
+          <div
+            className={`rounded-l-[5px] h-[15px] w-[6.563rem] ${currentStep >= 0 ? 'bg-primary-status-red' : 'bg-gray-800'}`}
+          ></div>
         </div>
+
+        {/* Step 2 - Time */}
         <div className='flex flex-col gap-1 pl-1 items-center'>
-          <div>2. Time</div>
-          <div className='h-[15px] w-[6.563rem] bg-gray-800'></div>
+          <div className={currentStep >= 1 ? 'text-primary-status-red' : ''}>2. Time</div>
+          <div className={`h-[15px] w-[6.563rem] ${currentStep >= 1 ? 'bg-primary-status-red' : 'bg-gray-800'}`}></div>
         </div>
+
+        {/* Step 3 - Details */}
         <div className='flex flex-col gap-1 pl-1 items-center'>
-          <div>3. Details</div>
-          <div className='h-[15px] w-[6.563rem] bg-gray-800'></div>
+          <div className={currentStep >= 2 ? 'text-primary-status-red' : ''}>3. Details</div>
+          <div className={`h-[15px] w-[6.563rem] ${currentStep >= 2 ? 'bg-primary-status-red' : 'bg-gray-800'}`}></div>
         </div>
+
+        {/* Step 4 - Done */}
         <div className='flex flex-col gap-1 pl-1 items-center'>
-          <div>4. Confirmation</div>
-          <div className='h-[15px] w-[6.563rem] bg-gray-800'></div>
-        </div>
-        <div className='flex flex-col gap-1 pl-1 items-center'>
-          <div>5. Done</div>
-          <div className='rounded-r-[5px] h-[15px] w-[6.563rem] bg-gray-800'></div>
+          <div className={currentStep >= 3 ? 'text-primary-status-red' : ''}>4. Done</div>
+          <div
+            className={`rounded-r-[5px] h-[15px] w-[6.563rem] ${currentStep >= 3 ? 'bg-primary-status-red' : 'bg-gray-800'}`}
+          ></div>
         </div>
       </div>
+
       <div className='flex flex-col font-bold items-center gap-[1.6rem] text-[1.063rem] text-primary-black'>
-        <div>PLEASE SELECT A PACKAGE:</div>
-        <div className='flex items-center'>
-          <Link href={'/'} className='text-sm text-primary-status-red leading-[1.6rem] underline'>
-            Booking more than 6?
-          </Link>
-        </div>
-        <div>
-          <form>
-            <div className='flex flex-col gap-[1.688rem]'>
-              <div className='flex gap-[0.875rem] w-[34.125rem]'>
-                <div className='flex flex-col gap-1 items-center'>
-                  <Label text='Location' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
-                  <Controller
-                    name='location'
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        styles={customStyles}
-                        value={regionOptions.find((option: TOption) => option.value === field.value)}
-                        options={regionOptions}
-                        placeholder='Select location'
-                        onChange={option => {
-                          field.onChange((option as { value: string; label: string })?.value)
-                          setValue('location', '')
-                        }}
-                      />
-                    )}
-                  />
-                  {errors?.location && <span className='text-red-500'>{errors.location.message}</span>}
-                </div>
-                <div className='flex flex-col gap-1 items-center'>
-                  <Label text='Service' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
-                  <Controller
-                    name='service'
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        styles={customStyles}
-                        value={regionOptions.find((option: TOption) => option.value === field.value)}
-                        options={regionOptions}
-                        placeholder='Select service'
-                        onChange={option => {
-                          field.onChange((option as { value: string; label: string })?.value)
-                          setValue('service', '')
-                        }}
-                      />
-                    )}
-                  />
-                  {errors?.service && <span className='text-red-500'>{errors.service.message}</span>}
-                </div>
-                <div className='flex flex-col gap-1 items-center'>
-                  <Label text='# In Party' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
-                  <Controller
-                    name='party_size'
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        styles={customStyles}
-                        value={regionOptions.find((option: TOption) => option.value === field.value)}
-                        options={regionOptions}
-                        placeholder='Party size'
-                        onChange={option => {
-                          field.onChange((option as { value: string; label: string })?.value)
-                          setValue('party_size', '')
-                        }}
-                      />
-                    )}
-                  />
-                  {errors?.party_size && <span className='text-red-500'>{errors.party_size.message}</span>}
-                </div>
-              </div>
-              <div>
-                <div className='flex flex-col gap-1 items-center'>
-                  <Label text='Date' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
-                  <Controller
-                    name='date'
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        styles={customStyles}
-                        value={regionOptions.find((option: TOption) => option.value === field.value)}
-                        options={regionOptions}
-                        placeholder='Select date'
-                        onChange={option => {
-                          field.onChange((option as { value: string; label: string })?.value)
-                          setValue('date', '')
-                        }}
-                      />
-                    )}
-                  />
-                  {errors?.date && <span className='text-red-500'>{errors.date.message}</span>}
-                </div>
-              </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {currentStep === 0 && <ServiceStep control={control} setValue={setValue} errors={errors} />}
+            {currentStep === 1 && <TimeStep watch={watch} setValue={setValue} register={register} errors={errors} />}
+            {currentStep === 2 && (
+              <DetailsStep register={register} errors={errors} watch={watch} setValue={setValue} control={control} />
+            )}
+            {currentStep === 3 && <FinalStep />}
+          </div>
+          {currentStep !== 3 && (
+            <div className='flex justify-around pt-10'>
+              {currentStep > 0 && (
+                <Button
+                  type='button'
+                  onClick={handleBackStep}
+                  className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] px-[2.063rem] !py-[0.563rem]'
+                >
+                  Back
+                </Button>
+              )}
+              {currentStep < 2 ? (
+                <Button
+                  type='button'
+                  onClick={handleNextStep}
+                  disabled={!isValid}
+                  className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] bg-primary-status-red px-[2.063rem] !py-[0.563rem] disabled:opacity-50'
+                >
+                  Next
+                </Button>
+              ) : (
+                <Button
+                  type='submit'
+                  className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] bg-primary-status-red px-[2.063rem] !py-[0.563rem]'
+                >
+                  Submit
+                </Button>
+              )}
             </div>
-          </form>
-        </div>
+          )}
+        </form>
       </div>
     </div>
   )

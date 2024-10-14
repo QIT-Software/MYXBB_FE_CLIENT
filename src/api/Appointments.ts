@@ -16,6 +16,14 @@ export const appointmentsApi = mainApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    createAppointment: builder.mutation({
+      query: ({ data }) => ({
+        url: `appointment/appointments/`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [{ type: 'Appointments', id: 'LIST' }],
+    }),
     getTimeSlots: builder.query({
       query: ({ date = '', location = '', service = '', party_size = '' }) => {
         const params = new URLSearchParams()
@@ -33,4 +41,9 @@ export const appointmentsApi = mainApi.injectEndpoints({
   }),
 })
 
-export const { useGetCustomBlendsQuery, useGetTimeSlotsQuery, usePatchSelectedAppointmentMutation } = appointmentsApi
+export const {
+  useGetCustomBlendsQuery,
+  useGetTimeSlotsQuery,
+  usePatchSelectedAppointmentMutation,
+  useCreateAppointmentMutation,
+} = appointmentsApi
