@@ -7,7 +7,7 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Reserve your spot',
-    link: '/reserve',
+    link: '/booking',
   },
   {
     name: 'Myx merch',

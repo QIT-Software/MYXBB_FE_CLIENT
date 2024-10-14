@@ -15,8 +15,9 @@ type TDatePickerProps = {
   placeholder: string
   className?: string
   formatType?: string
+  showIcon?: boolean
 }
-export function DatePicker({ value, onChange, placeholder, className, formatType = 'MM/dd' }: TDatePickerProps) {
+export function DatePicker({ value, onChange, placeholder, className, showIcon = true, formatType = 'MM/dd' }: TDatePickerProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const handleSelectDate = (date: any) => {
@@ -31,7 +32,7 @@ export function DatePicker({ value, onChange, placeholder, className, formatType
           variant={'light'}
           className={cn('w-full text-gray-300 justify-start flex gap-3.5 text-left font-normal', className)}
         >
-          <MyxIcon name='calendar' width={20} height={20} />
+          {showIcon && <MyxIcon name='calendar' width={20} height={20} />}
           {value ? (
             <span className='text-black'>{format(new Date(value), formatType)}</span>
           ) : (
@@ -41,7 +42,15 @@ export function DatePicker({ value, onChange, placeholder, className, formatType
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0' align='start'>
         {/* @ts-ignore */}
-        <Calendar mode='single' selected={value} onSelect={handleSelectDate} initialFocus className='bg-white' />
+        <Calendar
+          fromYear={2000}
+          toYear={2030}
+          mode='single'
+          selected={value}
+          onSelect={handleSelectDate}
+          initialFocus
+          className='bg-white'
+        />
       </PopoverContent>
     </Popover>
   )
