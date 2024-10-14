@@ -24,6 +24,13 @@ export const appointmentsApi = mainApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Appointments', id: 'LIST' }],
     }),
+    createAppointmentRequest: builder.mutation({
+      query: ({ data }) => ({
+        url: `/appointment/email-form/booking-more-than-10/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
     getTimeSlots: builder.query({
       query: ({ date = '', location = '', service = '', party_size = '' }) => {
         const params = new URLSearchParams()
@@ -46,4 +53,5 @@ export const {
   useGetTimeSlotsQuery,
   usePatchSelectedAppointmentMutation,
   useCreateAppointmentMutation,
+  useCreateAppointmentRequestMutation,
 } = appointmentsApi
