@@ -18,11 +18,18 @@ export const appointmentsApi = mainApi.injectEndpoints({
     }),
     createAppointment: builder.mutation({
       query: ({ data }) => ({
-        url: `appointment/appointments/`,
+        url: `/appointment/appointments/customer-create/`,
         method: 'POST',
         body: data,
       }),
       invalidatesTags: [{ type: 'Appointments', id: 'LIST' }],
+    }),
+    addCustomer: builder.mutation({
+      query: ({ data }) => ({
+        url: `/user/customers/`,
+        method: 'POST',
+        body: data,
+      }),
     }),
     createAppointmentRequest: builder.mutation({
       query: ({ data }) => ({
@@ -54,4 +61,5 @@ export const {
   usePatchSelectedAppointmentMutation,
   useCreateAppointmentMutation,
   useCreateAppointmentRequestMutation,
+  useAddCustomerMutation,
 } = appointmentsApi

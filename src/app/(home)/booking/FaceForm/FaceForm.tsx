@@ -1,5 +1,5 @@
 'use client'
-import { useCreateAppointmentMutation, useGetTimeSlotsQuery } from '@/api/Appointments'
+import { useAddCustomerMutation, useCreateAppointmentMutation, useGetTimeSlotsQuery } from '@/api/Appointments'
 import { useGetStatesQuery } from '@/api/Locations'
 import Calendar from '@/components/ui/Calendar/Calendar'
 import { Input } from '@/components/ui/Input/Input'
@@ -20,6 +20,7 @@ import FinalStep from './steps/FInalStep/FinalStep'
 const FaceForm = () => {
   const { data: states, isSuccess } = useGetStatesQuery({})
   const [currentStep, setCurrentStep] = useState(0)
+  const [addCustomer, { data: customer, isSuccess: isSuccessCustomer }] = useAddCustomerMutation()
   const [createAppointment, { data }] = useCreateAppointmentMutation()
 
   const {
@@ -34,10 +35,10 @@ const FaceForm = () => {
     defaultValues: {
       location: '',
       service: '',
-      party_size: '',
+      total_number_of_persons: '',
       date: '',
       time: '',
-      customer: {
+      contact_info: {
         first_name: '',
         last_name: '',
         phone: '',
@@ -53,14 +54,26 @@ const FaceForm = () => {
       const updatedData = {
         ...data,
         date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
-        customer: {
-          ...data.customer,
-          birthdate: data.customer.birthdate ? format(new Date(data.customer.birthdate), 'yyyy-MM-dd') : undefined,
+        contact_info: {
+          ...data.contact_info,
+          birthdate: data.contact_info.birthdate ? format(new Date(data.contact_info.birthdate), 'yyyy-MM-dd') : undefined,
         },
       }
+      delete updatedData.confirm_email
 
-      await createAppointment({ data: updatedData }).unwrap()
-      setCurrentStep(3)
+      await addCustomer({ data: updatedData.contact_info }).unwrap()
+      if (isSuccessCustomer) {
+        const appointmentData = {
+          date: updatedData.date,
+          time: updatedData.time,
+          total_number_of_persons: updatedData.total_number_of_persons,
+          location: updatedData.location,
+          service: updatedData.service,
+          customer: customer?.id,
+        }
+        await createAppointment({ data: appointmentData }).unwrap()
+        setCurrentStep(3)
+      }
     } catch (err: any) {}
   }
 

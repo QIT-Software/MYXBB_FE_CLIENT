@@ -153,7 +153,7 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
         <div className='flex flex-col gap-1 items-center'>
           <Label text='# In Party' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Controller
-            name='party_size'
+            name='total_number_of_persons'
             control={control}
             render={({ field }) => (
               <Select
@@ -166,7 +166,7 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
               />
             )}
           />
-          {errors?.party_size && <span className='text-red-500'>{errors.party_size.message}</span>}
+          {errors?.total_number_of_persons && <span className='text-red-500'>{errors.total_number_of_persons.message}</span>}
         </div>
       </div>
       <div className='flex items-center justify-center'>
