@@ -1,5 +1,5 @@
 'use client'
-import { useGetTimeSlotsQuery } from '@/api/Appointments'
+import { useCreateAppointmentRequestMutation, useGetTimeSlotsQuery } from '@/api/Appointments'
 import { useGetLocationsQuery, useGetServicesQuery } from '@/api/Services'
 import { DatePicker } from '@/components/DatePicker/DatePicker'
 import { Button } from '@/components/ui/Button/Button'
@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TLocation, TOption } from '@/types/types'
 import { MaskedInput } from 'antd-mask-input'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import Select, { StylesConfig } from 'react-select'
@@ -75,42 +76,47 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
 const BookingMoreThanSixPage = () => {
   const {
     register,
-    reset,
     watch,
     control,
     handleSubmit,
-    setValue,
-    formState: { errors, isValid },
+    reset,
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      location: '',
-      service: '',
-      party_size: '',
-      date: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      date: '2024-10-14',
       time: '',
-      notes: '',
-      customer: {
-        first_name: '',
-        last_name: '',
-        phone: '',
-        email: '',
-        birthdate: '',
-      },
+      location: '',
+      party_size: 0,
+      comment: '',
     },
     mode: 'onChange',
   })
+  const [createAppointmentRequest, { isSuccess }] = useCreateAppointmentRequestMutation()
   const { data: locations } = useGetLocationsQuery({})
-  const { data: servicesList } = useGetServicesQuery({})
-  const { data: timeSlot } = useGetTimeSlotsQuery({
-    date: watch('date') && format(watch('date'), 'yyyy-MM-dd'),
-    location: watch('location'),
-    // service: 2,
-    // party_size: watch('party_size'),
-  })
 
-  const [services, setServices] = useState<TOption[]>([])
   const [stores, setStores] = useState<TOption[]>([])
-  const [timeSlots, setTimeSlots] = useState<TOption[]>(watch('time') ? [{ label: watch('time'), value: watch('time') }] : [])
+  const router = useRouter()
+
+  const [timeSlots, setTimeSlots] = useState<TOption[]>(
+    watch('time')
+      ? [{ label: watch('time'), value: watch('time') }]
+      : [
+          { label: '09:00 AM', value: '09:00 AM' },
+          { label: '10:00 AM', value: '10:00 AM' },
+          { label: '11:00 AM', value: '11:00 AM' },
+          { label: '12:00 PM', value: '12:00 PM' },
+          { label: '01:00 PM', value: '01:00 PM' },
+          { label: '02:00 PM', value: '02:00 PM' },
+          { label: '03:00 PM', value: '03:00 PM' },
+          { label: '04:00 PM', value: '04:00 PM' },
+          { label: '05:00 PM', value: '05:00 PM' },
+          { label: '06:00 PM', value: '06:00 PM' },
+        ]
+  )
 
   useEffect(() => {
     if (locations) {
@@ -120,41 +126,22 @@ const BookingMoreThanSixPage = () => {
       }))
       setStores(transformedLocations)
     }
-    if (servicesList) {
-      const transformedServices = servicesList.results.map((service: any) => ({
-        label: service.title,
-        value: service.id,
-      }))
-      setServices(transformedServices)
-    }
-    if (timeSlot) {
-      const transformedTimeSlots = timeSlot.map((timeSlot: any) => ({
-        label: `${timeSlot.start_time}-${timeSlot.end_time}`,
-        value: `${timeSlot.start_time}`,
-      }))
-      setTimeSlots(transformedTimeSlots)
-      console.log(timeSlots)
-    }
-  }, [locations, servicesList, timeSlot])
+  }, [locations])
 
-  // const selectedDate = watch('date')
-  // const selectedTime = watch('time')
+  const onSubmit = async (data: any) => {
+    try {
+      const updatedData = {
+        ...data,
+        date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
+      }
 
-  // const location = watch('location')
-  // const service = watch('service')
-  // const party_size = watch('party_size')
-
-  // const { data: timeSlots, refetch } = useGetTimeSlotsQuery(
-  //   {
-  //     date: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '',
-  //     location,
-  //     service,
-  //     party_size,
-  //   },
-  //   {
-  //     skip: !selectedDate,
-  //   }
-  // )
+      await createAppointmentRequest({ data: updatedData }).unwrap()
+      if (isSuccess) {
+        reset()
+        router.push('/booking')
+      }
+    } catch (err: any) {}
+  }
 
   return (
     <div className='flex flex-col items-center pt-[4.375rem]'>
@@ -180,16 +167,16 @@ const BookingMoreThanSixPage = () => {
         </div>
       </div>
 
-      <div className='flex justify-center pb-[7rem]'>
-        <form className='flex flex-col items-center max-w-[51.563rem] gap-6 w-full'>
+      <div className='flex justify-center pb-[7rem] w-full max-w-[51.563rem]'>
+        <form className='flex flex-col items-center w-full gap-6' onSubmit={handleSubmit(onSubmit)}>
           <div className='flex items-end gap-[2.188rem] w-full'>
             <div className='flex flex-col gap-1 w-full '>
               <Label text='Name' required className='text-primary-gray text-base font-bold' />
               <Input
-                error={errors.customer?.first_name}
+                error={errors.first_name}
                 className='h-10 border-secondary-gray'
                 id='first_name'
-                {...register('customer.first_name', {
+                {...register('first_name', {
                   required: 'First name is required',
                   minLength: {
                     value: 2,
@@ -209,22 +196,22 @@ const BookingMoreThanSixPage = () => {
             </div>
             <div className='flex flex-col gap-1 w-full'>
               <Input
-                error={errors.customer?.first_name}
+                error={errors.last_name}
                 className='h-10 border-secondary-gray'
-                id='first_name'
-                {...register('customer.first_name', {
+                id='last_names'
+                {...register('last_name', {
                   required: 'First name is required',
                   minLength: {
                     value: 2,
-                    message: 'First name must be at least 2 characters long',
+                    message: 'Last name must be at least 2 characters long',
                   },
                   maxLength: {
                     value: 30,
-                    message: 'First name must be no longer than 30 characters',
+                    message: 'Last name must be no longer than 30 characters',
                   },
                   pattern: {
                     value: /^[^\s](.*[^\s])?$/,
-                    message: 'First name cannot start or end with a space',
+                    message: 'Last name cannot start or end with a space',
                   },
                 })}
               />
@@ -234,10 +221,10 @@ const BookingMoreThanSixPage = () => {
           <div className='flex flex-col gap-1  w-full'>
             <Label text='Email' required className='text-primary-gray text-base font-bold' />
             <Input
-              error={errors.customer?.email}
+              error={errors?.email}
               type='email'
               id='email'
-              {...register('customer.email', {
+              {...register('email', {
                 required: 'Email is required',
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -246,15 +233,14 @@ const BookingMoreThanSixPage = () => {
                 validate: value => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
               })}
               className={`h-10 mt-1 block w-full px-3 py-2 border border-secondary-gray focus:outline-none sm:text-sm ${
-                errors.customer?.email ? 'border-red-500' : ''
+                errors?.email ? 'border-red-500' : ''
               }`}
             />
-            {errors.customer?.email && <span className='text-red-500 text-xs'>{errors.customer.email.message}</span>}
           </div>
           <div className='flex flex-col gap-1 w-full'>
             <Label text='Phone' required className='text-primary-gray text-base font-bold' />
             <Controller
-              name='customer.phone'
+              name='phone'
               control={control}
               rules={{
                 required: 'Phone number is required',
@@ -368,7 +354,7 @@ const BookingMoreThanSixPage = () => {
             <div className='w-full flex flex-col gap-1'>
               <Label text='Comment or Message' className='text-primary-gray text-base font-bold' />
               <Textarea
-                {...register('notes')}
+                {...register('comment')}
                 className='w-full h-[100px] p-2 border border-secondary-gray rounded-md resize-none outline-none focus:ring-1 focus:ring-transparent resize-y	'
               />
             </div>

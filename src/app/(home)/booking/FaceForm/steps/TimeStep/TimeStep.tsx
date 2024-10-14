@@ -19,7 +19,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
 
   const location = watch('location')
   const service = watch('service')
-  const party_size = watch('party_size')
+  const party_size = watch('total_number_of_persons')
 
   const { data: timeSlot, refetch } = useGetTimeSlotsQuery(
     {

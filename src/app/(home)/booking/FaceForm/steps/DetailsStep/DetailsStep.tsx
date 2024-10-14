@@ -23,10 +23,10 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
         <div className='flex flex-col gap-1 w-full items-center'>
           <Label text='First name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
-            error={errors.customer?.first_name}
+            error={errors.contact_info?.first_name}
             className='h-10'
             id='first_name'
-            {...register('customer.first_name', {
+            {...register('contact_info.first_name', {
               required: 'First name is required',
               minLength: {
                 value: 2,
@@ -46,10 +46,10 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
         <div className='flex flex-col gap-1 w-full items-center'>
           <Label text='Last name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
-            error={errors.customer?.last_name}
+            error={errors.contact_info?.last_name}
             className='h-10'
             id='last_name'
-            {...register('customer.last_name', {
+            {...register('contact_info.last_name', {
               required: 'Last name is required',
               minLength: {
                 value: 2,
@@ -71,7 +71,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
         <div className='flex flex-col gap-1 items-center'>
           <Label text='Phone' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Controller
-            name='customer.phone'
+            name='contact_info.phone'
             control={control}
             rules={{
               required: 'Phone number is required',
@@ -99,10 +99,10 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
         <div className='flex flex-col gap-1 items-center'>
           <Label text='Email' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
-            error={errors.customer?.email}
+            error={errors.contact_info?.email}
             type='email'
             id='email'
-            {...register('customer.email', {
+            {...register('contact_info.email', {
               required: 'Email is required',
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -111,9 +111,9 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
               validate: (value: any) => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
             })}
             className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300
-               rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.customer?.email ? 'border-red-500' : ''}`}
+               rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.contact_info?.email ? 'border-red-500' : ''}`}
           />
-          {errors.customer?.email && <span className='text-red-500 text-xs'>{errors.customer.email.message}</span>}
+          {errors.contact_info?.email && <span className='text-red-500 text-xs'>{errors.contact_info.email.message}</span>}
         </div>
         <div className='flex flex-col gap-1 items-center'>
           <Label text='Confirm email' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
@@ -124,7 +124,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
             {...register('confirm_email', {
               required: 'Please confirm your email',
               validate: (value: any) => {
-                if (value !== watch('customer.email')) {
+                if (value !== watch('contact_info.email')) {
                   return 'Emails do not match'
                 }
                 if (!/^[^\u0400-\u04FF]+$/.test(value)) {
@@ -147,7 +147,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
         <div className='w-full flex flex-col gap-1 items-center'>
           <Label text='Date of birth' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Controller
-            name='customer.birthdate'
+            name='contact_info.birthdate'
             control={control}
             render={({ field }) => (
               <DatePicker
