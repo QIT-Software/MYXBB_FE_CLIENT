@@ -5,14 +5,13 @@ import ScheduleAppointment from '@/components/ScheduleAppointment/ScheduleAppoin
 import { Button } from '@/components/ui/Button/Button'
 import { getUser } from '@/redux/slices/user/selectors'
 import { isAfter, isBefore, parseISO } from 'date-fns'
-import { get } from 'http'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const AppointmentPage = () => {
   const profile = useSelector(getUser)
-  const push = useRouter()
+  const router = useRouter()
 
   const [status, setStatus] = useState<'Upcoming' | 'Past'>('Upcoming')
 
@@ -149,7 +148,7 @@ const AppointmentPage = () => {
             <div>Book your first service today and receive your unique lipstick</div>
           </div>
           <div>
-            <Button onClick={() => push('/booking')}>Go to reserve your spot</Button>
+            <Button onClick={() => router.push('/booking')}>Go to reserve your spot</Button>
           </div>
         </div>
       )}

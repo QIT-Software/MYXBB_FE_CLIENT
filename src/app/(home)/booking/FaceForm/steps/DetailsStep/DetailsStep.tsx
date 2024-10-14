@@ -24,7 +24,6 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
           <Label text='First name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
             error={errors.customer?.first_name}
-            placeholder='Please enter your name'
             className='h-10'
             id='first_name'
             {...register('customer.first_name', {
@@ -48,7 +47,6 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
           <Label text='Last name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
             error={errors.customer?.last_name}
-            placeholder='Please enter your last name'
             className='h-10'
             id='last_name'
             {...register('customer.last_name', {
@@ -102,7 +100,6 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
           <Label text='Email' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
             error={errors.customer?.email}
-            placeholder='Please enter your e-mail'
             type='email'
             id='email'
             {...register('customer.email', {
@@ -111,11 +108,10 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: 'Please enter a valid email address',
               },
-              validate: value => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
+              validate: (value: any) => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
             })}
-            className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm ${
-              errors.customer?.email ? 'border-red-500' : ''
-            }`}
+            className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300
+               rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.customer?.email ? 'border-red-500' : ''}`}
           />
           {errors.customer?.email && <span className='text-red-500 text-xs'>{errors.customer.email.message}</span>}
         </div>
@@ -123,12 +119,11 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
           <Label text='Confirm email' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
             error={errors.confirm_email}
-            placeholder='Please confirm your e-mail'
             type='email'
             id='confirm_email'
             {...register('confirm_email', {
               required: 'Please confirm your email',
-              validate: value => {
+              validate: (value: any) => {
                 if (value !== watch('customer.email')) {
                   return 'Emails do not match'
                 }
@@ -142,9 +137,8 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
                 message: 'Please enter a valid email address',
               },
             })}
-            className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm ${
-              errors.confirm_email ? 'border-red-500' : ''
-            }`}
+            className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300
+               rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.confirm_email ? 'border-red-500' : ''}`}
           />
           {errors.confirm_email && <span className='text-red-500 text-xs'>{errors.confirm_email.message}</span>}
         </div>

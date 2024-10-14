@@ -41,7 +41,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
         <div className='text-center text-sm text-primary-gray'>
           Below you can find a list of available time slots for FACE MYX MUSE.
           <br /> Click on a time slot to proceed with your reservation.
-          <br /> *Don't see a spot? Please call
+          <br /> *Don&apos;t see a spot? Please call
         </div>
         <Link href={'/booking-more-than-six'} className='text-sm text-primary-status-red leading-[1.6rem] underline'>
           Dallas 972-349-9599
