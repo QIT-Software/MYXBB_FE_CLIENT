@@ -70,7 +70,7 @@ type TServiceStepProps = {
   control: any
   setValue: any
   errors: any
-  isFace: boolean
+  isFace: boolean | undefined
 }
 
 const personCountOptions: TOption[] = [
@@ -82,7 +82,7 @@ const personCountOptions: TOption[] = [
   { label: '6', value: 6 },
 ]
 
-const ServiceStep = ({ control, setValue, errors, isFace = false }: TServiceStepProps) => {
+const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) => {
   const { data: servicesList } = useGetServicesQuery({})
   const { data: locations } = useGetLocationsQuery({})
 
