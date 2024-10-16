@@ -36,8 +36,8 @@ const BookingPage = () => {
           style={{ backgroundImage: "url('/images/booking-btn-one.webp')" }}
         >
           <div className='flex items-center flex-col gap-[0.625rem]'>
-            <div className='text-[2.188rem] font-light'>BOOKING MORE THAN 6?</div>
-            <div className='text-[0.938rem] font-normal'>To book parties of 6 or more please click the button below</div>
+            <div className='text-[2.188rem] font-light'>BOOKING MORE THAN 10?</div>
+            <div className='text-[0.938rem] font-normal'>To book parties of 10 or more please click the button below</div>
           </div>
           <Link
             href={'/booking-more-than-six'}

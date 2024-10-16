@@ -12,8 +12,9 @@ type TTimeStep = {
   setValue: any
   register: any
   errors: any
+  isFace?: boolean
 }
-const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
+const TimeStep = ({ watch, setValue, errors, isFace }: TTimeStep) => {
   const selectedDate = watch('date')
   const selectedTime = watch('time')
   const today = startOfDay(new Date())
@@ -39,7 +40,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col gap-4 items-center mb-[3.125rem]'>
-        <div className='text-center text-sm text-primary-gray'>
+        <div className={cn('text-center text-sm text-primary-gray', { 'text-primary-status-red': isFace })}>
           Below you can find a list of available time slots for FACE MYX MUSE.
           <br /> Click on a time slot to proceed with your reservation.
           <br /> *Don&apos;t see a spot? Please call
