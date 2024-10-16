@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/Button/Button'
 import DetailsStep from './steps/DetailsStep/DetailsStep'
 import TimeStep from './steps/TimeStep/TimeStep'
 import FinalStep from './steps/FInalStep/FinalStep'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 type TFaceForm = {
   isFace?: boolean
@@ -23,8 +24,9 @@ type TFaceForm = {
 const FaceForm = ({ isFace }: TFaceForm) => {
   const { data: states, isSuccess } = useGetStatesQuery({})
   const [currentStep, setCurrentStep] = useState(0)
-  const [addCustomer, { data: customer, isSuccess: isSuccessCustomer }] = useAddCustomerMutation()
-  const [createAppointment, { data }] = useCreateAppointmentMutation()
+  const [addCustomer, { data: customer, isSuccess: isSuccessCustomer, isLoading: isCreateCustomerLoading }] =
+    useAddCustomerMutation()
+  const [createAppointment, { data, isLoading: isAppointmentLoading }] = useCreateAppointmentMutation()
 
   const {
     register,
@@ -176,7 +178,7 @@ const FaceForm = ({ isFace }: TFaceForm) => {
                   type='submit'
                   className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] bg-primary-status-red px-[2.063rem] !py-[0.563rem]'
                 >
-                  Submit
+                  {isAppointmentLoading || isCreateCustomerLoading ? <ClipLoader size={24} color={'#fff'} /> : 'Submit'}
                 </Button>
               )}
             </div>
