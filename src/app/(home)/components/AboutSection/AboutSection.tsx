@@ -8,7 +8,7 @@ const AboutSection = () => {
       <div className='flex flex-col gap-15 items-center pb-[5.625rem]'>
         <div className='flex flex-col gap-5'>
           <div className='flex flex-col gap-4 items-center'>
-            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light'>About MYX Blend bar</div>
+            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text'>About MYX Blend bar</div>
             <div className='w-[78px] border-2 border-secondary-main-red'></div>
           </div>
           <div className='text-gray-700 text-lg'>
@@ -27,8 +27,20 @@ const AboutSection = () => {
         <Link
           href={'/'}
           style={{ backgroundImage: "url('/images/about-link-four.webp')" }}
-          className='w-1/2 bg-cover bg-center bg-no-repeat'
-        ></Link>
+          className='relative w-1/2 bg-cover bg-center bg-no-repeat'
+        >
+          <div className='w-full flex flex-col gap-[2.188rem] text-white absolute items-center left-1/2 -translate-x-1/2  bottom-[50%] translate-y-1/2'>
+            <div className='flex flex-col'>
+              <div className='w-full text-center suave-text font-light uppercase text-5xl tracking-[2.5px]'>MYXPERIENCE</div>
+              <div className='max-w-[455px] w-full text-[21px] text-white text-center leading-[48px]'>
+                Each MYXperience is tailored to you! Create your perfect custom lip product today!
+              </div>
+            </div>
+            <div className='cursor-pointer text-xs text-white uppercase max-w-[337px] w-full bg-white/25 hover:bg-white/50 py-[20px] px-[29px] rounded-[55px]'>
+              <div className='text-xs font-black text-white tracking-[4px]'>Explore the MYXperience</div>
+            </div>
+          </div>
+        </Link>
         <div className='p-[2.188rem] flex flex-col gap-[2.188rem] w-1/2'>
           <div className='flex flex-row gap-8 w-full max-h-[250px] h-full'>
             <Link

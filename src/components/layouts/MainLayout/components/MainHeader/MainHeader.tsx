@@ -28,7 +28,9 @@ const MainHeader = () => {
           </Link>
         </div>
       </div>
-      <div className='absolute bottom-[190px] left-[50%] text-white translate-x-[-50%] uppercase text-6xl'>Make your Mark</div>
+      <div className='absolute bottom-[190px] left-[50%] text-white translate-x-[-50%] uppercase text-6xl suave-text'>
+        Make your Mark
+      </div>
       <div className='absolute bottom-[115px] cursor-pointer left-[50%] text-white translate-x-[-50%] uppercase w-[320px] bg-white/25 hover:bg-white/50 py-[22px] px-[60px] rounded-[55px]'>
         <div className='text-xs font-black text-white tracking-[4px]'>Reserve Your Spot</div>
       </div>
