@@ -26,7 +26,7 @@ const BookingPage = () => {
           </div>
           <div className='flex flex-col gap-[1.125rem] items-center'>
             <div className='text-[3rem] text-white font-light uppercase'>RESERVE YOUR SPOT</div>
-            <FaceForm />
+            <FaceForm isFace />
           </div>
         </div>
       </div>

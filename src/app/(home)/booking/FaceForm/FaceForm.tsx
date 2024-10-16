@@ -17,7 +17,10 @@ import DetailsStep from './steps/DetailsStep/DetailsStep'
 import TimeStep from './steps/TimeStep/TimeStep'
 import FinalStep from './steps/FInalStep/FinalStep'
 
-const FaceForm = () => {
+type TFaceForm = {
+  isFace?: boolean
+}
+const FaceForm = ({ isFace }: TFaceForm) => {
   const { data: states, isSuccess } = useGetStatesQuery({})
   const [currentStep, setCurrentStep] = useState(0)
   const [addCustomer, { data: customer, isSuccess: isSuccessCustomer }] = useAddCustomerMutation()
@@ -141,7 +144,7 @@ const FaceForm = () => {
       <div className='flex flex-col font-bold items-center gap-[1.6rem] text-[1.063rem] text-primary-black'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            {currentStep === 0 && <ServiceStep control={control} setValue={setValue} errors={errors} />}
+            {currentStep === 0 && <ServiceStep isFace={isFace} control={control} setValue={setValue} errors={errors} />}
             {currentStep === 1 && <TimeStep watch={watch} setValue={setValue} register={register} errors={errors} />}
             {currentStep === 2 && (
               <DetailsStep register={register} errors={errors} watch={watch} setValue={setValue} control={control} />

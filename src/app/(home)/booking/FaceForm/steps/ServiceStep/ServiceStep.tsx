@@ -70,6 +70,7 @@ type TServiceStepProps = {
   control: any
   setValue: any
   errors: any
+  isFace: boolean | undefined
 }
 
 const personCountOptions: TOption[] = [
@@ -81,12 +82,16 @@ const personCountOptions: TOption[] = [
   { label: '6', value: 6 },
 ]
 
-const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
+const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) => {
   const { data: servicesList } = useGetServicesQuery({})
   const { data: locations } = useGetLocationsQuery({})
 
   const [services, setServices] = useState<TOption[]>([])
+  const [myxServices, setMyxServices] = useState<TOption[]>([])
+  const [faceServices, setFaceServices] = useState<TOption[]>([])
   const [stores, setStores] = useState<TOption[]>([])
+
+  const selectServices = isFace ? faceServices : myxServices
 
   useEffect(() => {
     if (locations) {
@@ -96,15 +101,20 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
       }))
       setStores(transformedLocations)
     }
+
     if (servicesList) {
       const transformedServices = servicesList.results.map((service: any) => ({
         label: service.title,
         value: service.id,
       }))
-      setServices(transformedServices)
+
+      const myxFilteredServices = transformedServices.filter((service: any) => !service.label.startsWith('Face'))
+      const faceFilteredServices = transformedServices.filter((service: any) => service.label.startsWith('Face'))
+
+      setMyxServices(myxFilteredServices)
+      setFaceServices(faceFilteredServices)
     }
   }, [locations, servicesList])
-
   return (
     <div className='flex flex-col gap-[1.688rem]'>
       <div className='flex flex-col items-center gap-10 pt-6'>
@@ -141,8 +151,8 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
               <Select
                 {...field}
                 styles={customStyles}
-                value={services.find(option => option.value === field.value)}
-                options={services}
+                value={selectServices.find(option => option.value === field.value)}
+                options={selectServices}
                 placeholder='Select service'
                 onChange={option => field.onChange((option as TOption)?.value)}
               />
