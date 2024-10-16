@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const PackageCard = ({ item }: any) => {
@@ -16,9 +17,12 @@ const PackageCard = ({ item }: any) => {
         </ul>
       </div>
       <div className='flex items-center justify-center pt-[89px]'>
-        <div className='max-w-max bg-primary-red hover:bg-primary-black text-white text-xs tracking-[4px] uppercase rounded-t-[25px] py-[23px] px-[53px]'>
+        <Link
+          href={'/booking'}
+          className='max-w-max bg-primary-red hover:bg-primary-black text-white text-xs tracking-[4px] uppercase rounded-t-[25px] py-[23px] px-[53px]'
+        >
           Book Now
-        </div>
+        </Link>
       </div>
     </div>
   )

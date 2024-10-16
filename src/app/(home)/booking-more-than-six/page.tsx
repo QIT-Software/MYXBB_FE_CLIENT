@@ -146,21 +146,19 @@ const BookingMoreThanSixPage = () => {
   return (
     <div className='flex flex-col items-center pt-[4.375rem]'>
       <div className='flex flex-col gap-[3.625rem] pb-[2.575rem]'>
-        <h1 className='text-[3.063rem] text-secondary-dark-gray'>Booking More Than 6?</h1>
-        <div className='text-xl font-bold text-secondary-dark-gray'>
-          Booking More Than 6? Fill out the form below or call us at
-        </div>
+        <h1 className='text-[3.063rem] text-secondary-dark-gray suave-text'>Booking More Than 6?</h1>
+        <div className='text-xl font-bold text-secondary-dark-gray text-center'>Fill out the form below or call us at</div>
       </div>
 
       <div className='flex items-center justify-center pb-[4.5rem] gap-7'>
         <div className='text-[3.063rem] text-secondary-dark-gray flex flex-col items-center'>
-          <div>Dallas</div>
+          <div className='suave-text'>Dallas</div>
           <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
             (972)-349-9599
           </Button>
         </div>
         <div className='text-[3.063rem] text-secondary-dark-gray flex flex-col items-center'>
-          <div>Houston</div>
+          <div className='suave-text'>Houston</div>
           <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
             (713)-393-7262
           </Button>
