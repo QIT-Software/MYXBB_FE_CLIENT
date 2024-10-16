@@ -56,25 +56,31 @@ const FaceForm = () => {
         date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
         contact_info: {
           ...data.contact_info,
+          billing_address: {},
+          is_shipping_address_equals_billing: true,
           birthdate: data.contact_info.birthdate ? format(new Date(data.contact_info.birthdate), 'yyyy-MM-dd') : undefined,
         },
       }
-      delete updatedData.confirm_email
 
-      await addCustomer({ data: updatedData.contact_info }).unwrap()
-      if (isSuccessCustomer) {
+      delete updatedData.confirm_email
+      const customerResponse = await addCustomer({ data: updatedData.contact_info }).unwrap()
+      if (customerResponse) {
         const appointmentData = {
           date: updatedData.date,
           time: updatedData.time,
           total_number_of_persons: updatedData.total_number_of_persons,
           location: updatedData.location,
           service: updatedData.service,
-          customer: customer?.id,
+          customer: customerResponse.id,
         }
+
         await createAppointment({ data: appointmentData }).unwrap()
+
         setCurrentStep(3)
       }
-    } catch (err: any) {}
+    } catch (err: any) {
+      console.error('Error during submission: ', err)
+    }
   }
 
   // Handle next step

@@ -11,7 +11,7 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Myx merch',
-    link: '/merch',
+    link: '/booking/shop-custom',
   },
   {
     name: 'About us',
@@ -42,7 +42,7 @@ export const mainNavigationLinks: TNavigationLinks = [
   },
   {
     name: 'Myx Merch',
-    link: '/merch',
+    link: '/booking/shop-custom',
   },
   {
     name: 'Contact',

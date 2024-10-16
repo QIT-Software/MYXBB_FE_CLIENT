@@ -35,6 +35,7 @@ const config = {
           black: '#000000',
           brown: '#CFAE8B',
           gray: '#8B8D94',
+          'hover-red': '#ff5544',
           'status-red': '#DD3333',
         },
         secondary: {
@@ -45,6 +46,7 @@ const config = {
           red: '#F9DCCB',
           hover: '#e72d3a',
           black: '#232323',
+          'black-hover': '#1b1b1b',
           blue: '#DCDCF9',
           white: '#F5F5F5',
           lightGreen: '#E6F3E6',

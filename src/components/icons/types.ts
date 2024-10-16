@@ -41,6 +41,7 @@ export type TIconName =
   | 'grayInstagram'
   | 'grayTwitter'
   | 'grayFacebook'
+  | 'shop'
 
 export type TIconElement = React.FunctionComponent<React.SVGAttributes<SVGElement>>
 
