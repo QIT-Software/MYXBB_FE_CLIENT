@@ -39,9 +39,12 @@ const BookingPage = () => {
             <div className='text-[2.188rem] font-light'>BOOKING MORE THAN 6?</div>
             <div className='text-[0.938rem] font-normal'>To book parties of 6 or more please click the button below</div>
           </div>
-          <Button variant='red' className='!rounded-none w-[8.871rem] text-[0.738rem] font-medium	py-[1.25rem] px-[2.625rem]'>
+          <Link
+            href={'/booking-more-than-six'}
+            className='bg-primary-red text-white flex items-center justify-center hover:bg-primary-black !rounded-none w-[8.871rem] text-[0.738rem] h-[50px] font-medium	!py-[1.25rem] px-[2.625rem]'
+          >
             Click Here
-          </Button>
+          </Link>
         </div>
         <div
           className='py-[15px] pt-[2.188rem] h-[15.75rem] w-1/2 bg-cover items-center flex flex-col gap-10'
