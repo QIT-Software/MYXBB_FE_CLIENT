@@ -5,8 +5,9 @@ import { usePathname } from 'next/navigation'
 
 const Header = () => {
   const pathname = usePathname()
+  console.log(pathname, 'pathname')
 
-  if (pathname !== '/booking-more-than-six') {
+  if (pathname !== '/booking-more-than-six' && pathname !== '/booking/shop-custom') {
     return (
       <div className='bg-primary-black flex flex-col gap-[3.5rem] pt-[4.375rem] items-center justify-center w-full h-[205px]'>
         <div>

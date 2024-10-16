@@ -41,6 +41,7 @@ import Share from '@/public/icons/share-icon.svg'
 import GrayInstagram from '@/public/icons/instagram-gray-icon.svg'
 import GrayTwitter from '@/public/icons/twitter-gray-icon.svg'
 import GrayFacebook from '@/public/icons/facebook-gray-icon.svg'
+import Shop from '@/public/icons/cart-icon.svg'
 
 // types
 import type { TIconConfig } from './types'
@@ -88,4 +89,5 @@ export const IconConfig: TIconConfig = {
   grayFacebook: GrayFacebook,
   grayInstagram: GrayInstagram,
   grayTwitter: GrayTwitter,
+  shop: Shop
 }

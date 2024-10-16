@@ -6,6 +6,7 @@ import MainHeader from './components/MainHeader/MainHeader'
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname()
+  const showHeader = () => {}
 
   return (
     <div className='flex flex-col'>
