@@ -91,7 +91,7 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
   const [faceServices, setFaceServices] = useState<TOption[]>([])
   const [stores, setStores] = useState<TOption[]>([])
 
-  const selectServices = isFace ? faceServices : myxServices
+  const selectServices = isFace ? myxServices : faceServices
 
   useEffect(() => {
     if (locations) {
