@@ -3,7 +3,7 @@ import { mainNavigationLinks } from '@/constants/navigation'
 import Link from 'next/link'
 import React from 'react'
 
-const Header = () => {
+const MainHeader = () => {
   return (
     <div
       className='relative bg-cover bg-center bg-no-repeat h-screen'
@@ -29,11 +29,11 @@ const Header = () => {
         </div>
       </div>
       <div className='absolute bottom-[190px] left-[50%] text-white translate-x-[-50%] uppercase text-6xl'>Make your Mark</div>
-      {/* <div className='absolute bottom-[115px] left-[50%] text-white translate-x-[-50%] uppercase w-[320px]'>
-        Reserve Your Spot
-      </div> */}
+      <div className='absolute bottom-[115px] cursor-pointer left-[50%] text-white translate-x-[-50%] uppercase w-[320px] bg-white/25 hover:bg-white/50 py-[22px] px-[60px] rounded-[55px]'>
+        <div className='text-xs font-black text-white tracking-[4px]'>Reserve Your Spot</div>
+      </div>
     </div>
   )
 }
 
-export default Header
+export default MainHeader

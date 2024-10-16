@@ -3,11 +3,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Providers } from '@/redux/provider'
-import { useSocialAuthMutation } from '@/api/Auth'
+import { useFacebookTokenMutation, useSocialAuthMutation } from '@/api/Auth'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const GoogleOAuthCallback = () => {
-  const [socialAuth] = useSocialAuthMutation()
+const FacebookOAuthCallback = () => {
+  // const [socialAuth] = useSocialAuthMutation()
+  const [facebookToken] = useFacebookTokenMutation()
   const router = useRouter()
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const GoogleOAuthCallback = () => {
     const accessToken = params.get('access_token')
 
     if (accessToken) {
-      socialAuth({ access_token: accessToken })
+      facebookToken({ access_token: accessToken })
       router.push('/profile')
     } else {
       console.error('Access Token не знайдено')
@@ -30,4 +31,4 @@ const GoogleOAuthCallback = () => {
   )
 }
 
-export default GoogleOAuthCallback
+export default FacebookOAuthCallback

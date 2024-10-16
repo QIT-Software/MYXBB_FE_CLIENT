@@ -55,10 +55,26 @@ export const authApi = mainApi.injectEndpoints({
         method: 'GET',
       }),
     }),
-    sendGoogleAuth: builder.mutation({
+    facebookAuth: builder.query({
+      query: () => ({
+        url: `/user/social/facebook/get-link/`,
+        method: 'GET',
+      }),
+    }),
+    socialAuth: builder.mutation({
       query: data => {
         return {
           url: `user/social/google/login`,
+          method: 'POST',
+          body: data,
+        }
+      },
+      transformResponse: saveAuthToken,
+    }),
+    facebookToken: builder.mutation({
+      query: data => {
+        return {
+          url: `user/social/facebook/login`,
           method: 'POST',
           body: data,
         }
@@ -115,5 +131,7 @@ export const {
   usePatchAvatarMutation,
   useSignupMutation,
   useLazyGoogleAuthQuery,
-  useSendGoogleAuthMutation,
+  useLazyFacebookAuthQuery,
+  useFacebookTokenMutation,
+  useSocialAuthMutation,
 } = authApi

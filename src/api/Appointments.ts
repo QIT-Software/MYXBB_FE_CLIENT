@@ -16,6 +16,28 @@ export const appointmentsApi = mainApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    createAppointment: builder.mutation({
+      query: ({ data }) => ({
+        url: `/appointment/appointments/customer-create/`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [{ type: 'Appointments', id: 'LIST' }],
+    }),
+    addCustomer: builder.mutation({
+      query: ({ data }) => ({
+        url: `/user/customers/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    createAppointmentRequest: builder.mutation({
+      query: ({ data }) => ({
+        url: `/appointment/email-form/booking-more-than-10/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
     getTimeSlots: builder.query({
       query: ({ date = '', location = '', service = '', party_size = '' }) => {
         const params = new URLSearchParams()
@@ -33,4 +55,11 @@ export const appointmentsApi = mainApi.injectEndpoints({
   }),
 })
 
-export const { useGetCustomBlendsQuery, useGetTimeSlotsQuery, usePatchSelectedAppointmentMutation } = appointmentsApi
+export const {
+  useGetCustomBlendsQuery,
+  useGetTimeSlotsQuery,
+  usePatchSelectedAppointmentMutation,
+  useCreateAppointmentMutation,
+  useCreateAppointmentRequestMutation,
+  useAddCustomerMutation,
+} = appointmentsApi

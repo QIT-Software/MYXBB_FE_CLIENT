@@ -1,17 +1,18 @@
-import { useGetProfileQuery } from '@/api/Auth'
-import Sidebar from '@/components/Sidebar/Sidebar'
 import React, { ReactNode } from 'react'
-import Header from './components/Header/Header'
+import Header from '@/components/Header/Header'
 import Footer from './components/Footer/Footer'
+import { usePathname } from 'next/navigation'
+import MainHeader from './components/MainHeader/MainHeader'
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
-  const { data: profile } = useGetProfileQuery({})
+  const pathname = usePathname()
 
   return (
-    <div className='flex flex-col gap-[60px]'>
-      <Header />
-      <div className='flex h-full px-[70px]'>
-        <div className='w-full pl-[54px]'>{children}</div>
+    <div className='flex flex-col'>
+      {pathname === '/' ? <MainHeader /> : <Header />}
+
+      <div className='flex'>
+        <div className='w-full'>{children}</div>
       </div>
       <Footer />
     </div>

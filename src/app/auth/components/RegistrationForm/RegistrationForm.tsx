@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/Input/Input'
 import Label from '@/components/ui/Label/Label'
 import { Button } from '@/components/ui/Button/Button'
-import { useLazyGoogleAuthQuery, useSignupMutation } from '@/api/Auth'
+import { useLazyFacebookAuthQuery, useLazyGoogleAuthQuery, useSignupMutation } from '@/api/Auth'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { TRegisterForm } from '@/types/types'
@@ -19,6 +19,7 @@ const RegistrationForm = () => {
   const router = useRouter()
   const [signup, { isLoading: loginLoading }] = useSignupMutation()
   const [googleAuth] = useLazyGoogleAuthQuery({})
+  const [facebookAuth] = useLazyFacebookAuthQuery({})
   const [showPassword, setShowPassword] = useState(false)
 
   const {
@@ -64,7 +65,10 @@ const RegistrationForm = () => {
   }
 
   const handleFacebookSignup = async () => {
-    router.push(`${baseURL}accounts/facebook/login/?next=`)
+    try {
+      const response = await facebookAuth({}).unwrap()
+      router.push(`${response.facebook_login_link}`)
+    } catch (err: any) {}
   }
 
   return (
