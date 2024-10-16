@@ -272,6 +272,7 @@ const BookingMoreThanSixPage = () => {
                 defaultValue={null}
                 render={({ field }) => (
                   <DatePicker
+                    placeholder=''
                     showIcon={false}
                     value={field.value}
                     onChange={field.onChange}
