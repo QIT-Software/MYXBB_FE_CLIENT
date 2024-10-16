@@ -35,10 +35,10 @@ function RedCalender({ className, classNames, showOutsideDays = true, selected, 
         cell: 'h-[1.563rem] w-full text-center text-sm p-0 relative',
         day: cn(
           buttonVariants({ variant: null }),
-          'w-10 h-[1.563rem] p-0 text-sm font-normal rounded text-white hover:bg-red-600'
+          'w-10 h-[1.563rem] p-0 text-sm font-normal rounded text-white hover:border hover:border-white'
         ),
         day_range_end: 'day-range-end',
-        day_selected: 'bg-white text-red-500 hover:bg-white',
+        day_selected: 'bg-primary-red text-primary-red',
         day_today: 'bg-blue-200 text-blue-900',
         day_outside: 'text-gray-400 opacity-50',
         day_disabled: 'text-gray-400 opacity-30',

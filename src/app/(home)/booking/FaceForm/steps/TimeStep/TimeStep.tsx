@@ -82,7 +82,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
                     >
                       {selectedTime === time && <div className='w-3 h-3 bg-red-500 rounded-full'></div>}
                     </div>
-                    <div className='text-sm font-normal'>{time}</div>
+                    <div className='text-xs font-normal'>{time}</div>
                   </div>
                 ))
               ) : (
