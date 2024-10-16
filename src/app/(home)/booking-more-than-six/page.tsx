@@ -49,6 +49,9 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   }),
   placeholder: (provided, state) => ({
     ...provided,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: '14px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -272,6 +275,7 @@ const BookingMoreThanSixPage = () => {
                 defaultValue={null}
                 render={({ field }) => (
                   <DatePicker
+                    placeholder=''
                     showIcon={false}
                     value={field.value}
                     onChange={field.onChange}

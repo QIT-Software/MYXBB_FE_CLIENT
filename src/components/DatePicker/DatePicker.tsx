@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { format } from 'date-fns'
+import { format, isBefore, startOfDay } from 'date-fns'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button/Button'
@@ -16,9 +16,19 @@ type TDatePickerProps = {
   className?: string
   formatType?: string
   showIcon?: boolean
+  disablePast?: boolean
 }
-export function DatePicker({ value, onChange, placeholder, className, showIcon = true, formatType = 'MM/dd' }: TDatePickerProps) {
+export function DatePicker({
+  value,
+  onChange,
+  disablePast,
+  placeholder,
+  className,
+  showIcon = true,
+  formatType = 'MM/dd',
+}: TDatePickerProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+  const today = startOfDay(new Date())
 
   const handleSelectDate = (date: any) => {
     onChange(date)
@@ -43,11 +53,10 @@ export function DatePicker({ value, onChange, placeholder, className, showIcon =
       <PopoverContent className='w-auto p-0' align='start'>
         {/* @ts-ignore */}
         <Calendar
-          fromYear={2000}
-          toYear={2030}
           mode='single'
           selected={value}
           onSelect={handleSelectDate}
+          disabled={(date: any) => disablePast && isBefore(startOfDay(date), today)}
           initialFocus
           className='bg-white'
         />
