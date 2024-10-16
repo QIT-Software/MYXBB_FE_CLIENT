@@ -17,6 +17,7 @@ import DetailsStep from './steps/DetailsStep/DetailsStep'
 import TimeStep from './steps/TimeStep/TimeStep'
 import FinalStep from './steps/FInalStep/FinalStep'
 import ClipLoader from 'react-spinners/ClipLoader'
+import { cn } from '@/lib/utils'
 
 type TFaceForm = {
   isFace?: boolean
@@ -159,7 +160,9 @@ const FaceForm = ({ isFace }: TFaceForm) => {
                 <Button
                   type='button'
                   onClick={handleBackStep}
-                  className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] px-[2.063rem] !py-[0.563rem]'
+                  className={cn('uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] px-[2.063rem] !py-[0.563rem]', {
+                    'bg-primary-status-red': isFace,
+                  })}
                 >
                   Back
                 </Button>
