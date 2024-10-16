@@ -83,6 +83,7 @@ const config = {
           650: '#4D4D4D',
           700: '#4D4D4E',
           800: '#BEC3C7',
+          850: '#808288',
         },
       },
       borderRadius: {
