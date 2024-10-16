@@ -24,7 +24,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
           <Label text='First name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
             error={errors.contact_info?.first_name}
-            className='h-10'
+            className='h-10 text-sm text-gray-850 font-normal'
             id='first_name'
             {...register('contact_info.first_name', {
               required: 'First name is required',
@@ -47,7 +47,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
           <Label text='Last name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Input
             error={errors.contact_info?.last_name}
-            className='h-10'
+            className='h-10 text-sm text-gray-850 font-normal'
             id='last_name'
             {...register('contact_info.last_name', {
               required: 'Last name is required',
@@ -91,7 +91,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
                 mask='+1 (000) 000-0000'
                 placeholder={'+1 (xxx) xxx-xxxx'}
                 id='phone'
-                className='flex h-10 w-full rounded-md border px-3 py-3 text-base outline-none mt-1 border-gray-300 focus:outline-none'
+                className='flex h-10 w-full font-normal rounded-md border px-3 py-3 text-sm text-gray-850 outline-none mt-1 border-gray-300 focus:outline-none'
               />
             )}
           />
@@ -110,10 +110,9 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
               },
               validate: (value: any) => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
             })}
-            className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300
+            className={`h-10 mt-1 block text-sm font-normal text-gray-850 w-full px-3 py-2 border border-gray-300
                rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.contact_info?.email ? 'border-red-500' : ''}`}
           />
-          {errors.contact_info?.email && <span className='text-red-500 text-xs'>{errors.contact_info.email.message}</span>}
         </div>
         <div className='flex flex-col gap-1 items-center'>
           <Label text='Confirm email' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
@@ -137,10 +136,9 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
                 message: 'Please enter a valid email address',
               },
             })}
-            className={`h-10 mt-1 block w-full px-3 py-2 border border-gray-300
+            className={`h-10 mt-1 text-sm text-gray-850 font-normal block w-full px-3 py-2 border border-gray-300
                rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.confirm_email ? 'border-red-500' : ''}`}
           />
-          {errors.confirm_email && <span className='text-red-500 text-xs'>{errors.confirm_email.message}</span>}
         </div>
       </div>
       <div className='flex gap-3 w-full'>
@@ -151,6 +149,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
             control={control}
             render={({ field }) => (
               <DatePicker
+                calendarRed
                 value={field.value}
                 onChange={field.onChange}
                 className='h-10 bg-white border-none'

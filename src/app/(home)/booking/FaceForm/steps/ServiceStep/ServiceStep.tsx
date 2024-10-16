@@ -13,14 +13,16 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
     width: '176px',
     minHeight: '40px',
     marginTop: '0',
+    display: 'flex',
+    alignItems: 'center',
   }),
   valueContainer: (provided, state) => ({
     ...provided,
     height: '40px',
     display: 'flex',
-    // flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
   }),
   input: (provided, state) => ({
     ...provided,
@@ -35,18 +37,22 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   singleValue: (provided, state) => ({
     ...provided,
     fontSize: '14px',
+    fontWeight: 400,
+    color: '#808288',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    maxWidth: '100%',
+    maxWidth: 'calc(100% - 20px)',
   }),
   placeholder: (provided, state) => ({
     ...provided,
     fontSize: '14px',
+    fontWeight: 400,
+    color: '#808288',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    maxWidth: '100%',
+    maxWidth: 'calc(100% - 20px)',
   }),
   indicatorsContainer: (provided, state) => ({
     ...provided,
@@ -59,7 +65,13 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   option: (provided, state) => ({
     ...provided,
     fontSize: '14px',
+    fontWeight: 400,
+    color: '#808288', // Колір тексту залишається
     padding: '10px',
+    backgroundColor: state.isSelected ? 'red' : 'white', // Червоний фон для вибраного елемента
+    ':hover': {
+      backgroundColor: 'lightgray', // Фон при наведенні
+    },
   }),
   indicatorSeparator: () => ({
     display: 'none',
@@ -188,6 +200,7 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
             defaultValue={null}
             render={({ field }) => (
               <DatePicker
+                calendarRed
                 value={field.value}
                 onChange={field.onChange}
                 placeholder='MM/DD/YYYY'
