@@ -9,7 +9,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 50 && !pathname.includes('/profile'))
     }
 
     window.addEventListener('scroll', handleScroll)
