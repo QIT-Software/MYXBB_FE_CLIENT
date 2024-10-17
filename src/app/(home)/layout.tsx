@@ -10,6 +10,7 @@ import { storageKeys } from '@/constants/storage'
 import ProfileLayout from '@/components/layouts/ProfileLayout'
 import { useGetProfileQuery } from '@/api/Auth'
 import MainLayout from '@/components/layouts/MainLayout/MainLayout'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '600', '200', '500', '900'] })
 
