@@ -364,7 +364,7 @@ const BookingMoreThanSixPage = () => {
                       id='city'
                       type='text'
                       placeholder='City'
-                      {...register('first_name', {
+                      {...register('city', {
                         required: 'City is required',
                       })}
                     />
