@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TLocation, TOption } from '@/types/types'
 import { MaskedInput } from 'antd-mask-input'
 import { format } from 'date-fns'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -154,15 +155,19 @@ const BookingMoreThanSixPage = () => {
       <div className='flex items-center justify-center pb-[4.5rem] gap-7'>
         <div className='text-[3.063rem] text-secondary-dark-gray flex flex-col items-center'>
           <div className='suave-text'>Dallas</div>
-          <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
-            (972)-349-9599
-          </Button>
+          <Link href={'tel:(972)-349-9599'}>
+            <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
+              (972)-349-9599
+            </Button>
+          </Link>
         </div>
         <div className='text-[3.063rem] text-secondary-dark-gray flex flex-col items-center'>
           <div className='suave-text'>Houston</div>
-          <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
-            (713)-393-7262
-          </Button>
+          <Link href={'tel:(713)-393-7262'}>
+            <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
+              (713)-393-7262
+            </Button>
+          </Link>
         </div>
       </div>
 

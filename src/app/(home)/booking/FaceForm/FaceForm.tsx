@@ -154,7 +154,7 @@ const FaceForm = ({ isFace }: TFaceForm) => {
             {currentStep === 2 && (
               <DetailsStep register={register} errors={errors} watch={watch} setValue={setValue} control={control} />
             )}
-            {currentStep === 3 && <FinalStep />}
+            {currentStep === 3 && <FinalStep isFace={isFace} />}
           </div>
           {currentStep !== 3 && (
             <div className='flex justify-around pt-10'>
