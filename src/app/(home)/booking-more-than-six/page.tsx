@@ -382,7 +382,7 @@ const BookingMoreThanSixPage = () => {
               </div>
             )}
             <div>
-              <p className='text-primary-gray'>*Credit card is required for parties of 6 or more to confirm reservation</p>
+              <p className='text-primary-gray'>*Credit card is required for parties of 10 or more to confirm reservation</p>
             </div>
           </div>
         </form>
