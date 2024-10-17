@@ -88,8 +88,8 @@ const DetailsStep = ({ register, errors, watch, setValue, control }: TDetailsSte
             render={({ field }) => (
               <MaskedInput
                 {...field}
-                mask='+1 (000) 000-0000'
-                placeholder={'+1 (xxx) xxx-xxxx'}
+                mask='+0 (000) 000-0000'
+                placeholder={'+x (xxx) xxx-xxxx'}
                 id='phone'
                 className='flex h-10 w-full font-normal rounded-md border px-3 py-3 text-sm text-gray-850 outline-none mt-1 border-gray-300 focus:outline-none'
               />
