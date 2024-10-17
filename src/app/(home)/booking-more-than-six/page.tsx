@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import Select, { StylesConfig } from 'react-select'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -98,7 +99,7 @@ const BookingMoreThanSixPage = () => {
     },
     mode: 'onChange',
   })
-  const [createAppointmentRequest, { isSuccess }] = useCreateAppointmentRequestMutation()
+  const [createAppointmentRequest, { isSuccess, isLoading }] = useCreateAppointmentRequestMutation()
   const { data: locations } = useGetLocationsQuery({})
 
   const [stores, setStores] = useState<TOption[]>([])
@@ -138,10 +139,10 @@ const BookingMoreThanSixPage = () => {
         date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
       }
 
-      await createAppointmentRequest({ data: updatedData }).unwrap()
-      if (isSuccess) {
-        reset()
+      const test = await createAppointmentRequest({ data: updatedData }).unwrap()
+      if (test.message) {
         router.push('/booking')
+        reset()
       }
     } catch (err: any) {}
   }
@@ -149,7 +150,7 @@ const BookingMoreThanSixPage = () => {
   return (
     <div className='flex flex-col items-center pt-[4.375rem]'>
       <div className='flex flex-col gap-[3.625rem] pb-[2.575rem]'>
-        <h1 className='text-[3.063rem] text-secondary-dark-gray suave-text'>Booking More Than 6?</h1>
+        <h1 className='text-[3.063rem] text-secondary-dark-gray suave-text'>Booking More Than 10?</h1>
         <div className='text-xl font-bold text-secondary-dark-gray text-center'>Fill out the form below or call us at</div>
       </div>
 
@@ -365,7 +366,7 @@ const BookingMoreThanSixPage = () => {
           <div className='flex flex-col w-full gap-[2.188rem]'>
             <div>
               <Button className='text-secondary-dark-gray bg-secondary-light-gray hover:bg-secondary-gray !text-base '>
-                Submit
+                {isLoading ? <ClipLoader size={24} color={'#fff'} /> : 'Submit'}
               </Button>
             </div>
             <div>

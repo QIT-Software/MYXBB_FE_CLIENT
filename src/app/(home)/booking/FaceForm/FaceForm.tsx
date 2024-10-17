@@ -148,7 +148,9 @@ const FaceForm = ({ isFace }: TFaceForm) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             {currentStep === 0 && <ServiceStep isFace={isFace} control={control} setValue={setValue} errors={errors} />}
-            {currentStep === 1 && <TimeStep watch={watch} setValue={setValue} register={register} errors={errors} />}
+            {currentStep === 1 && (
+              <TimeStep isFace={isFace} watch={watch} setValue={setValue} register={register} errors={errors} />
+            )}
             {currentStep === 2 && (
               <DetailsStep register={register} errors={errors} watch={watch} setValue={setValue} control={control} />
             )}
@@ -171,7 +173,6 @@ const FaceForm = ({ isFace }: TFaceForm) => {
                 <Button
                   type='button'
                   onClick={handleNextStep}
-                  disabled={!isValid}
                   className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] bg-primary-status-red px-[2.063rem] !py-[0.563rem] disabled:opacity-50'
                 >
                   Next

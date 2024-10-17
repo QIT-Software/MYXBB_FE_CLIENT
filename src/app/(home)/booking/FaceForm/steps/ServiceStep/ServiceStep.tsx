@@ -1,6 +1,7 @@
 import { useGetLocationsQuery, useGetServicesQuery } from '@/api/Services'
 import { DatePicker } from '@/components/DatePicker/DatePicker'
 import Label from '@/components/ui/Label/Label'
+import { cn } from '@/lib/utils'
 import { TLocation, TOption } from '@/types/types'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -130,9 +131,11 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
   return (
     <div className='flex flex-col gap-[1.688rem]'>
       <div className='flex flex-col items-center gap-10 pt-6'>
-        <div className='text-[1.063rem] text-primary-black'>PLEASE SELECT A PACKAGE</div>
+        <div className={cn('text-[1.063rem] text-primary-black', { 'text-primary-status-red': isFace })}>
+          PLEASE SELECT A PACKAGE
+        </div>
         <Link href={'/booking-more-than-six'} className='text-sm text-primary-status-red leading-[1.6rem] underline'>
-          Booking more than 6?
+          Booking more than 10?
         </Link>
       </div>
       <div className='flex gap-[0.875rem] w-[34.125rem]'>
