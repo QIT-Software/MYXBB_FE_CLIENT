@@ -59,11 +59,14 @@ const MainHeader = () => {
                   </Link>
                 ))}
               </nav>
-              <Link href='/profile' className='ml-6 flex items-center justify-center bg-white/40 rounded-full cursor-pointer'>
+              <Link
+                href='/profile'
+                className='ml-6 size-8 overflow-hidden flex items-center justify-center bg-white/40 rounded-full cursor-pointer'
+              >
                 {profile?.avatar ? (
                   <Image src={profile?.avatar} alt='avatar' width={40} height={40} className='rounded-full' />
                 ) : (
-                  <MyxIcon name='user' className='w-5 h-5' />
+                  <MyxIcon name='user' className='w-8 h-8 flex items-center justify-center' />
                 )}
               </Link>
             </div>
