@@ -301,7 +301,7 @@ const BookingMoreThanSixPage = () => {
                     name={'time'}
                     control={control}
                     rules={{
-                      required: 'Start time is required',
+                      required: 'Time is required',
                     }}
                     render={({ field }) => (
                       <Select
@@ -322,6 +322,7 @@ const BookingMoreThanSixPage = () => {
                   <Controller
                     name='location'
                     control={control}
+                    rules={{ required: 'Location is required' }}
                     render={({ field }) => (
                       <Select
                         {...field}
@@ -363,7 +364,9 @@ const BookingMoreThanSixPage = () => {
                       id='city'
                       type='text'
                       placeholder='City'
-                      {...register('city')}
+                      {...register('first_name', {
+                        required: 'City is required',
+                      })}
                     />
                   </div>
                   <div className='flex flex-col gap-1 w-full'>
@@ -392,6 +395,7 @@ const BookingMoreThanSixPage = () => {
                       className='h-10 border-secondary-gray'
                       placeholder='Zip Code'
                       {...register('zip_code', {
+                        required: 'Zip code is required',
                         pattern: {
                           value: /^[0-9]+$/,
                           message: 'Zip code must be a number',
@@ -437,7 +441,7 @@ const BookingMoreThanSixPage = () => {
                 <div className='w-full flex flex-col gap-1'>
                   <Label text='Comment or Message' className='text-primary-gray text-base font-bold' />
                   <Textarea
-                    {...register('comment')}
+                    {...register('comment', { required: 'Comment is required' })}
                     className='w-full h-[100px] p-2 border border-secondary-gray rounded-md resize-none outline-none focus:ring-1 focus:ring-transparent resize-y	'
                   />
                 </div>
