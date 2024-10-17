@@ -454,7 +454,7 @@ const BookingMoreThanSixPage = () => {
               </div>
             )}
             <div className='flex flex-col text-primary-black gap-2.5'>
-              <p>*Credit card is required for parties of 6 or more to confirm reservation</p>
+              <p>*Credit card is required for parties of 10 or more to confirm reservation</p>
               <p>*Minimum 15-20 guests for any location within a 15 mile radius of MYX</p>
               <p>
                 * Minimum 20-30 guests for any location over a 15 mile radius of MYX, a possible travel fee may apply based on
