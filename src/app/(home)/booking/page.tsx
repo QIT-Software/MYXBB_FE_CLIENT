@@ -54,9 +54,12 @@ const BookingPage = () => {
             <div className='text-[2.188rem] font-light'>MYX POP UP EXPERIENCE</div>
             <div className='text-[0.938rem] font-normal'>Book MYX for your event!</div>
           </div>
-          <Button variant='red' className='!rounded-none w-[8.871rem] text-[0.738rem] font-medium	py-[1.25rem] px-[2.625rem]'>
+          <Link
+            href={'/myx-pop-up'}
+            className='bg-primary-red text-white flex items-center justify-center hover:bg-primary-black !rounded-none w-[8.871rem] text-[0.738rem] h-[50px] font-medium	!py-[1.25rem] px-[2.625rem]'
+          >
             Click Here
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

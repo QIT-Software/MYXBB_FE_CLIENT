@@ -38,6 +38,13 @@ export const appointmentsApi = mainApi.injectEndpoints({
         body: data,
       }),
     }),
+    createPopUpInquiry: builder.mutation({
+      query: ({ data }) => ({
+        url: `appointment/email-form/pop-up-inquiry/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
     getTimeSlots: builder.query({
       query: ({ date = '', location = '', service = '', party_size = '' }) => {
         const params = new URLSearchParams()
@@ -62,4 +69,5 @@ export const {
   useCreateAppointmentMutation,
   useCreateAppointmentRequestMutation,
   useAddCustomerMutation,
+  useCreatePopUpInquiryMutation,
 } = appointmentsApi
