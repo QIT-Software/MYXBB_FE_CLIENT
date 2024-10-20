@@ -42,6 +42,8 @@ import GrayInstagram from '@/public/icons/instagram-gray-icon.svg'
 import GrayTwitter from '@/public/icons/twitter-gray-icon.svg'
 import GrayFacebook from '@/public/icons/facebook-gray-icon.svg'
 import Shop from '@/public/icons/cart-icon.svg'
+import List from '@/public/icons/list-view-icon.svg'
+import Grid from '@/public/icons/grid-icon.svg'
 
 // types
 import type { TIconConfig } from './types'
@@ -89,5 +91,7 @@ export const IconConfig: TIconConfig = {
   grayFacebook: GrayFacebook,
   grayInstagram: GrayInstagram,
   grayTwitter: GrayTwitter,
-  shop: Shop
+  shop: Shop,
+  list: List,
+  grid: Grid,
 }

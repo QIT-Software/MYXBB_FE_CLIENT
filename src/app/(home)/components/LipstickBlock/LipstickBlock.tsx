@@ -6,6 +6,7 @@ import ShopButton from '@/components/ShopButton/ShopButton'
 
 const LipstickBlock = () => {
   const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category: 'lipstick' })
+  const category = 'lipstick'
 
   if (!products?.results.length) return <></>
 
@@ -21,7 +22,7 @@ const LipstickBlock = () => {
         ))}
       </div>
       <div className='flex items-center justify-center'>
-        <ShopButton link='/' title='See More' />
+        <ShopButton link={`/booking/shop-custom/product-category/${category}`} title='See More' />
       </div>
     </div>
   )

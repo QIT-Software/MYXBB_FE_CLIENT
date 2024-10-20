@@ -9,10 +9,12 @@ export const servicesApi = mainApi.injectEndpoints({
       }),
     }),
     getProducts: builder.query({
-      query: ({ is_for_shop = false, category = '' }) => {
+      query: ({ is_for_shop = false, category = '', ordering = '' }) => {
         const params = new URLSearchParams()
         if (category) params.append('category', category)
         if (is_for_shop) params.append('is_for_shop', is_for_shop.toString())
+        if (ordering) params.append('ordering', ordering)
+
         return {
           url: `/orders/merch/?${params.toString()}`,
           method: 'GET',

@@ -62,6 +62,9 @@ const config = {
           'dark-gray': '#333333',
           'light-gray': '#EEEEEE',
         },
+        red: {
+          100: '#e64232',
+        },
         system: {
           error: '#EE5555',
           submit: '#CCEDD2',
