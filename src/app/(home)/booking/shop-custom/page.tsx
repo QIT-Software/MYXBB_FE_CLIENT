@@ -1,13 +1,22 @@
+'use client'
 import { MyxIcon } from '@/components/icons'
 import ShopButton from '@/components/ShopButton/ShopButton'
 import Image from 'next/image'
 import React from 'react'
+import ProductCard from '../../components/ProductCard/ProductCard'
+import { useGetProductsQuery } from '@/api/Services'
+import LipstickBlock from '../../components/LipstickBlock/LipstickBlock'
+import LipGlossBlock from '../../components/LipGlossBlock/LipGlossBlock'
+import LipsScrubBlock from '../../components/LipsScrubBlock/LipsScrubBlock'
+import BundlesBlock from '../../components/BundlesBlock/BundlesBlock'
+import BagsBlock from '../../components/BagsBlock/BagsBlock'
+import GIftCardBlock from '../../components/GIftCardBlock/GIftCardBlock'
 
 const CustomShopPage = () => {
   return (
     <div className='flex flex-col py-[4.375rem] w-full'>
       <div className='flex items-center justify-center px-[3.125rem]'>
-        <div className='max-w-[1300px] w-full'>
+        <div className='max-w-[1300px] w-full items-center flex flex-col'>
           <div className='z-[2] text-[4.375rem] text-primary-black font-bold text-center suave-text pb-[7.25rem] relative'>
             Shop MYX
             <div className='z-[1] absolute top-[37%] left-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[190px] w-full border-b border-primary-gray'></div>
@@ -32,24 +41,13 @@ const CustomShopPage = () => {
               </div>
             </div>
           </div>
-
-          <div className='flex flex-col'>
-            <div className='z-[2] text-[3.438rem] text-primary-black font-bold text-center suave-text pb-[7.25rem] relative'>
-              Lipstick
-              <div className='z-[1] absolute top-[37%] left-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[190px] w-full border-b border-primary-gray'></div>
-            </div>
-            <div className='flex flex-col items-center gap-[15px]'>
-              <div className='max-w-[18.625rem] w-full relative'>
-                <Image src={'/images/auth-bg.webp'} alt='custom shop' width={585} height={585} />
-                <div>
-                  <MyxIcon name='shop' />
-                </div>
-              </div>
-              <div className='flex flex-col items-center'>
-                <div className='text-[0.938rem] hover:text-primary-hover-red cursor-pointer'>Berry Delish (Liquid Matte)</div>
-                <div>$35.00</div>
-              </div>
-            </div>
+          <div className='flex flex-col gap-[7.5rem] max-w-[1200px] w-full pt-[7.5rem]'>
+            <LipstickBlock />
+            <LipGlossBlock />
+            <BundlesBlock />
+            <LipsScrubBlock />
+            <BagsBlock />
+            <GIftCardBlock />
           </div>
         </div>
       </div>
