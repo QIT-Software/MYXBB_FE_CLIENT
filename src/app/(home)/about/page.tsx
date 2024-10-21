@@ -31,8 +31,8 @@ const AboutPage = () => {
           />
           <Image src={'/images/slide-five.webp'} alt={'about-image-one'} width={1015} height={550} className='object-cover' />
           <h3 className='suave-text text-[30px] font-light absolute left-[55px] bottom-[40px] max-w-[905px] w-full text-white uppercase'>
-            Lipstick is more than rouge, it's a fashion statement, an expression, and an invaluable asset that can transform your
-            look.
+            Lipstick is more than rouge, it`&apos;s a fashion statement, an expression, and an invaluable asset that can transform
+            your look.
           </h3>
         </div>
       </div>
