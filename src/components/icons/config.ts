@@ -44,6 +44,11 @@ import GrayFacebook from '@/public/icons/facebook-gray-icon.svg'
 import Shop from '@/public/icons/cart-icon.svg'
 import List from '@/public/icons/list-view-icon.svg'
 import Grid from '@/public/icons/grid-icon.svg'
+import FacebookShare from '@/public/icons/facebook-share-icon.svg'
+import Pinterest from '@/public/icons/pinterest-icon.svg'
+import Twitter from '@/public/icons/twitter-icon.svg'
+import WhatsApp from '@/public/icons/whatsapp-icon.svg'
+import Linkedin from '@/public/icons/linkedin-icon.svg'
 
 // types
 import type { TIconConfig } from './types'
@@ -94,4 +99,9 @@ export const IconConfig: TIconConfig = {
   shop: Shop,
   list: List,
   grid: Grid,
+  facebookShare: FacebookShare,
+  pinterest: Pinterest,
+  twitter: Twitter,
+  whatsapp: WhatsApp,
+  linkedin: Linkedin,
 }
