@@ -15,7 +15,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className='flex flex-col'>
       {pathname === '/' ? <MainHeader /> : <Header />}
 
-      <div className='flex'>
+      <div className='flex '>
         <div className='w-full'>{children}</div>
       </div>
       <Footer />

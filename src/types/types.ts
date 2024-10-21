@@ -175,3 +175,26 @@ export type TEmployeeDetails = {
   services: TService[]
   schedules: { [key: string]: TSchedule }
 }
+export type TReview = {
+  rating: number
+  name: string
+  email: string
+  comment: string
+}
+
+export type TPicture = {
+  picture: string
+}
+
+export type TProduct = {
+  id: string
+  public_id: number
+  name: string
+  price: string
+  avatar: string
+  category: string
+  pictures?: TPicture[]
+  reviews: TReview[]
+  average_rating: string
+  popularity: number
+}
