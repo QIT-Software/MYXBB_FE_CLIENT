@@ -5,7 +5,8 @@ import { TProduct } from '@/types/types'
 import ShopButton from '@/components/ShopButton/ShopButton'
 
 const BagsBlock = () => {
-  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category: 'makeup_bags' })
+  const category = 'makeup_bags'
+  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category })
 
   if (!products?.results.length) return null
 
@@ -21,7 +22,7 @@ const BagsBlock = () => {
         ))}
       </div>
       <div className='flex items-center justify-center'>
-        <ShopButton link='/' title='See More' />
+        <ShopButton link={`/booking/shop-custom/product-category/${category}`} title='See More' />
       </div>
     </div>
   )

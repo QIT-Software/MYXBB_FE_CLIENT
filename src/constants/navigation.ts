@@ -19,10 +19,10 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Account',
-    link: '/account',
+    link: '/auth',
   },
   {
-    name: 'Card',
+    name: 'Cart',
     link: '/card',
   },
 ]

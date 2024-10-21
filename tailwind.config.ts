@@ -71,7 +71,9 @@ const config = {
           primary: '#1865C3',
         },
         gray: {
+          25: '#f6f6f6',
           50: '#1865C3',
+          75: '#FDF9F9',
           100: '#D9D9D9',
           150: '#E9ECEF',
           200: '#BCBCBC',

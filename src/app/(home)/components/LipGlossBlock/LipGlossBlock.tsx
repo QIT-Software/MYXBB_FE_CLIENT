@@ -5,7 +5,9 @@ import ShopButton from '@/components/ShopButton/ShopButton'
 import { useGetProductsQuery } from '@/api/Services'
 
 const LipGlossBlock = () => {
-  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category: 'lip_gloss' })
+  const category = 'lip_gloss'
+
+  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category })
 
   if (!products?.results.length) return null
 
@@ -21,7 +23,7 @@ const LipGlossBlock = () => {
         ))}
       </div>
       <div className='flex items-center justify-center'>
-        <ShopButton link='/' title='See More' />
+        <ShopButton link={`/booking/shop-custom/product-category/${category}`} title='See More' />
       </div>
     </div>
   )

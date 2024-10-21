@@ -1,6 +1,7 @@
 import { MyxIcon } from '@/components/icons'
 import { TProduct } from '@/types/types'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 type TProductCardProps = {
@@ -9,7 +10,7 @@ type TProductCardProps = {
 const ProductCard = ({ product }: TProductCardProps) => {
   return (
     <div className='flex flex-col items-center gap-[15px]'>
-      <div className='max-w-[18.625rem] w-full relative'>
+      <Link href={`/booking/shop/${product?.name}`} className='max-w-[18.625rem] w-full relative'>
         <div className='w-[295px] h-[295px] overflow-hidden flex items-center justify-center'>
           <Image src={product?.avatar} alt='custom shop' width={295} height={295} className='object-cover' />
         </div>{' '}
@@ -19,9 +20,11 @@ const ProductCard = ({ product }: TProductCardProps) => {
             </span> */}
           <MyxIcon name='shop' className='size-4' />
         </div>
-      </div>
+      </Link>
       <div className='flex flex-col items-center text-[0.938rem] text-secondary-dark-gray gap-2.5'>
-        <div className=' hover:text-primary-hover-red cursor-pointer'>{product?.name}</div>
+        <Link href={`/booking/shop/${product?.name}`} className=' hover:text-primary-hover-red cursor-pointer'>
+          {product?.name}
+        </Link>
         <div>${product?.price}</div>
       </div>
     </div>

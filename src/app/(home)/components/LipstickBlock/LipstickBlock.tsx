@@ -5,8 +5,8 @@ import { TProduct } from '@/types/types'
 import ShopButton from '@/components/ShopButton/ShopButton'
 
 const LipstickBlock = () => {
-  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category: 'lipstick' })
   const category = 'lipstick'
+  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category })
 
   if (!products?.results.length) return <></>
 

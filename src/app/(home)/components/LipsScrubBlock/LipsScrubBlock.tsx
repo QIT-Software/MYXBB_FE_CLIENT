@@ -5,6 +5,7 @@ import { TProduct } from '@/types/types'
 import ShopButton from '@/components/ShopButton/ShopButton'
 
 const LipsScrubBlock = () => {
+  const category = 'lip_scrubs'
   const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category: 'lip_scrubs' })
 
   if (!products?.results.length) return null
@@ -21,7 +22,7 @@ const LipsScrubBlock = () => {
         ))}
       </div>
       <div className='flex items-center justify-center'>
-        <ShopButton link='/' title='See More' />
+        <ShopButton link={`/booking/shop-custom/product-category/${category}`} title='See More' />
       </div>
     </div>
   )
