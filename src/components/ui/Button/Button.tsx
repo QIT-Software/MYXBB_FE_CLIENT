@@ -16,6 +16,7 @@ const buttonVariants = cva(
         outlineBlack: 'bg-background text-black border border-primary-black',
         blackUnderline: 'border-0 bg-background text-black underline underline-offset-4',
         outlineGray: 'border border-gray-100 text-gray-300',
+        redSubmit: 'bg-primary-red text-white text-sm h-max py-3 px-[18px] w-max rounded-none hover:bg-red-100',
         light: 'border border-gray-300 text-gray-300 hover:bg-accent hover:text-accent-foreground',
       },
       size: {

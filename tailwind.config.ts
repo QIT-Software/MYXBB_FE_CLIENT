@@ -61,6 +61,7 @@ const config = {
           gray: '#CCCCCC',
           'dark-gray': '#333333',
           'light-gray': '#EEEEEE',
+          'light-blue': '#2ABEEB',
         },
         red: {
           100: '#e64232',
