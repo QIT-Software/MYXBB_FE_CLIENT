@@ -37,7 +37,7 @@ const Header = () => {
 
     const total = storedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
     setTotalAmount(total)
-  }, [localStorage.getItem('cart')])
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
