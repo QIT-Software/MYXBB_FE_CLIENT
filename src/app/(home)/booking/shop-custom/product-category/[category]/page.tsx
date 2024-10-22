@@ -9,6 +9,7 @@ import React, { useState } from 'react'
 import { MyxIcon } from '@/components/icons'
 import ProductListCard from '@/app/(home)/components/ProductListCard/ProductListCard'
 import ClipLoader from 'react-spinners/ClipLoader'
+import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -109,6 +110,12 @@ const CategoryPage = () => {
     }
   }
 
+  const paths = [
+    { label: 'Home', href: '/' },
+    { label: 'Shop', href: '/booking/shop-custom' },
+    { label: category, href: '#' },
+  ]
+
   const categoryDisplayName = getCategoryDisplayName(category)
 
   if (isLoading)
@@ -121,55 +128,58 @@ const CategoryPage = () => {
   if (!products?.results.length) return <div>No products found for {category}</div>
 
   return (
-    <div className='w-full flex items-center justify-center min-h-full'>
-      <div className='flex flex-col items-center justify-center gap-5 max-w-[1200px] w-full'>
-        <div className='w-full flex items-center justify-between'>
-          <div>
-            <Select
-              className='w-[260px]'
-              styles={customStyles}
-              value={sortingSelects.find(sort => sort.value === sorting) || null}
-              options={sortingSelects}
-              placeholder='Default sorting'
-              // @ts-ignore
-              onChange={handleSortChange}
-            />
-          </div>
-          <div className='flex gap-5 items-center'>
-            <div className='text-gray-850'>
-              {products?.results.length <= 16
-                ? `Showing 1–${products?.results.length} of ${products?.results.length} results`
-                : `Showing 1–16 of ${products?.results.length} results`}
+    <div className='h-auto'>
+      <BreadCrumbs paths={paths} title={categoryDisplayName} />
+      <div className='w-full flex items-center justify-center min-h-full py-[4.375rem]'>
+        <div className='flex flex-col items-center justify-center gap-5 max-w-[1200px] w-full'>
+          <div className='w-full flex items-center justify-between'>
+            <div>
+              <Select
+                className='w-[260px]'
+                styles={customStyles}
+                value={sortingSelects.find(sort => sort.value === sorting) || null}
+                options={sortingSelects}
+                placeholder='Default sorting'
+                // @ts-ignore
+                onChange={handleSortChange}
+              />
             </div>
-            <div className='flex text-gray-850'>
-              <div
-                className='border flex items-center justify-center w-[41px] h-[41px] cursor-pointer'
-                onClick={() => setIsGrid(true)}
-              >
-                <MyxIcon name='grid' className='w-4 h-4' />
+            <div className='flex gap-5 items-center'>
+              <div className='text-gray-850'>
+                {products?.results.length <= 16
+                  ? `Showing 1–${products?.results.length} of ${products?.results.length} results`
+                  : `Showing 1–16 of ${products?.results.length} results`}
               </div>
-              <div
-                className='border flex items-center justify-center w-[41px] h-[41px] cursor-pointer'
-                onClick={() => setIsGrid(false)}
-              >
-                <MyxIcon name='list' className='w-5 h-5' />
+              <div className='flex text-gray-850'>
+                <div
+                  className='border flex items-center justify-center w-[41px] h-[41px] cursor-pointer'
+                  onClick={() => setIsGrid(true)}
+                >
+                  <MyxIcon name='grid' className='w-4 h-4' />
+                </div>
+                <div
+                  className='border flex items-center justify-center w-[41px] h-[41px] cursor-pointer'
+                  onClick={() => setIsGrid(false)}
+                >
+                  <MyxIcon name='list' className='w-5 h-5' />
+                </div>
               </div>
             </div>
           </div>
+          {isGrid ? (
+            <div className='grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-9'>
+              {products?.results?.map((product: TProduct) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className='flex w-full flex-col gap-[3.125rem]'>
+              {products?.results?.map((product: TProduct) => (
+                <ProductListCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
-        {isGrid ? (
-          <div className='grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-9'>
-            {products?.results?.map((product: TProduct) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className='flex w-full flex-col gap-[3.125rem]'>
-            {products?.results?.map((product: TProduct) => (
-              <ProductListCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
       </div>
     </div>
   )
