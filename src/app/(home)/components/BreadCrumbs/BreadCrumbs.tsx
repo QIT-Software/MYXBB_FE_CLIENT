@@ -8,7 +8,7 @@ const BreadCrumbs = ({ paths, title }: any) => {
         <nav className='text-gray-600 flex flex-col items-center justify-center gap-2.5'>
           <h1 className='text-[40px] font-bold suave-text'>{title}</h1>
           <ol className='list-reset flex text-sm'>
-            {paths.map((path, index) => (
+            {paths.map((path: any, index: any) => (
               <li key={index} className='flex items-center'>
                 {index !== paths.length - 1 ? (
                   <>
