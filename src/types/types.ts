@@ -193,6 +193,7 @@ export type TProduct = {
   price: string
   avatar: string
   category: string
+  description: string
   pictures?: TPicture[]
   reviews: TReview[]
   average_rating: string

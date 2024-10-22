@@ -72,7 +72,6 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Випадаючий компонент */}
             {isDropdownVisible && (
               <DropdownCart
                 cartItems={cartItems}
