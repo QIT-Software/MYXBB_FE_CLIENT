@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import { MyxIcon } from '../icons'
 import { Button } from '../ui/Button/Button'
+import { useRouter } from 'next/navigation'
 
 type TDropdownCartProps = {
   cartItems: any[]
@@ -11,6 +12,7 @@ type TDropdownCartProps = {
   removeItem: (id: string) => void
 }
 const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, removeItem }: TDropdownCartProps) => {
+  const router = useRouter()
   return (
     <div
       className='absolute right-0 top-full mt-0 w-[300px] bg-gray-950 text-white p-5 '
@@ -50,7 +52,11 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
             </div>
 
             <div className='flex gap-2'>
-              <Button variant={'redSubmit'} className='text-xs  !py-2 !px-[14px] h-max'>
+              <Button
+                onClick={() => router.push('/booking/cart')}
+                variant={'redSubmit'}
+                className='text-xs  !py-2 !px-[14px] h-max'
+              >
                 View Cart
               </Button>
               <Button variant={'redSubmit'} className='text-xs  !py-2 !px-[14px] h-max'>
