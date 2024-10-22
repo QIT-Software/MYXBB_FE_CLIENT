@@ -2,10 +2,42 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Navigation from '../Navigation/Navigation'
+import { MyxIcon } from '../icons'
+import DropdownCart from '../DropdownCart/DropdownCart'
+import { getFromStorage, setToStorage } from '@/utils/storage'
 
 const Header = () => {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isDropdownVisible, setDropdownVisible] = useState(false)
+  const [cartItems, setCartItems] = useState([])
+  const [totalAmount, setTotalAmount] = useState(0)
+
+  const handleMouseEnter = () => {
+    setDropdownVisible(true)
+  }
+
+  const handleMouseLeave = () => {
+    setDropdownVisible(false)
+  }
+
+  const removeItem = (id: string) => {
+    const updatedCartItems = cartItems.filter((item: any) => item.id !== id)
+    setCartItems(updatedCartItems)
+    // @ts-ignore
+    setToStorage('cart', updatedCartItems, true)
+
+    const total = updatedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
+    setTotalAmount(total)
+  }
+
+  useEffect(() => {
+    const storedCartItems = getFromStorage('cart', true) || []
+    setCartItems(storedCartItems)
+
+    const total = storedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
+    setTotalAmount(total)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,9 +50,40 @@ const Header = () => {
     }
   }, [])
 
-  // if (pathname !== '/booking/shop-custom') {
   return (
     <div className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white' : 'bg-primary-black'}`}>
+      <div className='w-full flex justify-center'>
+        <div
+          className={`max-w-[1200px] w-full py-2 text-white justify-end text-sm font-medium items-center ${
+            isScrolled ? 'hidden' : 'flex'
+          }`}
+        >
+          <div className='relative' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className='flex items-center cursor-pointer gap-[5px]'>
+              <MyxIcon name='shop' className='size-4' />
+              <div className='flex items-center gap-[2px] text-sm'>
+                {`$${totalAmount.toFixed(2)}`}
+                {cartItems.length > 0 && (
+                  <span className='ml-[5px] relative bg-red-500 text-white text-[8px] font-bold rounded h-[14px] w-[18px] flex items-center justify-center'>
+                    {cartItems.length}
+                    <span className='rotate-180 absolute top-1/2 left-[-4px] transform -translate-y-1/2 w-0 h-0 border-l-[4px] border-l-red-500 border-y-[4px] border-y-transparent' />
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {isDropdownVisible && (
+              <DropdownCart
+                cartItems={cartItems}
+                totalAmount={totalAmount}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                removeItem={removeItem}
+              />
+            )}
+          </div>
+        </div>
+      </div>
       <div
         className={`flex flex-col items-center  w-full  ${
           isScrolled
@@ -35,9 +98,6 @@ const Header = () => {
       </div>
     </div>
   )
-  // }
-
-  return null
 }
 
 export default Header

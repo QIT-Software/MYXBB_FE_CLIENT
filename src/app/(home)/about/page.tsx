@@ -1,6 +1,6 @@
+'use client'
 import { MyxIcon } from '@/components/icons'
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
 const AboutPage = () => {

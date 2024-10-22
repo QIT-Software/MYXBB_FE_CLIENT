@@ -4,8 +4,6 @@ import { mainApi } from './index'
 import { saveAuthToken } from './utils/SaveToken'
 import { store } from '@/redux/store'
 import { setUserProfile, setUserRole } from '@/redux/slices/user/userSlice'
-import { set } from 'date-fns'
-import { send } from 'process'
 
 export const authApi = mainApi.injectEndpoints({
   endpoints: builder => ({

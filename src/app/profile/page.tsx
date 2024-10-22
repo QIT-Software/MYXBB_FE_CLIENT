@@ -64,10 +64,6 @@ const ProfilePage = () => {
     }
   }, [profile, reset])
 
-  // const onSubmit = (data: TProfileDetails) => {
-  //   console.log('Profile Data:', data)
-  // }
-
   const onSubmit = async (data: TProfileDetails) => {
     try {
       if (selectedFile) {

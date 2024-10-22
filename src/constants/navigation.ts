@@ -23,7 +23,7 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Cart',
-    link: '/card',
+    link: '/booking/cart',
   },
 ]
 
