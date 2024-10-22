@@ -5,6 +5,7 @@ import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/Relat
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
 import { MyxIcon } from '@/components/icons'
+import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
@@ -22,10 +23,36 @@ const ProductPage = () => {
       setQuantity(prev => prev - 1)
     }
   }
+
+  const handleAddToCart = () => {
+    const cartItems = getFromStorage('cart', true) || []
+
+    const productToAdd = {
+      id: selectedProduct.id,
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      quantity: quantity,
+      image: selectedProduct.avatar,
+    }
+
+    const existingProductIndex = cartItems.findIndex((item: any) => item.id === selectedProduct.id)
+
+    if (existingProductIndex >= 0) {
+      cartItems[existingProductIndex].quantity += quantity
+    } else {
+      cartItems.push(productToAdd)
+    }
+
+    setToStorage('cart', cartItems, true)
+  }
+
   const paths = [
     { label: 'Home', href: '/' },
     { label: 'Shop', href: '/booking/shop-custom' },
-    { label: selectedProduct?.category, href: `/booking/shop-custom/product-category/${selectedProduct?.category}` },
+    {
+      label: selectedProduct?.category,
+      href: `/booking/shop-custom/product-category/${selectedProduct?.category}`,
+    },
     { label: selectedProduct?.name, href: '#' },
   ]
 
@@ -48,7 +75,7 @@ const ProductPage = () => {
                 <div className='border-t border-primary-hover-red w-full'></div>
               </div>
 
-              <div className='text-primary-gray'>{selectedProduct?.description} </div>
+              <div className='text-primary-gray'>{selectedProduct?.description}</div>
 
               <div className='flex items-center gap-4'>
                 <div className='flex items-center border border-gray-300 px-2'>
@@ -60,7 +87,9 @@ const ProductPage = () => {
                     +
                   </button>
                 </div>
-                <button className='bg-primary-red text-white px-6 py-2 font-bold'>Add to cart</button>
+                <button className='bg-primary-red text-white px-6 py-2 font-bold' onClick={handleAddToCart}>
+                  Add to cart
+                </button>
               </div>
 
               <div className='text-primary-gray text-sm capitalize'>Category: {selectedProduct?.category}</div>

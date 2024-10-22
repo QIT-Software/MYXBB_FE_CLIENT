@@ -13,7 +13,7 @@ const BreadCrumbs = ({ paths, title }: any) => {
                 {index !== paths.length - 1 ? (
                   <>
                     <Link href={path.href}>
-                      <p className='text-[13px] text-gray-900'>{path.label}</p>
+                      <p className='capitalize text-[13px] text-gray-900'>{path.label}</p>
                     </Link>
                     <span className='mx-2 text-gray-900'>/</span>
                   </>
