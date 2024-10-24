@@ -199,3 +199,12 @@ export type TProduct = {
   average_rating: string
   popularity: number
 }
+
+export type TCartItem = {
+  id: number
+  name: string
+  description: string
+  price: number
+  quantity: number
+  image: string
+}
