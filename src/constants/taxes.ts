@@ -1,0 +1,5 @@
+export const taxes = {
+  CHECKOUT_FEE: 8.52,
+  CHECKOUT_SHIPPING: 7.5,
+  CUSTOM_BLEND_PAID_INGREDIENT_PRICE: 5,
+}

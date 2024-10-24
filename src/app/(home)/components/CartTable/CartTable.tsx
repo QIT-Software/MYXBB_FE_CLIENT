@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
   return (
-    <table className='w-full table-auto border-collapse'>
+    <table className='w-full table-auto border-collapse h-max'>
       <thead>
         <tr className='text-gray-900 text-[15px]'>
           <th className='border-b text-left pb-[10px] font-normal'>Product</th>
@@ -38,9 +38,9 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
                 </Link>
               </div>
             </td>
-            <td className='text-primary-gray text-[15px] px-[5px]'>${item.price.toFixed(2)}</td>
+            <td className='text-primary-gray text-[15px] px-[5px] py-[25px]'>${item.price}</td>
             <td className='py-[25px] px-[5px] text-[15px]'>
-              <div className='flex items-center gap-2'>
+              <div className='flex h-max items-center gap-2'>
                 <button className='border px-2 py-1' onClick={() => onQuantityChange(item.id, item.quantity - 1)}>
                   -
                 </button>

@@ -1,51 +1,69 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import Image from 'next/image'
 import CartTable from '../../components/CartTable/CartTable'
 import Summary from '../../components/CartSummary/Summary'
+import { useRouter } from 'next/navigation'
+import { getFromStorage } from '@/utils/storage'
 
 const CartPage = () => {
+  const router = useRouter()
+  const [cartItems, setCartItems] = useState([])
+  const [subtotal, setSubtotal] = useState(0)
+  const [tax, setTax] = useState(0)
+  const [total, setTotal] = useState(0)
+
   const paths = [
     { label: 'Home', href: '/' },
     { label: 'Cart', href: '/#' },
   ]
 
-  const cartItems = [
-    {
-      id: 1,
-      name: 'Shug by Justice Taylor (Liquid Matte)',
-      description: 'Liquid Matte Lipstick',
-      price: 35.0,
-      quantity: 10,
-      image: '/path/to/image1.png',
-    },
-    {
-      id: 2,
-      name: "Summer Lovin' Pink",
-      description: 'Matte Lipstick',
-      price: 35.0,
-      quantity: 10,
-      image: '/path/to/image2.png',
-    },
-    // Додайте більше товарів за необхідності
-  ]
+  // Отримання товарів з localStorage
+  useEffect(() => {
+    const cartItems = getFromStorage('cart', true) || []
+    setCartItems(cartItems)
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
-  const tax = (subtotal * 0.0825).toFixed(2)
-  //@ts-ignore
-  const total = (parseFloat(subtotal) + parseFloat(tax)).toFixed(2)
+    // Оновлюємо підсумки
+    updateSummary(cartItems)
+  }, [])
 
-  const handleRemoveItem = (id: any) => {
-    // Логіка видалення товару з кошика
+  // Оновлення підсумків кошика
+  const updateSummary = (items: any) => {
+    const newSubtotal = items.reduce((acc: any, item: any) => acc + item.price * item.quantity, 0)
+    const newTax = (newSubtotal * 0.0825).toFixed(2)
+    const newTotal = (parseFloat(newSubtotal) + parseFloat(newTax)).toFixed(2)
+
+    setSubtotal(newSubtotal)
+    //@ts-ignore
+    setTax(newTax)
+    //@ts-ignore
+    setTotal(newTotal)
   }
 
+  // Логіка видалення товару з кошика
+  const handleRemoveItem = (id: any) => {
+    const updatedCartItems = cartItems.filter((item: any) => item.id !== id)
+    setCartItems(updatedCartItems)
+    localStorage.setItem('cart', JSON.stringify(updatedCartItems))
+
+    // Оновлення підсумків
+    updateSummary(updatedCartItems)
+  }
+
+  // Логіка оновлення кількості товарів
   const handleQuantityChange = (id: any, newQuantity: any) => {
-    // Логіка оновлення кількості товарів у кошику
+    const updatedCartItems = cartItems.map((item: any) => (item.id === id ? { ...item, quantity: newQuantity } : item))
+    //@ts-ignore
+    setCartItems(updatedCartItems)
+    localStorage.setItem('cart', JSON.stringify(updatedCartItems))
+
+    updateSummary(updatedCartItems)
   }
 
   const handleCheckout = () => {
-    // Логіка обробки оформлення замовлення
+    // Логіка для переходу на сторінку checkout
+    router.push('/booking/checkout')
   }
   return (
     <div className='h-auto flex items-center flex-col'>
@@ -98,7 +116,7 @@ const CartPage = () => {
 
         <div className='flex w-full gap-[60px] pt-[96px]'>
           <CartTable cartItems={cartItems} onRemoveItem={handleRemoveItem} onQuantityChange={handleQuantityChange} />
-          <Summary subtotal={subtotal} tax={tax} total={total} onCheckout={handleCheckout} />{' '}
+          <Summary subtotal={subtotal} tax={tax} total={total} onCheckout={() => router.push('/booking/checkout')} />
         </div>
       </div>
     </div>
