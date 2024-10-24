@@ -6,6 +6,7 @@ import CartTable from '../../components/CartTable/CartTable'
 import Summary from '../../components/CartSummary/Summary'
 import { useRouter } from 'next/navigation'
 import { getFromStorage } from '@/utils/storage'
+import { TCartItem, TProduct } from '@/types/types'
 
 const CartPage = () => {
   const router = useRouter()
@@ -29,15 +30,17 @@ const CartPage = () => {
   }, [])
 
   // Оновлення підсумків кошика
-  const updateSummary = (items: any) => {
-    const newSubtotal = items.reduce((acc: any, item: any) => acc + item.price * item.quantity, 0)
-    const newTax = (newSubtotal * 0.0825).toFixed(2)
-    const newTotal = (parseFloat(newSubtotal) + parseFloat(newTax)).toFixed(2)
+  const updateSummary = (items: TCartItem[]) => {
+    const newSubtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+
+    // Рахуємо податок у 8.52%
+    const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
+
+    // Рахуємо загальну суму
+    const newTotal = parseFloat((newSubtotal + newTax).toFixed(2))
 
     setSubtotal(newSubtotal)
-    //@ts-ignore
     setTax(newTax)
-    //@ts-ignore
     setTotal(newTotal)
   }
 
