@@ -76,6 +76,7 @@ const config = {
           50: '#1865C3',
           75: '#FDF9F9',
           100: '#D9D9D9',
+          125: '#a4a4a4',
           150: '#E9ECEF',
           200: '#BCBCBC',
           250: '#EFEFEF',
@@ -94,6 +95,10 @@ const config = {
           950: '#2e3033',
           975: '#394244',
           1000: '#85868c',
+        },
+        experience: {
+          25: '#fdf9f9',
+          50: '#e83734',
         },
       },
       borderRadius: {

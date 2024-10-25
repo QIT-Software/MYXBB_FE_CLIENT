@@ -38,7 +38,7 @@ export const mainNavigationLinks: TNavigationLinks = [
   },
   {
     name: 'MYXperience ',
-    link: '/experience',
+    link: '/myxperience',
   },
   {
     name: 'Myx Merch',

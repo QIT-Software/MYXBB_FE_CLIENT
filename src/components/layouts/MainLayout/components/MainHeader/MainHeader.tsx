@@ -61,12 +61,13 @@ const MainHeader = () => {
               </nav>
               <Link
                 href='/profile'
-                className='ml-6 size-8 overflow-hidden flex items-center justify-center bg-white/40 rounded-full cursor-pointer'
+                className={`ml-6 size-8 overflow-hidden flex items-center
+                   justify-center bg-white/40 rounded-full cursor-pointer ${!profile?.avatar && 'opacity-25'}`}
               >
                 {profile?.avatar ? (
                   <Image src={profile?.avatar} alt='avatar' width={40} height={40} className='rounded-full' />
                 ) : (
-                  <MyxIcon name='user' className='w-8 h-8 flex items-center justify-center' />
+                  <MyxIcon name='user' className='w-[18px] h-[18px] flex items-center justify-center text-white' />
                 )}
               </Link>
             </div>
@@ -75,7 +76,8 @@ const MainHeader = () => {
             </div>
             <Link
               href='/booking'
-              className='absolute bottom-[115px] left-1/2 transform -translate-x-1/2 uppercase w-[320px] bg-white/25 hover:bg-white/50 py-5 px-10 rounded-full text-xs font-black text-white tracking-wider'
+              className='absolute bottom-[115px] left-1/2 transform -translate-x-1/2
+               uppercase w-[320px] bg-white/25 hover:bg-white/50 py-5 px-10 rounded-full text-xs font-black text-white tracking-wider'
             >
               Reserve Your Spot
             </Link>

@@ -208,3 +208,9 @@ export type TCartItem = {
   quantity: number
   image: string
 }
+
+export type TContactForm = {
+  name: string
+  email: string
+  message: string
+}
