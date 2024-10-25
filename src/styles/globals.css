@@ -96,12 +96,12 @@
 
   .custom-carousel .carousel .control-dots {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     position: absolute;
-    left: 30px; 
+    left: 30px;
     bottom: 20%;
     transform: translateY(-50%);
-    gap: 15px; 
+    gap: 15px;
   }
 
   .custom-carousel .carousel .control-dots .dot {
@@ -122,5 +122,19 @@
     color: white;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.01) 100%);
     background-repeat: repeat-x;
+  }
+
+  .snap-container {
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+  }
+
+  .snap-block {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
   }
 }

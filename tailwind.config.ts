@@ -96,6 +96,9 @@ const config = {
           975: '#394244',
           1000: '#85868c',
         },
+        experience: {
+          25: '#fdf9f9',
+        },
       },
       borderRadius: {
         md: '4px',
