@@ -98,6 +98,7 @@ const config = {
         },
         experience: {
           25: '#fdf9f9',
+          50: '#e83734',
         },
       },
       borderRadius: {

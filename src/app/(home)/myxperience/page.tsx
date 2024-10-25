@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 
@@ -31,7 +32,7 @@ const MyxperiencePage = () => {
         </div>
       </section>
       {/* Block 2 */}
-      {/* <section className='snap-block'>
+      <section className='snap-block'>
         <div className='py-[55px] h-full pl-[100px] pr-[77px] w-[55%]'>
           <div className='pb-[96px] flex flex-col gap-[25px] items-end'>
             <Image src={'/images/lips-logo.webp'} alt={'small lips'} width={50} height={32} className='object-cover mr-[35px]' />
@@ -51,7 +52,7 @@ const MyxperiencePage = () => {
             </p>
           </div>
         </div>
-        <div className='w-[45%] p-[75px]  h-full bg-experience-25'>
+        <div className='w-[45%] p-[75px] h-full bg-experience-25'>
           <div className='flex flex-col items-center gap-[69px]'>
             <Image
               src={'/images/exp-bg-two.webp'}
@@ -69,7 +70,7 @@ const MyxperiencePage = () => {
             />{' '}
           </div>
         </div>
-      </section> */}
+      </section>
       {/* Block 3 */}
       <section className='snap-block bg-secondary-black-blue'>
         <div className='w-full flex flex-col gap-[70px] h-full pt-[100px] pl-[110px] pb-[80px]'>
@@ -90,7 +91,6 @@ const MyxperiencePage = () => {
 
           {/* Slider Section */}
           <div className='w-full max-w-[1200px] mx-auto relative'>
-            {' '}
             {/* Обмежуємо ширину каруселі */}
             <Carousel
               showArrows={true}
@@ -186,12 +186,101 @@ const MyxperiencePage = () => {
         </div>
       </section>
       {/* Block 4 */}
-      <section className='snap-block bg-yellow-500'>
-        <h1 className='text-4xl text-white'>Block 4</h1>
+      <section className='snap-block'>
+        <div className='w-[60%] py-[55px] h-full pl-[100px] pr-[77px]'>
+          <div className='flex w-full flex-col gap-[30px]'>
+            <div className='relative'>
+              <Image
+                src={'/images/exp-bg-five.webp'}
+                alt={'lips bg'}
+                width={546}
+                height={355}
+                className='w-full h-auto object-cover'
+              />
+              <div className='absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] flex flex-col gap-[25px] items-start'>
+                <Image
+                  src={'/images/lips-logo.webp'}
+                  alt={'small lips'}
+                  width={50}
+                  height={32}
+                  className='object-cover mr-[35px]'
+                />
+                <p className='suave-text uppercase text-[25px] tracking-[2.5px] text-white'>Make it Yours</p>
+                <div className='w-[78px] border border-white mr-[35px]'></div>
+              </div>
+            </div>
+            <div className='flex items-center gap-[30px] md:flex-col flex-row'>
+              <Image
+                src={'/images/exp-bg-six.webp'}
+                alt={'lips bg'}
+                width={258}
+                height={250}
+                className='w-full h-auto object-cover max-w-[1258px]' // Адаптивне зображення з максимальними розмірами
+              />
+              <Image
+                src={'/images/exp-bg-seven.webp'}
+                alt={'lips bg'}
+                width={258}
+                height={250}
+                className='w-full h-auto object-cover max-w-[1258px]' // Адаптивне зображення з максимальними розмірами
+              />
+            </div>
+          </div>
+        </div>
+        <div className='w-[40%] h-full bg-secondary-white flex items-center justify-center'>
+          <p className='text-gray-700 leading-[2.5rem] max-w-[300px] w-full'>
+            Choose from various lipstick mold shapes and even name your shade to truly make it yours. Once you’ve tested your
+            custom creation and approved its awesomeness, your MYXologist will finalize your masterpiece!
+          </p>
+        </div>
       </section>
       {/* Block 5 */}
-      <section className='snap-block bg-purple-500'>
-        <h1 className='text-4xl text-white'>Block 5</h1>
+      <section className='snap-block bg-experience-50'>
+        <div className='w-[60%]'>
+          <div className='max-w-[669px] w-full py-[55px] pl-[100px] pr-[77px] text-white flex flex-col gap-[30px]'>
+            <div className='flex flex-col gap-[15px] text-white'>
+              <p className='suave-text uppercase text-[25px] tracking-[2.5px]'>RESERVE YOUR SPOT!</p>
+              <p className='text-[21px] font-semibold leading-[2.5rem]'>
+                Come visit us at our Houston location in Rice Village, or our Dallas location in West Village! We can't wait to
+                MYX with you!
+              </p>
+            </div>
+            <div className='flex flex-col gap-[30px]'>
+              <Link
+                href='/booking'
+                className='uppercase text-experience-50 w-max bg-white py-5 px-[50px] rounded-full text-xs font-black tracking-wider'
+              >
+                Reserve Your Spot
+              </Link>
+              <Link
+                href='/contact'
+                className='uppercase text-experience-50 w-max bg-white py-5 px-[50px] rounded-full text-xs font-black tracking-wider'
+              >
+                contact us
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className='w-[40%] h-full'>
+          <div
+            style={{
+              backgroundImage: "url('/images/auth-bg.webp')",
+              backgroundSize: 'cover',
+              backgroundRepeat: ' no-repeat',
+              backgroundPosition: '50%',
+              height: '50vh',
+            }}
+          ></div>
+          <div
+            style={{
+              backgroundImage: "url('/images/blue-lips.webp')",
+              backgroundSize: 'cover',
+              backgroundRepeat: ' no-repeat',
+              backgroundPosition: '50%',
+              height: '50vh',
+            }}
+          ></div>
+        </div>
       </section>
     </div>
   )
