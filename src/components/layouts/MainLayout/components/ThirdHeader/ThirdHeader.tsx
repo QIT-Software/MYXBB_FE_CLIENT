@@ -1,11 +1,8 @@
-import { MyxIcon } from '@/components/icons'
 import { mainNavigationLinks } from '@/constants/navigation'
-import { getUser } from '@/redux/slices/user/selectors'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 const ThirdHeader = () => {
   const pathname = usePathname()
@@ -21,9 +18,10 @@ const ThirdHeader = () => {
             <Link
               href={item.link}
               key={item.name}
-              className={`transition-all duration-300 hover:text-secondary-hover text-xs uppercase text-primary-black font-bold tracking-widest, ${
-                pathname === item.link && 'text-secondary-hover'
-              }`}
+              className={`transition-all duration-300 hover:text-secondary-hover
+                 text-xs uppercase text-primary-black font-bold tracking-widest, ${
+                   pathname === item.link && 'text-secondary-hover'
+                 }`}
             >
               {item.name}
             </Link>

@@ -25,8 +25,8 @@ const MyxperiencePage = () => {
             </div>
             <p className='text-[21px] font-semibold leading-[3.544rem] text-white text-center'>
               Make Your Mark with MYX Blend Bar! Our MYXologists are here to help you create your perfect lipstick blends! No
-              matter the <br /> occasion, MYX Blend Bar has your lips covered! It's time for you to Choose It, MYX It &amp; Make
-              It Yours!
+              matter the <br /> occasion, MYX Blend Bar has your lips covered! It&apos;s time for you to Choose It, MYX It &amp;
+              Make It Yours!
             </p>
           </div>
         </div>
@@ -42,13 +42,14 @@ const MyxperiencePage = () => {
           <div className='flex flex-col gap-[15px] text-gray-700'>
             <div className='suave-text uppercase text-[25px] tracking-[2.5px]'>CHOOSE ONE OF OUR CUSTOM BLEND PACKAGES:</div>
             <p className='text-[21px] font-semibold leading-[2.5rem]'>
-              You'll start your MYXperience by choosing how many custom blends you'd like to create!
+              You&apos;ll start your MYXperience by choosing how many custom blends you&apos;`d like to create!
               <br />
-              Next, choose from 8 distinct styles of lipstick and lip gloss! From liquid matte to lip balm, we've got you covered!
+              Next, choose from 8 distinct styles of lipstick and lip gloss! From liquid matte to lip balm, we&apos;ve got you
+              covered!
               <br />
-              Once you've selected your style, your MYXologist will help you create a palette of custom shades that compliment
-              your unique skin tone! You can test as many shades as your heart desires and adjust as you go to ensure your
-              signature shade is perfect!
+              Once you&apos;ve selected your style, your MYXologist will help you create a palette of custom shades that
+              compliment your unique skin tone! You can test as many shades as your heart desires and adjust as you go to ensure
+              your signature shade is perfect!
             </p>
           </div>
         </div>
@@ -83,7 +84,7 @@ const MyxperiencePage = () => {
             <div className='flex flex-col max-w-[665px] w-full text-white'>
               <p className='suave-text uppercase text-[25px] tracking-[2.5px]'>MYX YOUR BASE + CUSTOM SHADE BLEND</p>
               <p className='text-[21px] font-semibold leading-[2.5rem]'>
-                Now that you've perfected your signature shade, you can further customize your creation by adding shimmers,
+                Now that you&apos;ve perfected your signature shade, you can further customize your creation by adding shimmers,
                 glitters, custom fragrances, SPF, vitamins, anti-aging treatments, moisture, shine, and even plumper!
               </p>
             </div>
@@ -241,8 +242,8 @@ const MyxperiencePage = () => {
             <div className='flex flex-col gap-[15px] text-white'>
               <p className='suave-text uppercase text-[25px] tracking-[2.5px]'>RESERVE YOUR SPOT!</p>
               <p className='text-[21px] font-semibold leading-[2.5rem]'>
-                Come visit us at our Houston location in Rice Village, or our Dallas location in West Village! We can't wait to
-                MYX with you!
+                Come visit us at our Houston location in Rice Village, or our Dallas location in West Village! We can&apos;t wait
+                to MYX with you!
               </p>
             </div>
             <div className='flex flex-col gap-[30px]'>

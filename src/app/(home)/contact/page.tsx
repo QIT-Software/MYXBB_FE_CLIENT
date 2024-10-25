@@ -38,8 +38,8 @@ const ContactPage = () => {
                 E : myx@myxblendbar.com
               </Link>
             </div>
-            {contactList.map(item => (
-              <div className='border-l-2 border-white pl-[25px] flex flex-col gap-[30px]'>
+            {contactList.map((item, index) => (
+              <div key={`${item[0]}-${index}`} className='border-l-2 border-white pl-[25px] flex flex-col gap-[30px]'>
                 {Array.isArray(item) &&
                   item.map(contact => (
                     <div key={contact} className='text-white font-light text-[15px]'>
