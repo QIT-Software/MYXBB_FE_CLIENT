@@ -49,6 +49,8 @@ import Pinterest from '@/public/icons/pinterest-icon.svg'
 import Twitter from '@/public/icons/twitter-icon.svg'
 import WhatsApp from '@/public/icons/whatsapp-icon.svg'
 import Linkedin from '@/public/icons/linkedin-icon.svg'
+import Youtube from '@/public/icons/youtube-icon.svg'
+import FacebookLetter from '@/public/icons/facebook-letter-icon.svg'
 
 // types
 import type { TIconConfig } from './types'
@@ -104,4 +106,6 @@ export const IconConfig: TIconConfig = {
   twitter: Twitter,
   whatsapp: WhatsApp,
   linkedin: Linkedin,
+  youtube: Youtube,
+  facebookLetter: FacebookLetter,
 }
