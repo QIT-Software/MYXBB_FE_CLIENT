@@ -7,6 +7,8 @@ import Summary from '../../components/CartSummary/Summary'
 import { useRouter } from 'next/navigation'
 import { getFromStorage } from '@/utils/storage'
 import { TCartItem, TProduct } from '@/types/types'
+import { Button } from '@/components/ui/Button/Button'
+import Link from 'next/link'
 
 const CartPage = () => {
   const router = useRouter()
@@ -118,8 +120,19 @@ const CartPage = () => {
         </div>
 
         <div className='flex w-full gap-[60px] pt-[96px]'>
-          <CartTable cartItems={cartItems} onRemoveItem={handleRemoveItem} onQuantityChange={handleQuantityChange} />
-          <Summary subtotal={subtotal} tax={tax} total={total} onCheckout={() => router.push('/booking/checkout')} />
+          {cartItems.length > 0 ? (
+            <>
+              <CartTable cartItems={cartItems} onRemoveItem={handleRemoveItem} onQuantityChange={handleQuantityChange} />
+              <Summary subtotal={subtotal} tax={tax} total={total} onCheckout={() => router.push('/booking/checkout')} />
+            </>
+          ) : (
+            <Link
+              href={'/booking/shop-custom'}
+              className='bg-primary-hover-red text-white flex items-center h-[56px] justify-center hover:bg-red-100 !rounded-none text-lg font-bold !py-[18px] px-6'
+            >
+              Return to shop
+            </Link>
+          )}
         </div>
       </div>
     </div>
