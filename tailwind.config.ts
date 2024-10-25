@@ -76,6 +76,7 @@ const config = {
           50: '#1865C3',
           75: '#FDF9F9',
           100: '#D9D9D9',
+          125: '#a4a4a4',
           150: '#E9ECEF',
           200: '#BCBCBC',
           250: '#EFEFEF',
