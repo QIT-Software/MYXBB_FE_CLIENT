@@ -212,5 +212,5 @@ export type TCartItem = {
 export type TContactForm = {
   name: string
   email: string
-  message: string
+  comment: string
 }

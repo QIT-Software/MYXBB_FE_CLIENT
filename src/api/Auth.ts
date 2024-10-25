@@ -117,6 +117,13 @@ export const authApi = mainApi.injectEndpoints({
       },
       invalidatesTags: ['Profile'],
     }),
+    contactForm: builder.mutation({
+      query: data => ({
+        url: `/appointment/email-form/contact/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
@@ -132,4 +139,5 @@ export const {
   useLazyFacebookAuthQuery,
   useFacebookTokenMutation,
   useSocialAuthMutation,
+  useContactFormMutation,
 } = authApi

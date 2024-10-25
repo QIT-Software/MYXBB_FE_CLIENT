@@ -1,4 +1,5 @@
 'use client'
+import { useContactFormMutation } from '@/api/Auth'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
@@ -10,6 +11,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 const ContactPage = () => {
+  const [contactForm, { isSuccess }] = useContactFormMutation()
   const {
     register,
     handleSubmit,
@@ -19,6 +21,14 @@ const ContactPage = () => {
   } = useForm<TContactForm>({
     mode: 'onChange',
   })
+
+  const onSubmit = (data: TContactForm) => {
+    try {
+      contactForm(data).unwrap()
+    } catch (err: any) {
+      console.error('Failed to contact: ', err)
+    }
+  }
   return (
     <div className='w-full flex bg-gray-25'>
       <div
@@ -54,62 +64,66 @@ const ContactPage = () => {
       <div className='w-3/5 pt-[60px] flex justify-center'>
         <div className='flex flex-col max-w-[500px] w-full items-center gap-8'>
           <h1 className='suave-text text-gray-700 text-[30px] uppercase tracking-[6px]'>Contact Form</h1>
-          <form className='flex flex-col w-full items-center justify-between h-full '>
-            <div className='w-full flex flex-col gap-6'>
-              <Input
-                error={errors.name}
-                placeholder='Enter name'
-                type='name'
-                id='name'
-                {...register('name', {
-                  required: 'First name is required',
-                  minLength: {
-                    value: 2,
-                    message: 'First name must be at least 2 characters long',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: 'First name must be no longer than 30 characters',
-                  },
-                  pattern: {
-                    value: /^[^\s](.*[^\s])?$/,
-                    message: 'First name cannot start or end with a space',
-                  },
-                })}
-                className={`text-sm !bg-transparent block w-full px-3 py-2 border border-gray-125 !rounded-none
+          {!isSuccess ? (
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center justify-between h-full '>
+              <div className='w-full flex flex-col gap-6'>
+                <Input
+                  error={errors.name}
+                  placeholder='Enter name'
+                  type='name'
+                  id='name'
+                  {...register('name', {
+                    required: 'First name is required',
+                    minLength: {
+                      value: 2,
+                      message: 'First name must be at least 2 characters long',
+                    },
+                    maxLength: {
+                      value: 30,
+                      message: 'First name must be no longer than 30 characters',
+                    },
+                    pattern: {
+                      value: /^[^\s](.*[^\s])?$/,
+                      message: 'First name cannot start or end with a space',
+                    },
+                  })}
+                  className={`text-sm !bg-transparent block w-full px-3 py-2 border border-gray-125 !rounded-none
                 focus:outline-none text-gray-700`}
-              />
-              <Input
-                placeholder='Enter mail'
-                type='email'
-                id='email'
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Please enter a valid email address',
-                  },
-                  validate: value => {
-                    const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
-                    return noCyrillic || 'Email must not contain Cyrillic characters'
-                  },
-                })}
-                className={`text-sm !bg-transparent block w-full px-3 py-2 border border-gray-125 !rounded-none
+                />
+                <Input
+                  placeholder='Enter mail'
+                  type='email'
+                  id='email'
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Please enter a valid email address',
+                    },
+                    validate: value => {
+                      const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
+                      return noCyrillic || 'Email must not contain Cyrillic characters'
+                    },
+                  })}
+                  className={`text-sm !bg-transparent block w-full px-3 py-2 border border-gray-125 !rounded-none
                 focus:outline-none text-gray-700`}
-              />
-              <Textarea
-                placeholder='Additional Information'
-                {...register('message', { required: 'Comment is required' })}
-                className='!bg-transparent text-sm w-full h-[230px] p-2 border border-gray-125 !rounded-none resize-none outline-none focus:ring-1 focus:ring-transparent'
-              />
-            </div>
-            <Button
-              type='submit'
-              className='!h-max max-w-max bg-primary-red hover:bg-primary-black text-white text-[10px] tracking-[3px] uppercase rounded-t-[25px] py-[23px] px-[75px]'
-            >
-              <p>Submit</p>
-            </Button>
-          </form>
+                />
+                <Textarea
+                  placeholder='Additional Information'
+                  {...register('comment', { required: 'Comment is required' })}
+                  className='!bg-transparent text-sm w-full h-[230px] p-2 border border-gray-125 !rounded-none resize-none outline-none focus:ring-1 focus:ring-transparent'
+                />
+              </div>
+              <Button
+                type='submit'
+                className='!h-max max-w-max bg-primary-red hover:bg-primary-black text-white text-[10px] tracking-[3px] uppercase rounded-t-[25px] py-[23px] px-[75px]'
+              >
+                <p>Submit</p>
+              </Button>
+            </form>
+          ) : (
+            <div>Your message has been sent</div>
+          )}
         </div>
       </div>
     </div>
