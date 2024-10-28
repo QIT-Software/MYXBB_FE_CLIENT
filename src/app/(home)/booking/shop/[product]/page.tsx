@@ -28,14 +28,14 @@ const ProductPage = () => {
     const cartItems = getFromStorage('cart', true) || []
 
     const productToAdd = {
-      id: selectedProduct.id,
+      product_id: selectedProduct.id,
       name: selectedProduct.name,
       price: selectedProduct.price,
       quantity: quantity,
       image: selectedProduct.avatar,
     }
 
-    const existingProductIndex = cartItems.findIndex((item: any) => item.id === selectedProduct.id)
+    const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === selectedProduct.product_id)
 
     if (existingProductIndex >= 0) {
       cartItems[existingProductIndex].quantity += quantity
@@ -118,7 +118,7 @@ const ProductPage = () => {
           </div>
           <div className='flex flex-col gap-[60px]'>
             <ReviewForm product={selectedProduct} />
-            <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.id} />
+            <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.product_id} />
           </div>
         </div>
       </div>

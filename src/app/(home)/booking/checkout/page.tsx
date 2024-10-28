@@ -13,6 +13,8 @@ import Select, { StylesConfig } from 'react-select'
 import { useGetStatesQuery } from '@/api/Locations'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
 import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary'
+import { useCreateOrderMutation } from '@/api/Appointments'
+import { Button } from '@/components/ui/Button/Button'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -40,6 +42,7 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
 
 const CheckoutPage = () => {
   const [showDifferentAddress, setShowDifferentAddress] = useState(false)
+  const [createOrder, { isLoading }] = useCreateOrderMutation()
   const paths = [
     { label: 'Home', href: '/' },
     { label: 'Checkout', href: '/#' },
@@ -96,7 +99,39 @@ const CheckoutPage = () => {
       }))
     : []
 
-  const onSubmit = (data: TRegisterForm) => console.log(data)
+  const onSubmit = async (data: any) => {
+    console.log('here')
+    const obj = {
+      billing_address: {
+        region: 'United States',
+        state: 'Aguascalientes',
+        city: 'string',
+        address: 'string',
+        zip_code: 'string',
+        apartment: 'string',
+      },
+      // shipping_address: {
+      //   region: 'United States',
+      //   state: 'Aguascalientes',
+      //   city: 'string',
+      //   address: 'string',
+      //   zip_code: 'string',
+      //   apartment: 'string',
+      // },
+      items: [
+        {
+          product_type:  'merch', // product type field in custom blends
+          product_id: 'ad46fd39-a1ad-4049-9581-e44585445c61',
+          quantity: 2,
+          // gift_card_item_price: '-98',
+          // gift_card_recipient_email: 'user@example.com',
+        },
+      ],
+      customer: 'b388f2e9-2aa9-4cb1-aa8e-f3270a5d0e40',
+    }
+    console.log(obj)
+    await createOrder({ data: obj }).unwrap()
+  }
 
   return (
     <div className='h-auto flex items-center flex-col'>
@@ -160,414 +195,9 @@ const CheckoutPage = () => {
 
         <div className='flex w-full gap-[60px]'>
           <form onSubmit={handleSubmit(onSubmit)} className='flex w-1/2 flex-col gap-4'>
-            <div className='flex flex-col gap-6'>
-              {/* names */}
-              <div className='flex justify-between'>
-                <div className='flex flex-col gap-2'>
-                  <Label text='First name *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                  <Input
-                    //@ts-ignore
-                    error={errors.first_name}
-                    type='first_name'
-                    id='first_name'
-                    {...register('first_name', {
-                      required: 'First name is required',
-                      minLength: {
-                        value: 2,
-                        message: 'First name must be at least 2 characters long',
-                      },
-                      maxLength: {
-                        value: 30,
-                        message: 'First name must be no longer than 30 characters',
-                      },
-                      pattern: {
-                        value: /^[^\s](.*[^\s])?$/,
-                        message: 'First name cannot start or end with a space',
-                      },
-                    })}
-                  />
-                </div>
-                <div className='flex flex-col gap-1'>
-                  <Label text='Last name' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                  <Input
-                    error={errors.first_name}
-                    type='last_name'
-                    id='last_name'
-                    {...register('last_name', {
-                      required: 'Last name is required',
-                      minLength: {
-                        value: 2,
-                        message: 'First name must be at least 2 characters long',
-                      },
-                      maxLength: {
-                        value: 30,
-                        message: 'First name must be no longer than 30 characters',
-                      },
-                      pattern: {
-                        value: /^[^\s](.*[^\s])?$/,
-                        message: 'First name cannot start or end with a space',
-                      },
-                    })}
-                  />
-                </div>
-              </div>
-              {/* company */}
-              <div className='w-full flex flex-col gap-1 '>
-                <Label text='Company name (optional)' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Input error={errors.company_name} type='text' id='company_name' {...register('company_name')} />
-              </div>
-              {/* Region */}
-              <div>
-                <Label text='Country / Region *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Controller
-                  name='region'
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      styles={customStyles}
-                      value={regionOptions.find((option: TOption) => option.value === field.value)}
-                      options={regionOptions}
-                      onChange={option => {
-                        field.onChange((option as { value: string; label: string })?.value)
-                        setValue('region', '')
-                      }}
-                    />
-                  )}
-                />
-              </div>
-              {/* Street */}
-              <div>
-                <Label text='Street address *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <div className='flex flex-col gap-[10px]'>
-                  <Input
-                    placeholder='House number and street name'
-                    {...register('street_name', { required: 'Address is required' })}
-                  />
-                  <Input
-                    placeholder='Apartment, suite, unit, etc. (optional)'
-                    {...register('apartment', { required: 'Address is required' })}
-                  />
-                </div>
-              </div>
-              {/* City */}
-              <div>
-                <Label text='Town / City *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Input {...register('city', { required: 'Address is required' })} />
-              </div>
-              {/* State */}
-              <div>
-                <Label text='State / County *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Controller
-                  name='state'
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      styles={customStyles}
-                      value={shippingStateOptions.find((option: TOption) => option.value === field.value) || null}
-                      options={shippingStateOptions}
-                      placeholder='State'
-                      onChange={option => field.onChange((option as { value: string; label: string })?.value)}
-                    />
-                  )}
-                />
-              </div>
-              {/* Zipcode */}
-              <div className='flex flex-col gap-1 w-full '>
-                <Label text='Postcode / ZIP *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Input
-                  error={errors?.zip_code}
-                  id='zipCode'
-                  type='text'
-                  className='h-10 border-secondary-gray'
-                  {...register('zip_code', {
-                    required: 'Zip code is required',
-                    pattern: {
-                      value: /^[0-9]+$/,
-                      message: 'Zip code must be a number',
-                    },
-                    minLength: {
-                      value: 4,
-                      message: 'Zip code must be at least 4 characters long',
-                    },
-                    maxLength: {
-                      value: 10,
-                      message: 'Zip code must be no longer than 10 characters',
-                    },
-                  })}
-                />
-              </div>
-              {/* Phone */}
-              <div className='flex flex-col gap-1'>
-                <Label text='Phone *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Controller
-                  name='phone'
-                  control={control}
-                  rules={{
-                    required: 'Phone number is required',
-                    pattern: {
-                      value: /^[0-9+\s()-]+$/,
-                      message:
-                        'Please enter a valid phone number containing only numbers, spaces, parentheses, dashes, and the plus sign',
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: 'Phone number must be at most 20 characters long',
-                    },
-                  }}
-                  render={({ field }) => (
-                    <MaskedInput
-                      {...field}
-                      mask='+000 000 000 0000'
-                      id='phone'
-                      type='text'
-                      className='flex h-[50px] w-full rounded-md border px-3 py-3 text-base outline-none mt-1 border-gray-300 focus:outline-none focus-visible:outline-none focus:border-none'
-                    />
-                  )}
-                />
-              </div>
-              {/* Email */}
-              <div className='flex flex-col gap-1'>
-                <Label text='Email address *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <Input
-                  type='email'
-                  id='email'
-                  {...register('email', {
-                    required: 'Email is required',
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: 'Please enter a valid email address',
-                    },
-                    validate: value => {
-                      const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
-                      return noCyrillic || 'Email must not contain Cyrillic characters'
-                    },
-                  })}
-                  className={`mt-1 block w-full px-3 py-2 border border-gray-300
-                 rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
-                />
-                {errors.email && <span className='text-red-500 text-xs'>{errors.email.message}</span>}
-              </div>
-              {/* Password */}
-              <div className='flex flex-col gap-1'>
-                <Label text='Create account password *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                <div className='relative'>
-                  <Input
-                    placeholder='Password'
-                    type={'password'}
-                    id='password'
-                    maxLength={20}
-                    {...register('password', {
-                      required: 'Password is required',
-                      maxLength: {
-                        value: 20,
-                        message: 'Password must be less than 20 characters',
-                      },
-                      minLength: {
-                        value: 8,
-                        message: 'Password must be at least 8 characters',
-                      },
-                      validate: value => {
-                        if (!/[^\u0400-\u04FF]/.test(value)) {
-                          return 'Please verify that you are entering the correct password.'
-                        }
-                        if (/\s/.test(value)) {
-                          return 'Password must not contain spaces'
-                        }
-                        if (!/[A-Z]/.test(value)) {
-                          return 'Password must contain at least one uppercase letter'
-                        }
-                        if (!/[0-9]/.test(value)) {
-                          return 'Password must contain at least one number'
-                        }
-                        if (!/[!@*]/.test(value)) {
-                          return 'Password must contain at least one symbol (!@*)'
-                        }
-                        return true
-                      },
-                    })}
-                    className={`mt-1 block w-full px-3 py-2 border border-gray-300
-                     rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.password ? 'border-red-500' : ''}`}
-                  />
-                </div>
-                {password && (
-                  <ul className='mt-2 text-sm text-gray-600'>
-                    <li className={password.length >= 8 ? 'text-green-600' : 'text-red-600'}>
-                      {password.length >= 8 ? '✓' : '✕'} use 8 or more characters
-                    </li>
-                    <li className={/[A-Z]/.test(password) ? 'text-green-600' : 'text-red-600'}>
-                      {/[A-Z]/.test(password) ? '✓' : '✕'} use one English uppercase letter (A-Z)
-                    </li>
-                    <li className={/[0-9]/.test(password) ? 'text-green-600' : 'text-red-600'}>
-                      {/[0-9]/.test(password) ? '✓' : '✕'} use at least one number (0-9)
-                    </li>
-                    <li className={/[!@*]/.test(password) ? 'text-green-600' : 'text-red-600'}>
-                      {/[!@*]/.test(password) ? '✓' : '✕'} use at least one symbol (!@*)
-                    </li>
-                  </ul>
-                )}
-              </div>
-
-              <div className='flex items-center gap-2'>
-                <input
-                  type='checkbox'
-                  id='different_address'
-                  className='form-checkbox'
-                  checked={showDifferentAddress}
-                  onChange={() => setShowDifferentAddress(!showDifferentAddress)}
-                />
-                <label htmlFor='different_address' className='text-[15px] text-secondary-dark-gray'>
-                  Ship to a different address?
-                </label>
-              </div>
-
-              {showDifferentAddress && (
-                <div className='flex flex-col w-full gap-[30px]'>
-                  <div className='flex gap-[30px]'>
-                    <div className='flex w-full flex-col gap-2'>
-                      <Label text='First name *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                      <Input
-                        error={errors.first_name}
-                        type='text'
-                        id='shipping_first_name'
-                        {...register('first_name', {
-                          required: 'First name is required',
-                          minLength: {
-                            value: 2,
-                            message: 'First name must be at least 2 characters long',
-                          },
-                          maxLength: {
-                            value: 30,
-                            message: 'First name must be no longer than 30 characters',
-                          },
-                          pattern: {
-                            value: /^[^\s](.*[^\s])?$/,
-                            message: 'First name cannot start or end with a space',
-                          },
-                        })}
-                      />
-                    </div>
-                    <div className='flex w-full flex-col gap-1'>
-                      <Label text='Last name *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                      <Input
-                        error={errors.last_name}
-                        type='text'
-                        id='shipping_last_name'
-                        {...register('last_name', {
-                          required: 'Last name is required',
-                          minLength: {
-                            value: 2,
-                            message: 'Last name must be at least 2 characters long',
-                          },
-                          maxLength: {
-                            value: 30,
-                            message: 'Last name must be no longer than 30 characters',
-                          },
-                          pattern: {
-                            value: /^[^\s](.*[^\s])?$/,
-                            message: 'Last name cannot start or end with a space',
-                          },
-                        })}
-                      />
-                    </div>
-                  </div>
-                  <div className='w-full flex flex-col gap-1 '>
-                    <Label text='Company name (optional)' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                    <Input error={errors.company_name} type='text' id='company_name' {...register('company_name')} />
-                  </div>
-                  <div>
-                    <Label text='Country / Region *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                    <Controller
-                      name='region'
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          styles={customStyles}
-                          value={regionOptions.find((option: TOption) => option.value === field.value)}
-                          options={regionOptions}
-                          onChange={option => {
-                            field.onChange((option as { value: string; label: string })?.value)
-                            setValue('region', '')
-                          }}
-                        />
-                      )}
-                    />
-                  </div>
-                  {/* Street */}
-                  <div>
-                    <Label text='Street address *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                    <div className='flex flex-col gap-[10px]'>
-                      <Input
-                        placeholder='House number and street name'
-                        {...register('street_name', { required: 'Address is required' })}
-                      />
-                      <Input
-                        placeholder='Apartment, suite, unit, etc. (optional)'
-                        {...register('apartment', { required: 'Address is required' })}
-                      />
-                    </div>
-                  </div>
-                  {/* City */}
-                  <div>
-                    <Label text='Town / City *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                    <Input {...register('city', { required: 'Address is required' })} />
-                  </div>
-                  {/* State */}
-                  <div>
-                    <Label text='State / County *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                    <Controller
-                      name='state'
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          {...field}
-                          styles={customStyles}
-                          value={shippingStateOptions.find((option: TOption) => option.value === field.value) || null}
-                          options={shippingStateOptions}
-                          placeholder='State'
-                          onChange={option => field.onChange((option as { value: string; label: string })?.value)}
-                        />
-                      )}
-                    />
-                  </div>
-                  {/* Zipcode */}
-                  <div className='flex flex-col gap-1 w-full '>
-                    <Label text='Postcode / ZIP *' className='text-secondary-dark-gray text-[15px] !font-normal' />
-                    <Input
-                      error={errors?.zip_code}
-                      id='zipCode'
-                      type='text'
-                      className='h-10 border-secondary-gray'
-                      {...register('zip_code', {
-                        required: 'Zip code is required',
-                        pattern: {
-                          value: /^[0-9]+$/,
-                          message: 'Zip code must be a number',
-                        },
-                        minLength: {
-                          value: 4,
-                          message: 'Zip code must be at least 4 characters long',
-                        },
-                        maxLength: {
-                          value: 10,
-                          message: 'Zip code must be no longer than 10 characters',
-                        },
-                      })}
-                    />
-                  </div>
-                </div>
-              )}
-              <div className='w-full flex flex-col gap-1'>
-                <Label text='Order notes (optional)' className='text-primary-gray text-base font-bold' />
-                <Textarea
-                  placeholder='Notes about your order, e.g. special notes for delivery.'
-                  {...register('comment', { required: 'Comment is required' })}
-                  className='w-full h-[100px] p-2 border border-secondary-gray rounded-md resize-none outline-none focus:ring-1 focus:ring-transparent resize-y	'
-                />
-              </div>
-            </div>
+            <Button variant={'redSubmit'} type='submit'>
+              Test
+            </Button>
           </form>
           <div className='w-1/2'>
             <CheckoutSummary />

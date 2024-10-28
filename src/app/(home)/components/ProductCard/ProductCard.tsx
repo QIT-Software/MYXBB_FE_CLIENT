@@ -13,7 +13,7 @@ const ProductCard = ({ product }: TProductCardProps) => {
     const cartItems = getFromStorage('cart', true) || []
 
     const productToAdd = {
-      id: product.id,
+      product_id: product.id,
       name: product.name,
       price: product.price,
       quantity: 1,

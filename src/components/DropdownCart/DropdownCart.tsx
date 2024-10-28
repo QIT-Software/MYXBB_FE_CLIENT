@@ -22,7 +22,7 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
       {cartItems.length > 0 ? (
         <>
           {cartItems.map((item, index) => (
-            <div key={index} className='flex gap-[15px] items-center pb-[15px]'>
+            <div key={item.product_id} className='flex gap-[15px] items-center pb-[15px]'>
               <div className='flex items-center relative'>
                 <Image
                   src={item.image || '/images/auth-bg.webp'}
