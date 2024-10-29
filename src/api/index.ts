@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
   prepareHeaders: (headers, { getState }) => {
     const token = getFromStorage(storageKeys.AUTH)
-    if (token) {
+    if (token && token !== 'undefined') {
       headers.set('authorization', `Bearer ${token}`)
     }
     headers.set('accept', 'application/json')
@@ -32,9 +32,9 @@ const baseQueryWithReauth: BaseQueryFn<FetchArgs | any, unknown, FetchBaseQueryE
       result = await baseQuery(args, api, extraOptions)
     } else {
       removeFromStorage(storageKeys.AUTH)
-      if (window.location.pathname !== '/auth') {
-        window.location.replace('/auth')
-      }
+      // if (window.location.pathname !== '/auth') {
+      //   window.location.replace('/auth')
+      // }
     }
   }
   return result

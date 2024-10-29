@@ -22,43 +22,30 @@ const CartPage = () => {
     { label: 'Cart', href: '/#' },
   ]
 
-  // Отримання товарів з localStorage
   useEffect(() => {
     const cartItems = getFromStorage('cart', true) || []
     setCartItems(cartItems)
-
-    // Оновлюємо підсумки
     updateSummary(cartItems)
   }, [])
 
-  // Оновлення підсумків кошика
   const updateSummary = (items: TCartItem[]) => {
     const newSubtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
-
-    // Рахуємо податок у 8.52%
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-
-    // Рахуємо загальну суму
     const newTotal = parseFloat((newSubtotal + newTax).toFixed(2))
 
     setSubtotal(newSubtotal)
     setTax(newTax)
     setTotal(newTotal)
   }
-
-  // Логіка видалення товару з кошика
   const handleRemoveItem = (id: any) => {
-    const updatedCartItems = cartItems.filter((item: any) => item.id !== id)
+    const updatedCartItems = cartItems.filter((item: any) => item.product_id !== id)
     setCartItems(updatedCartItems)
     localStorage.setItem('cart', JSON.stringify(updatedCartItems))
-
-    // Оновлення підсумків
     updateSummary(updatedCartItems)
   }
 
-  // Логіка оновлення кількості товарів
   const handleQuantityChange = (id: any, newQuantity: any) => {
-    const updatedCartItems = cartItems.map((item: any) => (item.id === id ? { ...item, quantity: newQuantity } : item))
+    const updatedCartItems = cartItems.map((item: any) => (item.product_id === id ? { ...item, quantity: newQuantity } : item))
     //@ts-ignore
     setCartItems(updatedCartItems)
     localStorage.setItem('cart', JSON.stringify(updatedCartItems))
@@ -67,7 +54,6 @@ const CartPage = () => {
   }
 
   const handleCheckout = () => {
-    // Логіка для переходу на сторінку checkout
     router.push('/booking/checkout')
   }
   return (

@@ -26,6 +26,7 @@ export const authApi = mainApi.injectEndpoints({
         }
       },
       transformResponse: saveAuthToken,
+      invalidatesTags: ['Profile'],
     }),
     reset: builder.mutation({
       query: data => {
@@ -132,6 +133,7 @@ export const {
   useConfirmPasswordMutation,
   useResetMutation,
   useGetProfileQuery,
+  useLazyGetProfileQuery,
   usePatchProfileMutation,
   usePatchAvatarMutation,
   useSignupMutation,

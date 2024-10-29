@@ -59,10 +59,18 @@ export const appointmentsApi = mainApi.injectEndpoints({
       },
       providesTags: [{ type: 'Appointments', id: 'LIST' }],
     }),
+    createOrder: builder.mutation({
+      query: ({ data }) => ({
+        url: `orders/orders/checkout/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
 export const {
+  useCreateOrderMutation,
   useGetCustomBlendsQuery,
   useGetTimeSlotsQuery,
   usePatchSelectedAppointmentMutation,

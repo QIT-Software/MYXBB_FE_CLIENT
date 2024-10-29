@@ -22,7 +22,7 @@ const Header = () => {
   }
 
   const removeItem = (id: string) => {
-    const updatedCartItems = cartItems.filter((item: any) => item.id !== id)
+    const updatedCartItems = cartItems.filter((item: any) => item.product_id !== id)
     setCartItems(updatedCartItems)
     // @ts-ignore
     setToStorage('cart', updatedCartItems, true)

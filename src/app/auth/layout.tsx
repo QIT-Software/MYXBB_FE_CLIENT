@@ -19,11 +19,11 @@ export default function AuthLayout({
   const pathname = usePathname()
   const token = getFromStorage(storageKeys.AUTH)
 
-  useEffect(() => {
-    if (!token && !pathname.includes('auth')) {
-      router.push('/auth')
-    }
-  }, [pathname])
+  // useEffect(() => {
+  //   if (!token && !pathname.includes('auth')) {
+  //     router.push('/auth')
+  //   }
+  // }, [pathname])
 
   return (
     <Providers>

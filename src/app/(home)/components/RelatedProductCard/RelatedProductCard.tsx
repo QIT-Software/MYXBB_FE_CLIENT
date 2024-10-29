@@ -10,14 +10,14 @@ const RelatedProductCard = ({ product }: { product: TProduct }) => {
     const cartItems = getFromStorage('cart', true) || []
 
     const productToAdd = {
-      id: product.id,
+      product_id: product.id,
       name: product.name,
       price: product.price,
       quantity: 1,
       image: product.avatar,
     }
 
-    const existingProductIndex = cartItems.findIndex((item: any) => item.id === product.id)
+    const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === product.id)
 
     if (existingProductIndex >= 0) {
       cartItems[existingProductIndex].quantity += 1

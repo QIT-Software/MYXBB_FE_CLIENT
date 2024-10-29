@@ -1,18 +1,17 @@
 import { Button } from '@/components/ui/Button/Button'
 import { TCartItem } from '@/types/types'
 import { useEffect, useState } from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
 
-const CheckoutSummary = () => {
+const CheckoutSummary = ({ isValid, loading }: any) => {
   const [cartItems, setCartItems] = useState<TCartItem[]>([])
   const [subtotal, setSubtotal] = useState(0)
   const [tax, setTax] = useState(0)
   const [total, setTotal] = useState(0)
-  const [paymentMethod, setPaymentMethod] = useState('check')
 
-  // Функція для підрахунку підсумків
   const updateSummary = (items: TCartItem[]) => {
     const newSubtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2)) // Податок 8.52%
+    const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
     const newTotal = parseFloat((newSubtotal + newTax).toFixed(2))
 
     setSubtotal(newSubtotal)
@@ -56,53 +55,14 @@ const CheckoutSummary = () => {
             </div>
           </div>
         </div>
-        {/* Payment Method */}
-        <div className='flex flex-col gap-4'>
-          <div className='flex flex-col gap-2'>
-            <label className='flex items-center gap-2'>
-              <input
-                type='radio'
-                name='paymentMethod'
-                value='check'
-                checked={paymentMethod === 'check'}
-                onChange={e => setPaymentMethod(e.target.value)}
-              />
-              <span>Check payments</span>
-            </label>
-            {paymentMethod === 'check' && (
-              <p className='text-sm text-gray-500'>
-                Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.
-              </p>
-            )}
-          </div>
-
-          <div className='flex flex-col gap-2'>
-            <label className='flex items-center gap-2'>
-              <input
-                type='radio'
-                name='paymentMethod'
-                value='creditCard'
-                checked={paymentMethod === 'creditCard'}
-                onChange={e => setPaymentMethod(e.target.value)}
-              />
-              <span>Credit Card</span>
-              <div className='flex gap-2'>
-                <img src='/path/to/visa-logo.png' alt='Visa' className='w-10 h-6' />
-                <img src='/path/to/mastercard-logo.png' alt='Mastercard' className='w-10 h-6' />
-                <img src='/path/to/amex-logo.png' alt='Amex' className='w-10 h-6' />
-              </div>
-            </label>
-            {paymentMethod === 'creditCard' && <p className='text-sm text-gray-500'>Pay securely using your credit card.</p>}
-          </div>
-        </div>
       </div>
 
       <Button
+        disabled={!isValid}
         variant={'redSubmit'}
         className='!py-4.5 !px-6 w-full bg-primary-hover-red text-white text-lg !h-max'
-        onClick={() => {}}
       >
-        Place order
+        {loading ? <ClipLoader size={24} color={'#fff'} /> : 'Place order'}
       </Button>
     </div>
   )

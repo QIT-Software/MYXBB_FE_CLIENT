@@ -17,13 +17,13 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
       </thead>
       <tbody>
         {cartItems.map((item: any) => (
-          <tr key={item.id} className='border-b'>
+          <tr key={item.product_id} className='border-b'>
             {/* Product */}
             <td className='py-[25px] px-[5px] flex text-[15px] items-center gap-4'>
               <MyxIcon
                 name='close'
                 className='size-5 text-secondary-dark-gray opacity-30 cursor-pointer'
-                onClick={() => onRemoveItem(item.id)}
+                onClick={() => onRemoveItem(item.product_id)}
               />
               <Image
                 src={'/images/slide-one.webp'}
@@ -41,11 +41,11 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
             <td className='text-primary-gray text-[15px] px-[5px] py-[25px]'>${item.price}</td>
             <td className='py-[25px] px-[5px] text-[15px]'>
               <div className='flex h-max items-center gap-2'>
-                <button className='border px-2 py-1' onClick={() => onQuantityChange(item.id, item.quantity - 1)}>
+                <button className='border px-2 py-1' onClick={() => onQuantityChange(item.product_id, item.quantity - 1)}>
                   -
                 </button>
                 <span>{item.quantity}</span>
-                <button className='border px-2 py-1' onClick={() => onQuantityChange(item.id, item.quantity + 1)}>
+                <button className='border px-2 py-1' onClick={() => onQuantityChange(item.product_id, item.quantity + 1)}>
                   +
                 </button>
               </div>
