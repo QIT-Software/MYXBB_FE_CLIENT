@@ -1,23 +1,103 @@
-import Image from 'next/image'
-import React from 'react'
-import Navigation from '../Navigation/Navigation'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+import Navigation from '../Navigation/Navigation'
+import { MyxIcon } from '../icons'
+import DropdownCart from '../DropdownCart/DropdownCart'
+import { getFromStorage, setToStorage } from '@/utils/storage'
 
 const Header = () => {
   const pathname = usePathname()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isDropdownVisible, setDropdownVisible] = useState(false)
+  const [cartItems, setCartItems] = useState([])
+  const [totalAmount, setTotalAmount] = useState(0)
 
-  if (pathname !== '/booking-more-than-six') {
-    return (
-      <div className='bg-primary-black flex flex-col gap-[3.5rem] pt-[4.375rem] items-center justify-center w-full h-[205px]'>
-        <div>
-          <Image src={'/images/site-logo.png'} alt='logo' width={220} height={50} />
-        </div>
-        <Navigation />
-      </div>
-    )
+  const handleMouseEnter = () => {
+    setDropdownVisible(true)
   }
 
-  return null
+  const handleMouseLeave = () => {
+    setDropdownVisible(false)
+  }
+
+  const removeItem = (id: string) => {
+    const updatedCartItems = cartItems.filter((item: any) => item.product_id !== id)
+    setCartItems(updatedCartItems)
+    // @ts-ignore
+    setToStorage('cart', updatedCartItems, true)
+
+    const total = updatedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
+    setTotalAmount(total)
+  }
+
+  useEffect(() => {
+    const storedCartItems = getFromStorage('cart', true) || []
+    setCartItems(storedCartItems)
+
+    const total = storedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
+    setTotalAmount(total)
+  }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50 && !pathname.includes('/profile'))
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  return (
+    <div className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white' : 'bg-primary-black'}`}>
+      <div className='w-full flex justify-center'>
+        <div
+          className={`max-w-[1200px] w-full py-2 text-white justify-end text-sm font-medium items-center ${
+            isScrolled ? 'hidden' : 'flex'
+          }`}
+        >
+          <div className='relative' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className='flex items-center cursor-pointer gap-[5px]'>
+              <MyxIcon name='shop' className='size-4' />
+              <div className='flex items-center gap-[2px] text-sm'>
+                {`$${totalAmount.toFixed(2)}`}
+                {cartItems.length > 0 && (
+                  <span className='ml-[5px] relative bg-red-500 text-white text-[8px] font-bold rounded h-[14px] w-[18px] flex items-center justify-center'>
+                    {cartItems.length}
+                    <span className='rotate-180 absolute top-1/2 left-[-4px] transform -translate-y-1/2 w-0 h-0 border-l-[4px] border-l-red-500 border-y-[4px] border-y-transparent' />
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {isDropdownVisible && (
+              <DropdownCart
+                cartItems={cartItems}
+                totalAmount={totalAmount}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                removeItem={removeItem}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      <div
+        className={`flex flex-col items-center  w-full  ${
+          isScrolled
+            ? 'gap-[1.75rem] h-[186px] pt-[2.188rem] justify-between'
+            : ' justify-center gap-[3.5rem] h-[205px] pt-[4.375rem]'
+        } transition-all duration-300`}
+      >
+        <div>
+          <Image src={isScrolled ? '/images/logo-black-text.webp' : '/images/site-logo.png'} alt='logo' width={250} height={40} />
+        </div>
+        <Navigation isScrolled={isScrolled} />
+      </div>
+    </div>
+  )
 }
 
 export default Header

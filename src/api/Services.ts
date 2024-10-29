@@ -8,6 +8,25 @@ export const servicesApi = mainApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getProducts: builder.query({
+      query: ({ is_for_shop = false, category = '', ordering = '' }) => {
+        const params = new URLSearchParams()
+        if (category) params.append('category', category)
+        if (is_for_shop) params.append('is_for_shop', is_for_shop.toString())
+        if (ordering) params.append('ordering', ordering)
+
+        return {
+          url: `/orders/merch/?${params.toString()}`,
+          method: 'GET',
+        }
+      },
+    }),
+    getSelectedMerch: builder.query({
+      query: ({ id, data }) => ({
+        url: `/orders/merch/${id}/`,
+        method: 'GET',
+      }),
+    }),
     getLocations: builder.query({
       query: () => ({
         url: '/user/stores/',
@@ -18,4 +37,4 @@ export const servicesApi = mainApi.injectEndpoints({
   }),
 })
 
-export const { useGetServicesQuery, useGetLocationsQuery } = servicesApi
+export const { useGetServicesQuery, useGetLocationsQuery, useGetProductsQuery, useGetSelectedMerchQuery } = servicesApi

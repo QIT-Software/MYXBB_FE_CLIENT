@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Suave';
+  src: url('/fonts/Suave.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -82,5 +89,52 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .suave-text {
+    font-family: 'Suave', sans-serif;
+  }
+
+  .custom-carousel .carousel .control-dots {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 30px;
+    bottom: 20%;
+    transform: translateY(-50%);
+    gap: 15px;
+  }
+
+  .custom-carousel .carousel .control-dots .dot {
+    background: rgba(255, 255, 255, 0.5); /* Прозорий колір для крапок */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .custom-carousel .carousel .control-dots .dot.selected {
+    background: rgba(255, 255, 255, 1); /* Більш яскравий білий колір для активної крапки */
+  }
+
+  .shop-link-gradient {
+    background-color: #2a2a2a;
+    color: white;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.01) 100%);
+    background-repeat: repeat-x;
+  }
+
+  .snap-container {
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+  }
+
+  .snap-block {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
   }
 }

@@ -16,12 +16,18 @@ import { Button } from '@/components/ui/Button/Button'
 import DetailsStep from './steps/DetailsStep/DetailsStep'
 import TimeStep from './steps/TimeStep/TimeStep'
 import FinalStep from './steps/FInalStep/FinalStep'
+import ClipLoader from 'react-spinners/ClipLoader'
+import { cn } from '@/lib/utils'
 
-const FaceForm = () => {
+type TFaceForm = {
+  isFace?: boolean
+}
+const FaceForm = ({ isFace }: TFaceForm) => {
   const { data: states, isSuccess } = useGetStatesQuery({})
   const [currentStep, setCurrentStep] = useState(0)
-  const [addCustomer, { data: customer, isSuccess: isSuccessCustomer }] = useAddCustomerMutation()
-  const [createAppointment, { data }] = useCreateAppointmentMutation()
+  const [addCustomer, { data: customer, isSuccess: isSuccessCustomer, isLoading: isCreateCustomerLoading }] =
+    useAddCustomerMutation()
+  const [createAppointment, { data, isLoading: isAppointmentLoading }] = useCreateAppointmentMutation()
 
   const {
     register,
@@ -56,25 +62,31 @@ const FaceForm = () => {
         date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
         contact_info: {
           ...data.contact_info,
+          billing_address: {},
+          is_shipping_address_equals_billing: true,
           birthdate: data.contact_info.birthdate ? format(new Date(data.contact_info.birthdate), 'yyyy-MM-dd') : undefined,
         },
       }
-      delete updatedData.confirm_email
 
-      await addCustomer({ data: updatedData.contact_info }).unwrap()
-      if (isSuccessCustomer) {
+      delete updatedData.confirm_email
+      const customerResponse = await addCustomer({ data: updatedData.contact_info }).unwrap()
+      if (customerResponse) {
         const appointmentData = {
           date: updatedData.date,
           time: updatedData.time,
           total_number_of_persons: updatedData.total_number_of_persons,
           location: updatedData.location,
           service: updatedData.service,
-          customer: customer?.id,
+          customer: customerResponse.id,
         }
+
         await createAppointment({ data: appointmentData }).unwrap()
+
         setCurrentStep(3)
       }
-    } catch (err: any) {}
+    } catch (err: any) {
+      console.error('Error during submission: ', err)
+    }
   }
 
   // Handle next step
@@ -135,12 +147,14 @@ const FaceForm = () => {
       <div className='flex flex-col font-bold items-center gap-[1.6rem] text-[1.063rem] text-primary-black'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            {currentStep === 0 && <ServiceStep control={control} setValue={setValue} errors={errors} />}
-            {currentStep === 1 && <TimeStep watch={watch} setValue={setValue} register={register} errors={errors} />}
+            {currentStep === 0 && <ServiceStep isFace={isFace} control={control} setValue={setValue} errors={errors} />}
+            {currentStep === 1 && (
+              <TimeStep isFace={isFace} watch={watch} setValue={setValue} register={register} errors={errors} />
+            )}
             {currentStep === 2 && (
               <DetailsStep register={register} errors={errors} watch={watch} setValue={setValue} control={control} />
             )}
-            {currentStep === 3 && <FinalStep />}
+            {currentStep === 3 && <FinalStep isFace={isFace} />}
           </div>
           {currentStep !== 3 && (
             <div className='flex justify-around pt-10'>
@@ -148,7 +162,9 @@ const FaceForm = () => {
                 <Button
                   type='button'
                   onClick={handleBackStep}
-                  className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] px-[2.063rem] !py-[0.563rem]'
+                  className={cn('uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] px-[2.063rem] !py-[0.563rem]', {
+                    'bg-primary-status-red': isFace,
+                  })}
                 >
                   Back
                 </Button>
@@ -157,7 +173,6 @@ const FaceForm = () => {
                 <Button
                   type='button'
                   onClick={handleNextStep}
-                  disabled={!isValid}
                   className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] bg-primary-status-red px-[2.063rem] !py-[0.563rem] disabled:opacity-50'
                 >
                   Next
@@ -167,7 +182,7 @@ const FaceForm = () => {
                   type='submit'
                   className='uppercase !rounded h-[39px] !text-lg !leading-[1.063rem] bg-primary-status-red px-[2.063rem] !py-[0.563rem]'
                 >
-                  Submit
+                  {isAppointmentLoading || isCreateCustomerLoading ? <ClipLoader size={24} color={'#fff'} /> : 'Submit'}
                 </Button>
               )}
             </div>

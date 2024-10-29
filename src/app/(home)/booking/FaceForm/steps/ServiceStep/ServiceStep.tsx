@@ -1,6 +1,7 @@
 import { useGetLocationsQuery, useGetServicesQuery } from '@/api/Services'
 import { DatePicker } from '@/components/DatePicker/DatePicker'
 import Label from '@/components/ui/Label/Label'
+import { cn } from '@/lib/utils'
 import { TLocation, TOption } from '@/types/types'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -13,14 +14,16 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
     width: '176px',
     minHeight: '40px',
     marginTop: '0',
+    display: 'flex',
+    alignItems: 'center',
   }),
   valueContainer: (provided, state) => ({
     ...provided,
     height: '40px',
     display: 'flex',
-    // flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
   }),
   input: (provided, state) => ({
     ...provided,
@@ -35,18 +38,22 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   singleValue: (provided, state) => ({
     ...provided,
     fontSize: '14px',
+    fontWeight: 400,
+    color: '#808288',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    maxWidth: '100%',
+    maxWidth: 'calc(100% - 20px)',
   }),
   placeholder: (provided, state) => ({
     ...provided,
     fontSize: '14px',
+    fontWeight: 400,
+    color: '#808288',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    maxWidth: '100%',
+    maxWidth: 'calc(100% - 20px)',
   }),
   indicatorsContainer: (provided, state) => ({
     ...provided,
@@ -59,7 +66,13 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   option: (provided, state) => ({
     ...provided,
     fontSize: '14px',
+    fontWeight: 400,
+    color: '#808288', // Колір тексту залишається
     padding: '10px',
+    backgroundColor: state.isSelected ? 'red' : 'white', // Червоний фон для вибраного елемента
+    ':hover': {
+      backgroundColor: 'lightgray', // Фон при наведенні
+    },
   }),
   indicatorSeparator: () => ({
     display: 'none',
@@ -70,6 +83,7 @@ type TServiceStepProps = {
   control: any
   setValue: any
   errors: any
+  isFace: boolean | undefined
 }
 
 const personCountOptions: TOption[] = [
@@ -81,12 +95,16 @@ const personCountOptions: TOption[] = [
   { label: '6', value: 6 },
 ]
 
-const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
+const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) => {
   const { data: servicesList } = useGetServicesQuery({})
   const { data: locations } = useGetLocationsQuery({})
 
   const [services, setServices] = useState<TOption[]>([])
+  const [myxServices, setMyxServices] = useState<TOption[]>([])
+  const [faceServices, setFaceServices] = useState<TOption[]>([])
   const [stores, setStores] = useState<TOption[]>([])
+
+  const selectServices = isFace ? myxServices : faceServices
 
   useEffect(() => {
     if (locations) {
@@ -96,21 +114,28 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
       }))
       setStores(transformedLocations)
     }
+
     if (servicesList) {
       const transformedServices = servicesList.results.map((service: any) => ({
         label: service.title,
         value: service.id,
       }))
-      setServices(transformedServices)
+
+      const myxFilteredServices = transformedServices.filter((service: any) => !service.label.startsWith('Face'))
+      const faceFilteredServices = transformedServices.filter((service: any) => service.label.startsWith('Face'))
+
+      setMyxServices(myxFilteredServices)
+      setFaceServices(faceFilteredServices)
     }
   }, [locations, servicesList])
-
   return (
     <div className='flex flex-col gap-[1.688rem]'>
       <div className='flex flex-col items-center gap-10 pt-6'>
-        <div className='text-[1.063rem] text-primary-black'>PLEASE SELECT A PACKAGE</div>
+        <div className={cn('text-[1.063rem] text-primary-black', { 'text-primary-status-red': isFace })}>
+          PLEASE SELECT A PACKAGE
+        </div>
         <Link href={'/booking-more-than-six'} className='text-sm text-primary-status-red leading-[1.6rem] underline'>
-          Booking more than 6?
+          Booking more than 10?
         </Link>
       </div>
       <div className='flex gap-[0.875rem] w-[34.125rem]'>
@@ -141,8 +166,8 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
               <Select
                 {...field}
                 styles={customStyles}
-                value={services.find(option => option.value === field.value)}
-                options={services}
+                value={selectServices.find(option => option.value === field.value)}
+                options={selectServices}
                 placeholder='Select service'
                 onChange={option => field.onChange((option as TOption)?.value)}
               />
@@ -178,6 +203,7 @@ const ServiceStep = ({ control, setValue, errors }: TServiceStepProps) => {
             defaultValue={null}
             render={({ field }) => (
               <DatePicker
+                calendarRed
                 value={field.value}
                 onChange={field.onChange}
                 placeholder='MM/DD/YYYY'

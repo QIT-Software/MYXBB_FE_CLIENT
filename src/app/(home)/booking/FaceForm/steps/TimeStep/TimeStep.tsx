@@ -3,7 +3,7 @@ import RedCalender from '@/components/RedCalendar/RedCalendar'
 import Calendar from '@/components/ui/Calendar/Calendar'
 import { RadioGroup } from '@/components/ui/RadioGroup/radio-group'
 import { cn } from '@/lib/utils'
-import { format } from 'date-fns'
+import { format, isBefore, startOfDay } from 'date-fns'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -12,10 +12,12 @@ type TTimeStep = {
   setValue: any
   register: any
   errors: any
+  isFace?: boolean
 }
-const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
+const TimeStep = ({ watch, setValue, errors, isFace }: TTimeStep) => {
   const selectedDate = watch('date')
   const selectedTime = watch('time')
+  const today = startOfDay(new Date())
 
   const location = watch('location')
   const service = watch('service')
@@ -38,7 +40,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col gap-4 items-center mb-[3.125rem]'>
-        <div className='text-center text-sm text-primary-gray'>
+        <div className={cn('text-center text-sm text-primary-gray', { 'text-primary-status-red': isFace })}>
           Below you can find a list of available time slots for FACE MYX MUSE.
           <br /> Click on a time slot to proceed with your reservation.
           <br /> *Don&apos;t see a spot? Please call
@@ -53,6 +55,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
       <div>
         <div className='flex gap-10'>
           <RedCalender
+            disabled={(date: any) => isBefore(startOfDay(date), today)}
             selected={selectedDate}
             onSelect={(date: Date) => {
               setValue('date', date)
@@ -82,7 +85,7 @@ const TimeStep = ({ watch, setValue, errors }: TTimeStep) => {
                     >
                       {selectedTime === time && <div className='w-3 h-3 bg-red-500 rounded-full'></div>}
                     </div>
-                    <div className='text-sm font-normal'>{time}</div>
+                    <div className='text-xs font-normal'>{time}</div>
                   </div>
                 ))
               ) : (

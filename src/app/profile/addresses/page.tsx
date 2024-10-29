@@ -58,23 +58,19 @@ const AddressBookPage = () => {
     defaultValues: {
       is_shipping_address_equals_billing: false,
       billing_address: {
-        firstName: '',
-        lastName: '',
         address: '',
         region: '',
         state: '',
         city: '',
-        zipCode: '',
+        zip_code: '',
         apartment: '',
       },
       shipping_address: {
-        firstName: '',
-        lastName: '',
         address: '',
         region: '',
         state: '',
         city: '',
-        zipCode: '',
+        zip_code: '',
         apartment: '',
       },
     },
@@ -166,23 +162,6 @@ const AddressBookPage = () => {
         {showShippingForm && (
           <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
             <div>
-              <Label required text='First name' />
-              <Input
-                placeholder='First name'
-                {...register('shipping_address.firstName', { required: 'First name is required' })}
-              />
-              {errors?.shipping_address?.firstName && (
-                <span className='text-red-500'>{errors.shipping_address.firstName.message}</span>
-              )}
-            </div>
-            <div>
-              <Label text='Last name' required />
-              <Input placeholder='Last name' {...register('shipping_address.lastName', { required: 'Last name is required' })} />
-              {errors?.shipping_address?.lastName && (
-                <span className='text-red-500'>{errors.shipping_address.lastName.message}</span>
-              )}
-            </div>
-            <div>
               <Label required text='Address' />
               <Input
                 placeholder='Street address'
@@ -250,7 +229,7 @@ const AddressBookPage = () => {
               <Label text='Zip code' required />
               <Input
                 placeholder='Zip code'
-                {...register('shipping_address.zipCode', {
+                {...register('shipping_address.zip_code', {
                   pattern: {
                     value: /^[0-9-]+$/,
                     message: 'Zip code must contain only numbers and dashes',
@@ -265,8 +244,8 @@ const AddressBookPage = () => {
                   },
                 })}
               />
-              {errors?.shipping_address?.zipCode && (
-                <span className='text-red-500'>{errors.shipping_address.zipCode.message}</span>
+              {errors?.shipping_address?.zip_code && (
+                <span className='text-red-500'>{errors.shipping_address.zip_code.message}</span>
               )}
             </div>
             <div className='w-full flex gap-2 items-center'>
@@ -313,18 +292,6 @@ const AddressBookPage = () => {
 
       {showBillingForm && (
         <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
-          <div>
-            <Label required text='First name' />
-            <Input placeholder='First name' {...register('billing_address.firstName', { required: 'First name is required' })} />
-            {errors?.billing_address?.firstName && (
-              <span className='text-red-500'>{errors.billing_address.firstName.message}</span>
-            )}
-          </div>
-          <div>
-            <Label required text='Last name' />
-            <Input placeholder='Last name' {...register('billing_address.lastName', { required: 'Last name is required' })} />
-            {errors?.billing_address?.lastName && <span className='text-red-500'>{errors.billing_address.lastName.message}</span>}
-          </div>
           <div>
             <Label required text='Address' />
             <Input placeholder='Street address' {...register('billing_address.address', { required: 'Address is required' })} />
@@ -388,7 +355,7 @@ const AddressBookPage = () => {
             <Label required text='Zip code' />
             <Input
               placeholder='Zip code'
-              {...register('billing_address.zipCode', {
+              {...register('billing_address.zip_code', {
                 pattern: {
                   value: /^[0-9-]+$/,
                   message: 'Zip code must contain only numbers and dashes',
@@ -403,7 +370,7 @@ const AddressBookPage = () => {
                 },
               })}
             />
-            {errors?.billing_address?.zipCode && <span className='text-red-500'>{errors?.billing_address?.zipCode.message}</span>}
+            {errors?.billing_address?.zip_code && <span className='text-red-500'>{errors?.billing_address?.zip_code.message}</span>}
           </div>
           <div className='col-span-2 flex gap-4'>
             <Button type='submit'>Save</Button>

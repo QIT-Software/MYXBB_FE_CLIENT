@@ -26,7 +26,7 @@ const BookingPage = () => {
           </div>
           <div className='flex flex-col gap-[1.125rem] items-center'>
             <div className='text-[3rem] text-white font-light uppercase'>RESERVE YOUR SPOT</div>
-            <FaceForm />
+            <FaceForm isFace />
           </div>
         </div>
       </div>
@@ -36,12 +36,15 @@ const BookingPage = () => {
           style={{ backgroundImage: "url('/images/booking-btn-one.webp')" }}
         >
           <div className='flex items-center flex-col gap-[0.625rem]'>
-            <div className='text-[2.188rem] font-light'>BOOKING MORE THAN 6?</div>
-            <div className='text-[0.938rem] font-normal'>To book parties of 6 or more please click the button below</div>
+            <div className='text-[2.188rem] font-light'>BOOKING MORE THAN 10?</div>
+            <div className='text-[0.938rem] font-normal'>To book parties of 10 or more please click the button below</div>
           </div>
-          <Button variant='red' className='!rounded-none w-[8.871rem] text-[0.738rem] font-medium	py-[1.25rem] px-[2.625rem]'>
+          <Link
+            href={'/booking-more-than-six'}
+            className='bg-primary-red text-white flex items-center justify-center hover:bg-primary-black !rounded-none w-[8.871rem] text-[0.738rem] h-[50px] font-medium	!py-[1.25rem] px-[2.625rem]'
+          >
             Click Here
-          </Button>
+          </Link>
         </div>
         <div
           className='py-[15px] pt-[2.188rem] h-[15.75rem] w-1/2 bg-cover items-center flex flex-col gap-10'
@@ -51,9 +54,12 @@ const BookingPage = () => {
             <div className='text-[2.188rem] font-light'>MYX POP UP EXPERIENCE</div>
             <div className='text-[0.938rem] font-normal'>Book MYX for your event!</div>
           </div>
-          <Button variant='red' className='!rounded-none w-[8.871rem] text-[0.738rem] font-medium	py-[1.25rem] px-[2.625rem]'>
+          <Link
+            href={'/myx-pop-up'}
+            className='bg-primary-red text-white flex items-center justify-center hover:bg-primary-black !rounded-none w-[8.871rem] text-[0.738rem] h-[50px] font-medium	!py-[1.25rem] px-[2.625rem]'
+          >
             Click Here
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

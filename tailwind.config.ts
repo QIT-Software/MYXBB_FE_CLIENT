@@ -35,6 +35,7 @@ const config = {
           black: '#000000',
           brown: '#CFAE8B',
           gray: '#8B8D94',
+          'hover-red': '#ff5544',
           'status-red': '#DD3333',
         },
         secondary: {
@@ -45,6 +46,7 @@ const config = {
           red: '#F9DCCB',
           hover: '#e72d3a',
           black: '#232323',
+          'black-hover': '#1b1b1b',
           blue: '#DCDCF9',
           white: '#F5F5F5',
           lightGreen: '#E6F3E6',
@@ -59,6 +61,10 @@ const config = {
           gray: '#CCCCCC',
           'dark-gray': '#333333',
           'light-gray': '#EEEEEE',
+          'light-blue': '#2ABEEB',
+        },
+        red: {
+          100: '#e64232',
         },
         system: {
           error: '#EE5555',
@@ -66,8 +72,11 @@ const config = {
           primary: '#1865C3',
         },
         gray: {
+          25: '#f6f6f6',
           50: '#1865C3',
+          75: '#FDF9F9',
           100: '#D9D9D9',
+          125: '#a4a4a4',
           150: '#E9ECEF',
           200: '#BCBCBC',
           250: '#EFEFEF',
@@ -81,6 +90,15 @@ const config = {
           650: '#4D4D4D',
           700: '#4D4D4E',
           800: '#BEC3C7',
+          850: '#808288',
+          900: '#B4b5bb',
+          950: '#2e3033',
+          975: '#394244',
+          1000: '#85868c',
+        },
+        experience: {
+          25: '#fdf9f9',
+          50: '#e83734',
         },
       },
       borderRadius: {

@@ -8,7 +8,7 @@ const AboutSection = () => {
       <div className='flex flex-col gap-15 items-center pb-[5.625rem]'>
         <div className='flex flex-col gap-5'>
           <div className='flex flex-col gap-4 items-center'>
-            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light'>About MYX Blend bar</div>
+            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text'>About MYX Blend bar</div>
             <div className='w-[78px] border-2 border-secondary-main-red'></div>
           </div>
           <div className='text-gray-700 text-lg'>
@@ -23,21 +23,33 @@ const AboutSection = () => {
           Learn More
         </Link>
       </div>
-      <div className='flex w-full bg-white'>
+      <div className='flex w-full bg-white h-[770px]'>
         <Link
           href={'/'}
           style={{ backgroundImage: "url('/images/about-link-four.webp')" }}
-          className='w-1/2 bg-cover bg-center bg-no-repeat'
-        ></Link>
+          className='relative w-1/2 bg-cover bg-center bg-no-repeat'
+        >
+          <div className='w-full flex flex-col gap-[2.188rem] text-white absolute items-center left-1/2 -translate-x-1/2  bottom-[50%] translate-y-1/2'>
+            <div className='flex flex-col'>
+              <div className='w-full text-center suave-text font-light uppercase text-5xl tracking-[2.5px]'>MYXPERIENCE</div>
+              <div className='max-w-[455px] w-full text-[21px] text-white text-center leading-[48px]'>
+                Each MYXperience is tailored to you! Create your perfect custom lip product today!
+              </div>
+            </div>
+            <div className='cursor-pointer text-xs text-white uppercase max-w-[337px] w-full bg-white/25 hover:bg-white/50 py-[20px] px-[29px] rounded-[55px]'>
+              <div className='text-xs font-black text-white tracking-[4px]'>Explore the MYXperience</div>
+            </div>
+          </div>
+        </Link>
         <div className='p-[2.188rem] flex flex-col gap-[2.188rem] w-1/2'>
-          <div className='flex flex-row gap-8 w-full'>
+          <div className='flex flex-row gap-8 w-full max-h-[250px] h-full'>
             <Link
               href={'/'}
               className='relative w-1/2 h-[15.625rem] hover:scale-[1.03] h-full bg-cover bg-center bg-no-repeat'
               style={{ backgroundImage: "url('/images/about-link-one.webp')" }}
             >
-              <div className='w-full flex flex-col text-white uppercase text-[28px] tracking-[2.5px] font-light absolute left-1/2 -translate-x-1/2  bottom-[20px]'>
-                <div className='w-full text-center'>
+              <div className='w-full flex flex-col text-white uppercase text-2xl tracking-[2.5px] font-light absolute left-1/2 -translate-x-1/2  bottom-[20px]'>
+                <div className='w-full text-center suave-text'>
                   Choose Your <br /> MYX
                 </div>
               </div>
@@ -47,8 +59,8 @@ const AboutSection = () => {
               className='relative w-1/2 hover:scale-[1.03] h-[15.625rem] h-full bg-cover bg-center bg-no-repeat'
               style={{ backgroundImage: "url('/images/about-link-two.webp')" }}
             >
-              <div className='flex flex-col text-white uppercase text-[28px] tracking-[2.5px] font-light absolute left-[20px] bottom-[20px]'>
-                <div className='w-full text-center'>MYX It Up</div>
+              <div className='flex flex-col text-white uppercase text-2xl tracking-[2.5px] font-light absolute left-[20px] bottom-[20px]'>
+                <div className='w-full text-center suave-text'>MYX It Up</div>
               </div>
             </Link>
           </div>
@@ -57,8 +69,8 @@ const AboutSection = () => {
             className='relative h-[415px] hover:scale-[1.03] bg-cover bg-center bg-no-repeat'
             style={{ backgroundImage: "url('/images/about-link-three.webp')" }}
           >
-            <div className='flex flex-col text-white uppercase text-[28px] tracking-[2.5px] font-light absolute left-[20px] bottom-[20px]'>
-              <div className='w-full text-center'>Make it yours</div>
+            <div className='flex flex-col text-white uppercase text-2xl tracking-[2.5px] font-light absolute left-[20px] bottom-[20px]'>
+              <div className='w-full text-center suave-text'>Make it yours</div>
             </div>
           </Link>
         </div>

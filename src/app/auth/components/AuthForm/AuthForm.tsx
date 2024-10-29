@@ -78,7 +78,6 @@ const AuthForm = () => {
   const handleGoogleSignup = async () => {
     try {
       const response = await googleAuth({}).unwrap()
-      console.log(response, 'test')
       router.push(`${response.google_login_link}`)
     } catch (err: any) {}
   }

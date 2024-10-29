@@ -7,7 +7,6 @@ import { Button } from '../ui/Button/Button'
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog'
 
 const OrderCard = ({ order }: any) => {
-  console.log(order, 'order')
   const [detailView, setDetailView] = useState(false)
   return (
     <div className='border p-4 border-gray-200 rounded'>

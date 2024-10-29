@@ -11,7 +11,7 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Myx merch',
-    link: '/merch',
+    link: '/booking/shop-custom',
   },
   {
     name: 'About us',
@@ -19,11 +19,11 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Account',
-    link: '/account',
+    link: '/auth',
   },
   {
-    name: 'Card',
-    link: '/card',
+    name: 'Cart',
+    link: '/booking/cart',
   },
 ]
 
@@ -38,11 +38,11 @@ export const mainNavigationLinks: TNavigationLinks = [
   },
   {
     name: 'MYXperience ',
-    link: '/experience',
+    link: '/myxperience',
   },
   {
     name: 'Myx Merch',
-    link: '/merch',
+    link: '/booking/shop-custom',
   },
   {
     name: 'Contact',

@@ -38,6 +38,13 @@ export const appointmentsApi = mainApi.injectEndpoints({
         body: data,
       }),
     }),
+    createPopUpInquiry: builder.mutation({
+      query: ({ data }) => ({
+        url: `appointment/email-form/pop-up-inquiry/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
     getTimeSlots: builder.query({
       query: ({ date = '', location = '', service = '', party_size = '' }) => {
         const params = new URLSearchParams()
@@ -52,14 +59,23 @@ export const appointmentsApi = mainApi.injectEndpoints({
       },
       providesTags: [{ type: 'Appointments', id: 'LIST' }],
     }),
+    createOrder: builder.mutation({
+      query: ({ data }) => ({
+        url: `orders/orders/checkout/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
 export const {
+  useCreateOrderMutation,
   useGetCustomBlendsQuery,
   useGetTimeSlotsQuery,
   usePatchSelectedAppointmentMutation,
   useCreateAppointmentMutation,
   useCreateAppointmentRequestMutation,
   useAddCustomerMutation,
+  useCreatePopUpInquiryMutation,
 } = appointmentsApi

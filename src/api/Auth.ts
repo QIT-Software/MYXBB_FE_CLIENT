@@ -4,8 +4,6 @@ import { mainApi } from './index'
 import { saveAuthToken } from './utils/SaveToken'
 import { store } from '@/redux/store'
 import { setUserProfile, setUserRole } from '@/redux/slices/user/userSlice'
-import { set } from 'date-fns'
-import { send } from 'process'
 
 export const authApi = mainApi.injectEndpoints({
   endpoints: builder => ({
@@ -28,6 +26,7 @@ export const authApi = mainApi.injectEndpoints({
         }
       },
       transformResponse: saveAuthToken,
+      invalidatesTags: ['Profile'],
     }),
     reset: builder.mutation({
       query: data => {
@@ -119,6 +118,13 @@ export const authApi = mainApi.injectEndpoints({
       },
       invalidatesTags: ['Profile'],
     }),
+    contactForm: builder.mutation({
+      query: data => ({
+        url: `/appointment/email-form/contact/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
@@ -127,6 +133,7 @@ export const {
   useConfirmPasswordMutation,
   useResetMutation,
   useGetProfileQuery,
+  useLazyGetProfileQuery,
   usePatchProfileMutation,
   usePatchAvatarMutation,
   useSignupMutation,
@@ -134,4 +141,5 @@ export const {
   useLazyFacebookAuthQuery,
   useFacebookTokenMutation,
   useSocialAuthMutation,
+  useContactFormMutation,
 } = authApi

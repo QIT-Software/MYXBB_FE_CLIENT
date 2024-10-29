@@ -9,10 +9,12 @@ import { Textarea } from '@/components/ui/Textarea/Textarea'
 import { TLocation, TOption } from '@/types/types'
 import { MaskedInput } from 'antd-mask-input'
 import { format } from 'date-fns'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import Select, { StylesConfig } from 'react-select'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -49,6 +51,9 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   }),
   placeholder: (provided, state) => ({
     ...provided,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: '14px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -95,7 +100,7 @@ const BookingMoreThanSixPage = () => {
     },
     mode: 'onChange',
   })
-  const [createAppointmentRequest, { isSuccess }] = useCreateAppointmentRequestMutation()
+  const [createAppointmentRequest, { isSuccess, isLoading }] = useCreateAppointmentRequestMutation()
   const { data: locations } = useGetLocationsQuery({})
 
   const [stores, setStores] = useState<TOption[]>([])
@@ -136,238 +141,248 @@ const BookingMoreThanSixPage = () => {
       }
 
       await createAppointmentRequest({ data: updatedData }).unwrap()
-      if (isSuccess) {
-        reset()
-        router.push('/booking')
-      }
+      reset()
     } catch (err: any) {}
   }
 
   return (
     <div className='flex flex-col items-center pt-[4.375rem]'>
       <div className='flex flex-col gap-[3.625rem] pb-[2.575rem]'>
-        <h1 className='text-[3.063rem] text-secondary-dark-gray'>Booking More Than 6?</h1>
-        <div className='text-xl font-bold text-secondary-dark-gray'>
-          Booking More Than 6? Fill out the form below or call us at
-        </div>
+        <h1 className='text-[3.063rem] text-secondary-dark-gray suave-text'>Booking More Than 10?</h1>
+        <div className='text-xl font-bold text-secondary-dark-gray text-center'>Fill out the form below or call us at</div>
       </div>
 
       <div className='flex items-center justify-center pb-[4.5rem] gap-7'>
         <div className='text-[3.063rem] text-secondary-dark-gray flex flex-col items-center'>
-          <div>Dallas</div>
-          <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
-            (972)-349-9599
-          </Button>
+          <div className='suave-text'>Dallas</div>
+          <Link href={'tel:(972)-349-9599'}>
+            <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
+              (972)-349-9599
+            </Button>
+          </Link>
         </div>
         <div className='text-[3.063rem] text-secondary-dark-gray flex flex-col items-center'>
-          <div>Houston</div>
-          <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
-            (713)-393-7262
-          </Button>
+          <div className='suave-text'>Houston</div>
+          <Link href={'tel:(713)-393-7262'}>
+            <Button variant={'red'} className='bg-primary-status-red py-5 px-[2.813rem]'>
+              (713)-393-7262
+            </Button>
+          </Link>
         </div>
       </div>
 
       <div className='flex justify-center pb-[7rem] w-full max-w-[51.563rem]'>
         <form className='flex flex-col items-center w-full gap-6' onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex items-end gap-[2.188rem] w-full'>
-            <div className='flex flex-col gap-1 w-full '>
-              <Label text='Name' required className='text-primary-gray text-base font-bold' />
-              <Input
-                error={errors.first_name}
-                className='h-10 border-secondary-gray'
-                id='first_name'
-                {...register('first_name', {
-                  required: 'First name is required',
-                  minLength: {
-                    value: 2,
-                    message: 'First name must be at least 2 characters long',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: 'First name must be no longer than 30 characters',
-                  },
-                  pattern: {
-                    value: /^[^\s](.*[^\s])?$/,
-                    message: 'First name cannot start or end with a space',
-                  },
-                })}
-              />
-              <span className='text-primary-gray capitalize text-[13px]'>First</span>
+          {isSuccess ? (
+            <div className='w-full p-4 border border-secondary-darkGreen bg-secondary-lightGreen text-secondary-darkGreen'>
+              Thank for contacting us! We will be in touch with you shortly
             </div>
-            <div className='flex flex-col gap-1 w-full'>
-              <Input
-                error={errors.last_name}
-                className='h-10 border-secondary-gray'
-                id='last_names'
-                {...register('last_name', {
-                  required: 'First name is required',
-                  minLength: {
-                    value: 2,
-                    message: 'Last name must be at least 2 characters long',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: 'Last name must be no longer than 30 characters',
-                  },
-                  pattern: {
-                    value: /^[^\s](.*[^\s])?$/,
-                    message: 'Last name cannot start or end with a space',
-                  },
-                })}
-              />
-              <span className='text-primary-gray capitalize text-[13px]'>Last</span>
-            </div>
-          </div>
-          <div className='flex flex-col gap-1  w-full'>
-            <Label text='Email' required className='text-primary-gray text-base font-bold' />
-            <Input
-              error={errors?.email}
-              type='email'
-              id='email'
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: 'Please enter a valid email address',
-                },
-                validate: value => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
-              })}
-              className={`h-10 mt-1 block w-full px-3 py-2 border border-secondary-gray focus:outline-none sm:text-sm ${
-                errors?.email ? 'border-red-500' : ''
-              }`}
-            />
-          </div>
-          <div className='flex flex-col gap-1 w-full'>
-            <Label text='Phone' required className='text-primary-gray text-base font-bold' />
-            <Controller
-              name='phone'
-              control={control}
-              rules={{
-                required: 'Phone number is required',
-                pattern: {
-                  value: /^[0-9+\s()-]+$/,
-                  message:
-                    'Please enter a valid phone number containing only numbers, spaces, parentheses, dashes, and the plus sign',
-                },
-                maxLength: {
-                  value: 20,
-                  message: 'Phone number must be at most 20 characters long',
-                },
-              }}
-              render={({ field }) => (
-                <MaskedInput
-                  {...field}
-                  mask='+1 (000) 000-0000'
-                  id='phone'
-                  className='flex h-10 w-full border-secondary-gray border px-3 py-3 text-base outline-none mt-1 border-gray-300 focus:outline-none'
-                />
-              )}
-            />
-          </div>
-          <div className='flex items-end gap-[2.188rem] w-full'>
-            <div className='w-full flex flex-col gap-1'>
-              <Label text='Reservation Date & Time' required className='text-primary-gray text-base font-bold' />
-              <Controller
-                name='date'
-                control={control}
-                //@ts-ignore
-                defaultValue={null}
-                render={({ field }) => (
-                  <DatePicker
-                    showIcon={false}
-                    value={field.value}
-                    onChange={field.onChange}
+          ) : (
+            <>
+              <div className='flex items-end gap-[2.188rem] w-full'>
+                <div className='flex flex-col gap-1 w-full '>
+                  <Label text='Name' required className='text-primary-gray text-base font-bold' />
+                  <Input
+                    error={errors.first_name}
                     className='h-10 border-secondary-gray'
-                    formatType='MM/dd/yyyy'
+                    id='first_name'
+                    {...register('first_name', {
+                      required: 'First name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'First name must be at least 2 characters long',
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: 'First name must be no longer than 30 characters',
+                      },
+                      pattern: {
+                        value: /^[^\s](.*[^\s])?$/,
+                        message: 'First name cannot start or end with a space',
+                      },
+                    })}
+                  />
+                  <span className='text-primary-gray capitalize text-[13px]'>First</span>
+                </div>
+                <div className='flex flex-col gap-1 w-full'>
+                  <Input
+                    error={errors.last_name}
+                    className='h-10 border-secondary-gray'
+                    id='last_names'
+                    {...register('last_name', {
+                      required: 'First name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'Last name must be at least 2 characters long',
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: 'Last name must be no longer than 30 characters',
+                      },
+                      pattern: {
+                        value: /^[^\s](.*[^\s])?$/,
+                        message: 'Last name cannot start or end with a space',
+                      },
+                    })}
+                  />
+                  <span className='text-primary-gray capitalize text-[13px]'>Last</span>
+                </div>
+              </div>
+              <div className='flex flex-col gap-1  w-full'>
+                <Label text='Email' required className='text-primary-gray text-base font-bold' />
+                <Input
+                  error={errors?.email}
+                  type='email'
+                  id='email'
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Please enter a valid email address',
+                    },
+                    validate: value => /^[^\u0400-\u04FF]+$/.test(value) || 'Email must not contain Cyrillic characters',
+                  })}
+                  className={`h-10 mt-1 block w-full px-3 py-2 border border-secondary-gray focus:outline-none sm:text-sm ${
+                    errors?.email ? 'border-red-500' : ''
+                  }`}
+                />
+              </div>
+              <div className='flex flex-col gap-1 w-full'>
+                <Label text='Phone' required className='text-primary-gray text-base font-bold' />
+                <Controller
+                  name='phone'
+                  control={control}
+                  rules={{
+                    required: 'Phone number is required',
+                    pattern: {
+                      value: /^[0-9+\s()-]+$/,
+                      message:
+                        'Please enter a valid phone number containing only numbers, spaces, parentheses, dashes, and the plus sign',
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: 'Phone number must be at most 20 characters long',
+                    },
+                  }}
+                  render={({ field }) => (
+                    <MaskedInput
+                      {...field}
+                      mask='+1 (000) 000-0000'
+                      id='phone'
+                      className='flex h-10 w-full border-secondary-gray border px-3 py-3 text-base outline-none mt-1 border-gray-300 focus:outline-none'
+                    />
+                  )}
+                />
+              </div>
+              <div className='flex items-end gap-[2.188rem] w-full'>
+                <div className='w-full flex flex-col gap-1'>
+                  <Label text='Reservation Date & Time' required className='text-primary-gray text-base font-bold' />
+                  <Controller
+                    name='date'
+                    control={control}
                     //@ts-ignore
-                    disablePast={true}
+                    defaultValue={null}
+                    render={({ field }) => (
+                      <DatePicker
+                        placeholder=''
+                        showIcon={false}
+                        value={field.value}
+                        onChange={field.onChange}
+                        className='h-10 border-secondary-gray'
+                        formatType='MM/dd/yyyy'
+                        //@ts-ignore
+                        disablePast={true}
+                      />
+                    )}
+                    rules={{ required: 'Date is required' }}
                   />
-                )}
-                rules={{ required: 'Date is required' }}
-              />
-              <span className='text-primary-gray capitalize text-[13px]'>Date</span>
-              {errors?.date && <span className='text-red-500'>{errors.date.message}</span>}
-            </div>
-            <div className='w-full flex flex-col gap-1'>
-              <Controller
-                name={'time'}
-                control={control}
-                rules={{
-                  required: 'Start time is required',
-                }}
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    styles={customStyles}
-                    value={timeSlots.find(option => option.value === field.value)}
-                    options={timeSlots}
-                    placeholder='Select time'
-                    onChange={option => field.onChange((option as TOption)?.value)}
+                  <span className='text-primary-gray capitalize text-[13px]'>Date</span>
+                  {errors?.date && <span className='text-red-500'>{errors.date.message}</span>}
+                </div>
+                <div className='w-full flex flex-col gap-1'>
+                  <Controller
+                    name={'time'}
+                    control={control}
+                    rules={{
+                      required: 'Start time is required',
+                    }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        styles={customStyles}
+                        value={timeSlots.find(option => option.value === field.value)}
+                        options={timeSlots}
+                        placeholder='Select time'
+                        onChange={option => field.onChange((option as TOption)?.value)}
+                      />
+                    )}
                   />
-                )}
-              />
-              <span className='text-primary-gray capitalize text-[13px]'>Time</span>
-            </div>
-          </div>
-          <div className='flex flex-col gap-6 w-full'>
-            <div className='max-w-[30.938rem] w-full flex flex-col gap-1 '>
-              <Label text='Location' required className='text-primary-gray text-base font-bold' />
-              <Controller
-                name='location'
-                control={control}
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    styles={customStyles}
-                    value={stores.find(option => option.value === field.value)}
-                    options={stores}
-                    onChange={option => field.onChange((option as TOption)?.value)}
+                  <span className='text-primary-gray capitalize text-[13px]'>Time</span>
+                </div>
+              </div>
+              <div className='flex flex-col gap-6 w-full'>
+                <div className='max-w-[30.938rem] w-full flex flex-col gap-1 '>
+                  <Label text='Location' required className='text-primary-gray text-base font-bold' />
+                  <Controller
+                    name='location'
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        styles={customStyles}
+                        value={stores.find(option => option.value === field.value)}
+                        options={stores}
+                        onChange={option => field.onChange((option as TOption)?.value)}
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors?.location && <span className='text-red-500'>{errors.location.message}</span>}
-            </div>
-            <div className='max-w-[30.938rem] w-full flex flex-col gap-1 '>
-              <Label text='Size of party' required className='text-primary-gray text-base font-bold' />
-              <Input
-                error={errors.party_size}
-                className='h-10 w-full border-secondary-gray'
-                id='party_size'
-                {...register('party_size', {
-                  required: 'First name is required',
-                  minLength: {
-                    value: 2,
-                    message: 'First name must be at least 2 characters long',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: 'First name must be no longer than 30 characters',
-                  },
-                  pattern: {
-                    value: /^[^\s](.*[^\s])?$/,
-                    message: 'First name cannot start or end with a space',
-                  },
-                })}
-              />
-              {errors?.party_size && <span className='text-red-500'>{errors.party_size.message}</span>}
-            </div>
-            <div className='w-full flex flex-col gap-1'>
-              <Label text='Comment or Message' className='text-primary-gray text-base font-bold' />
-              <Textarea
-                {...register('comment')}
-                className='w-full h-[100px] p-2 border border-secondary-gray rounded-md resize-none outline-none focus:ring-1 focus:ring-transparent resize-y	'
-              />
-            </div>
-          </div>
+                  {errors?.location && <span className='text-red-500'>{errors.location.message}</span>}
+                </div>
+                <div className='max-w-[30.938rem] w-full flex flex-col gap-1 '>
+                  <Label text='Size of party' required className='text-primary-gray text-base font-bold' />
+                  <Input
+                    error={errors.party_size}
+                    className='h-10 w-full border-secondary-gray'
+                    id='party_size'
+                    {...register('party_size', {
+                      required: 'First name is required',
+                      minLength: {
+                        value: 2,
+                        message: 'First name must be at least 2 characters long',
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: 'First name must be no longer than 30 characters',
+                      },
+                      pattern: {
+                        value: /^[^\s](.*[^\s])?$/,
+                        message: 'First name cannot start or end with a space',
+                      },
+                    })}
+                  />
+                  {errors?.party_size && <span className='text-red-500'>{errors.party_size.message}</span>}
+                </div>
+                <div className='w-full flex flex-col gap-1'>
+                  <Label text='Comment or Message' className='text-primary-gray text-base font-bold' />
+                  <Textarea
+                    {...register('comment')}
+                    className='w-full h-[100px] p-2 border border-secondary-gray rounded-md resize-none outline-none focus:ring-1 focus:ring-transparent resize-y	'
+                  />
+                </div>
+              </div>
+            </>
+          )}
 
           <div className='flex flex-col w-full gap-[2.188rem]'>
+            {!isSuccess && (
+              <div>
+                <Button className='text-secondary-dark-gray bg-secondary-light-gray hover:bg-secondary-gray !text-base '>
+                  {isLoading ? <ClipLoader size={24} color={'#fff'} /> : 'Submit'}
+                </Button>
+              </div>
+            )}
             <div>
-              <Button className='text-secondary-dark-gray bg-secondary-light-gray hover:bg-secondary-gray !text-base '>
-                Submit
-              </Button>
-            </div>
-            <div>
-              <p className='text-primary-gray'>*Credit card is required for parties of 6 or more to confirm reservation</p>
+              <p className='text-primary-gray'>*Credit card is required for parties of 10 or more to confirm reservation</p>
             </div>
           </div>
         </form>
