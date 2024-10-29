@@ -41,6 +41,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-select": "^5.8.0",
     "react-spinners": "^0.14.1",
+    "react-square-web-payments-sdk": "^3.2.1",
+    "square": "^38.2.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
