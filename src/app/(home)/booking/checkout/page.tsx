@@ -432,7 +432,8 @@ const CheckoutPage = () => {
                         type='text'
                         className={`${
                           errors?.auth?.phone ? 'border-red-500' : ''
-                        } flex h-[50px] w-full rounded-md border px-3 py-3 text-base outline-none mt-1 border-gray-300 focus:outline-none focus-visible:outline-none focus:border-none`}
+                        } flex h-[50px] w-full rounded-md border px-3 py-3 text-base outline-none
+                          mt-1 border-gray-300 focus:outline-none focus-visible:outline-none focus:border-none`}
                       />
                     )}
                   />
