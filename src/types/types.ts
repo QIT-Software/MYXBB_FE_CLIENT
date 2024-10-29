@@ -106,6 +106,24 @@ export type TProfileDetails = {
   birthdate: string
   orders: any[]
   appointments: any[]
+  billing_address?: {
+    region: string
+    state: string
+    city: string
+    address: string
+    zip_code: string
+    full_address: string
+    apartment: string
+  }
+  shipping_address?: {
+    region: string
+    state: string
+    city: string
+    address: string
+    zip_code: string
+    full_address: string
+    apartment: string
+  }
 }
 
 export type TPasswordChange = {
