@@ -1,3 +1,4 @@
+import DropdownCart from '@/components/DropdownCart/DropdownCart'
 import { Button } from '@/components/ui/Button/Button'
 import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 import { TProduct } from '@/types/types'
@@ -5,6 +6,7 @@ import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 
 type TProductListCardProps = {
@@ -34,6 +36,7 @@ const ProductListCard = ({ product }: TProductListCardProps) => {
 
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
+    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
   return (
     <div className='flex w-full h-[300px]'>

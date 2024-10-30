@@ -25,7 +25,7 @@ const CustomShopPage = () => {
           {/* primary item */}
           <div className='flex justify-center items-center max-w-[1200px] w-full gap-7'>
             <div className='flex w-1/2'>
-              <Image src={'/images/auth-bg.webp'} alt='custom shop' width={585} height={585} />
+              <Image src={'/images/main-product.webp'} alt='custom shop' width={585} height={585} />
             </div>
             <div className='w-1/2 flex flex-col gap-[2.188rem] text-center'>
               <div className='flex flex-col gap-2.5'>
@@ -37,7 +37,7 @@ const CustomShopPage = () => {
                 </p>
               </div>
               <div className='flex items-center justify-center'>
-                <ShopButton link='/' />
+                <ShopButton link='/booking/shop/0cf14051-82a4-4001-b3e1-70df85a904dc' />
               </div>
             </div>
           </div>

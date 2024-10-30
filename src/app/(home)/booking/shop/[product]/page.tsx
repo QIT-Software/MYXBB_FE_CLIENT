@@ -5,6 +5,7 @@ import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/RelatedProductCard'
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
+import DropdownCart from '@/components/DropdownCart/DropdownCart'
 import { MyxIcon } from '@/components/icons'
 import { Input } from '@/components/ui/Input/Input'
 import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
@@ -13,6 +14,7 @@ import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import Select, { StylesConfig } from 'react-select'
 
@@ -101,6 +103,7 @@ const ProductPage = () => {
 
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
+    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
 
   const paths = [
@@ -165,6 +168,12 @@ const ProductPage = () => {
                   </div>
                 ) : (
                   <div className='flex flex-col gap-3'>
+                    <Select
+                      styles={customStyles}
+                      value={shippingStateOptions.find((option: TOption) => option.value === selectedValue?.toString()) || null}
+                      options={shippingStateOptions}
+                      onChange={option => handleSelectChange(option as TOption)}
+                    />
                     <div>
                       <Input
                         value={recipientEmail}
@@ -175,13 +184,6 @@ const ProductPage = () => {
                       />
                       {emailError && <p className='text-red-500 text-sm mt-1'>{emailError}</p>}
                     </div>
-
-                    <Select
-                      styles={customStyles}
-                      value={shippingStateOptions.find((option: TOption) => option.value === selectedValue?.toString()) || null}
-                      options={shippingStateOptions}
-                      onChange={option => handleSelectChange(option as TOption)}
-                    />
                   </div>
                 )}
                 <button

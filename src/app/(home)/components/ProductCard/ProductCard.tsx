@@ -5,7 +5,7 @@ import { TProduct } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 
@@ -14,6 +14,18 @@ type TProductCardProps = {
 }
 const ProductCard = ({ product }: TProductCardProps) => {
   const dispatch = useDispatch()
+
+  const [isHovered, setIsHovered] = useState(false) // Стан для відстеження наведення
+
+  const handleMouseEnter = () => {
+    if (product.pictures && product.pictures[0]?.picture) {
+      setIsHovered(true) // Активуємо стан наведення, якщо є додаткове зображення
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false) // Деактивуємо стан наведення
+  }
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -43,8 +55,20 @@ const ProductCard = ({ product }: TProductCardProps) => {
   return (
     <div className='flex flex-col items-center gap-[15px]'>
       <Link href={`/booking/shop/${product?.id}`} className='max-w-[18.625rem] w-full relative'>
-        <div className='w-[295px] h-[295px] overflow-hidden flex items-center justify-center'>
-          <Image src={product?.avatar} alt='custom shop' width={295} height={295} className='object-cover' />
+        <div
+          className='w-[295px] h-[295px] overflow-hidden flex items-center justify-center'
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Image
+            // @ts-ignore
+            src={isHovered ? product?.pictures[0]?.picture : product.avatar}
+            alt='custom shop'
+            width={295}
+            height={295}
+            className='object-cover duration-500 ease-in-out'
+            style={{ opacity: isHovered ? 0.8 : 1 }}
+          />
         </div>
         <div
           onClick={handleAddToCart}
