@@ -14,10 +14,7 @@ import { useGetStatesQuery } from '@/api/Locations'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
 import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary'
 import { useCreateOrderMutation } from '@/api/Appointments'
-import { Button } from '@/components/ui/Button/Button'
-import { useLoginMutation, useSignupMutation } from '@/api/Auth'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
-import toast from 'react-hot-toast'
+import { useGetProfileQuery, useLoginMutation, useSignupMutation } from '@/api/Auth'
 import { getUser } from '@/redux/slices/user/selectors'
 import { useSelector } from 'react-redux'
 import { getFromStorage, removeFromStorage } from '@/utils/storage'
@@ -52,6 +49,7 @@ const CheckoutPage = () => {
   const profile = useSelector(getUser)
   const [showDifferentAddress, setShowDifferentAddress] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [auth, setAuth] = useState(false)
   const [signup] = useSignupMutation()
   const [createOrder] = useCreateOrderMutation()
   const [login, { isLoading: loginLoading }] = useLoginMutation()
@@ -194,7 +192,7 @@ const CheckoutPage = () => {
       setValue('shipping_address.address', '')
       setValue('shipping_address.zip_code', '')
       setValue('shipping_address.apartment', '')
-      clearErrors('shipping_address') 
+      clearErrors('shipping_address')
     }
     trigger()
   }
@@ -254,9 +252,11 @@ const CheckoutPage = () => {
             <>
               <div className='text-secondary-dark-gray'>
                 Returning customer?{' '}
-                <span className='cursor-pointer text-primary-hover-red hover:underline'>Click here to login</span>
+                <span onClick={() => setAuth(!auth)} className='cursor-pointer text-primary-hover-red hover:underline'>
+                  Click here to login
+                </span>
               </div>
-              <CheckoutAuth login={login} loginLoading={loginLoading} />
+              {auth && <CheckoutAuth login={login} loginLoading={loginLoading} />}
             </>
           )}
           <div className='text-secondary-dark-gray'>
