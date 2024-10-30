@@ -65,7 +65,7 @@ const ContactPage = () => {
         <div className='flex flex-col max-w-[500px] w-full items-center gap-8'>
           <h1 className='suave-text text-gray-700 text-[30px] uppercase tracking-[6px]'>Contact Form</h1>
           {!isSuccess ? (
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center justify-between h-full '>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 w-full items-center justify-between '>
               <div className='w-full flex flex-col gap-6'>
                 <Input
                   error={errors.name}
@@ -116,7 +116,7 @@ const ContactPage = () => {
               </div>
               <Button
                 type='submit'
-                className='!h-max max-w-max bg-primary-red hover:bg-primary-black text-white text-[10px] tracking-[3px] uppercase rounded-t-[25px] py-[23px] px-[75px]'
+                className='!h-max max-w-max bg-primary-red hover:bg-primary-black text-white text-[10px] tracking-[3px] uppercase rounded-[25px] py-[23px] px-[75px]'
               >
                 <p>Submit</p>
               </Button>
