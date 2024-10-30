@@ -293,23 +293,13 @@ const ProfilePage = () => {
                         placeholder='Current Password'
                         type={showCurrentPassword ? 'text' : 'password'}
                         //@ts-ignore
-                        {...register('current_password', {
-                          required: 'Password is required',
-                          maxLength: {
-                            value: 20,
-                            message: 'Password must be less than 20 characters',
-                          },
-                          minLength: {
-                            value: 8,
-                            message: 'Password must be at least 8 characters',
-                          },
-                          validate: (value: any) => {
-                            if (!/[^\u0400-\u04FF]/.test(value)) {
-                              return 'Please verify that you are entering the correct password.'
-                            }
-                            if (/\s/.test(value)) {
-                              return 'Password must not contain spaces'
-                            }
+                        {...registerPassword('current_password', {
+                          required: 'Current password is required',
+                          minLength: { value: 8, message: 'Password must be at least 8 characters long' },
+                          validate: value => {
+                            if (!/[A-Z]/.test(value)) return 'Password must contain at least one uppercase letter'
+                            if (!/[0-9]/.test(value)) return 'Password must contain at least one number'
+                            if (!/[!@*]/.test(value)) return 'Password must contain at least one symbol (!@*)'
                             return true
                           },
                         })}
