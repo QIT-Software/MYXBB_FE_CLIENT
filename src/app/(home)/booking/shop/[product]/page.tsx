@@ -44,11 +44,31 @@ const ProductPage = () => {
   const isGiftCard = selectedProduct?.category === 'gift_cards'
 
   const [quantity, setQuantity] = useState(1)
+  const [recipientEmail, setRecipientEmail] = useState('')
+  const [emailError, setEmailError] = useState<string | null>(null)
 
   const increaseQuantity = () => setQuantity(prev => prev + 1)
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(prev => prev - 1)
+    }
+  }
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  // Функція для обробки зміни поля
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value
+    setRecipientEmail(email)
+
+    // Валідація електронної пошти
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address')
+    } else {
+      setEmailError(null) // Очищаємо помилку, якщо email валідний
     }
   }
 
@@ -58,7 +78,9 @@ const ProductPage = () => {
     const productToAdd = {
       product_id: selectedProduct.id,
       name: selectedProduct.name,
-      price: selectedProduct.price,
+      gift_card_item_price: isGiftCard ? selectedValue : null,
+      gift_card_recipient_email: isGiftCard ? recipientEmail : null,
+      price: isGiftCard ? null : selectedProduct.price,
       quantity: quantity,
       image: selectedProduct.avatar,
     }
@@ -94,7 +116,7 @@ const ProductPage = () => {
   const [selectedValue, setSelectedValue] = useState<number | null>(50)
 
   const handleSelectChange = (option: TOption | null) => {
-    const value = option ? parseInt(option.value, 10) : null
+    const value = option ? parseInt(option.value as string, 10) : null
     setSelectedValue(value)
   }
 
@@ -136,11 +158,17 @@ const ProductPage = () => {
                   </div>
                 ) : (
                   <div className='flex flex-col gap-3'>
-                    <Input
-                      placeholder='Enter email for gift card'
-                      className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+                    <div>
+                      <Input
+                        value={recipientEmail}
+                        onChange={handleChange}
+                        placeholder='Enter email for gift card'
+                        className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
                          focus:outline-none`}
-                    />
+                      />
+                      {emailError && <p className='text-red-500 text-sm mt-1'>{emailError}</p>}
+                    </div>
+
                     <Select
                       styles={customStyles}
                       value={shippingStateOptions.find((option: TOption) => option.value === selectedValue?.toString()) || null}
