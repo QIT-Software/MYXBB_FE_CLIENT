@@ -47,6 +47,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1)
   const [recipientEmail, setRecipientEmail] = useState('')
   const [emailError, setEmailError] = useState<string | null>(null)
+  const disabledCart = isGiftCard ? !recipientEmail || emailError : false
 
   const increaseQuantity = () => setQuantity(prev => prev + 1)
   const decreaseQuantity = () => {
@@ -178,7 +179,12 @@ const ProductPage = () => {
                     />
                   </div>
                 )}
-                <button className='bg-primary-red text-white px-6 py-2 font-bold' onClick={handleAddToCart}>
+                <button
+                  //@ts-ignore
+                  disabled={disabledCart}
+                  className='bg-primary-red text-white px-6 py-2 font-bold disabled:opacity-20'
+                  onClick={handleAddToCart}
+                >
                   Add to cart
                 </button>
               </div>

@@ -66,10 +66,18 @@ export const appointmentsApi = mainApi.injectEndpoints({
         body: data,
       }),
     }),
+    addReview: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `orders/merch/${id}/create-review/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
 export const {
+  useAddReviewMutation,
   useCreateOrderMutation,
   useGetCustomBlendsQuery,
   useGetTimeSlotsQuery,
