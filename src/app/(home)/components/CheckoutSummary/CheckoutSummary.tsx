@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button/Button'
+import { taxes } from '@/constants/taxes'
 import { TCartItem } from '@/types/types'
 import { useEffect, useState } from 'react'
 import ClipLoader from 'react-spinners/ClipLoader'
@@ -10,9 +11,10 @@ const CheckoutSummary = ({ isValid, loading }: any) => {
   const [total, setTotal] = useState(0)
 
   const updateSummary = (items: TCartItem[]) => {
-    const newSubtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
+    const newSubtotal = items.reduce((acc, item) => acc + price(item) * item.quantity, 0)
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-    const newTotal = parseFloat((newSubtotal + newTax).toFixed(2))
+    const newTotal = parseFloat((newSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
 
     setSubtotal(newSubtotal)
     setTax(newTax)
@@ -37,7 +39,7 @@ const CheckoutSummary = ({ isValid, loading }: any) => {
                   <span className='text-primary-gray'>
                     {item.name} × {item.quantity}
                   </span>
-                  <span className='text-gray-900'>${item.price}</span>
+                  <span className='text-gray-900'>${item.price || item?.gift_card_item_price?.toFixed(2)}</span>
                 </div>
               </div>
             ))}

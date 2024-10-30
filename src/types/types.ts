@@ -225,6 +225,7 @@ export type TCartItem = {
   price: number
   quantity: number
   image: string
+  gift_card_item_price?: number
 }
 
 export type TContactForm = {

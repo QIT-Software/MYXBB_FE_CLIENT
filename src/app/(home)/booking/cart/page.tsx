@@ -9,6 +9,7 @@ import { getFromStorage } from '@/utils/storage'
 import { TCartItem, TProduct } from '@/types/types'
 import { Button } from '@/components/ui/Button/Button'
 import Link from 'next/link'
+import { taxes } from '@/constants/taxes'
 
 const CartPage = () => {
   const router = useRouter()
@@ -29,9 +30,11 @@ const CartPage = () => {
   }, [])
 
   const updateSummary = (items: TCartItem[]) => {
-    const newSubtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
+    const newSubtotal = items.reduce((acc, item) => acc + price(item) * item.quantity, 0)
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-    const newTotal = parseFloat((newSubtotal + newTax).toFixed(2))
+    const shippingCost = 7.5 // Вартість доставки
+    const newTotal = parseFloat((newSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
 
     setSubtotal(newSubtotal)
     setTax(newTax)
