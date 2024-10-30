@@ -5,15 +5,43 @@ import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/Relat
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
 import { MyxIcon } from '@/components/icons'
+import { Input } from '@/components/ui/Input/Input'
+import { TOption } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
+import Select, { StylesConfig } from 'react-select'
+
+const customStyles: StylesConfig<{ value: string | number; label: string }> = {
+  control: (provided, state) => ({
+    ...provided,
+    minHeight: '42px',
+    marginTop: '0',
+  }),
+  valueContainer: (provided, state) => ({
+    ...provided,
+    height: '42px',
+    display: 'flex',
+    alignItems: 'center',
+  }),
+  input: (provided, state) => ({
+    ...provided,
+    height: '42px',
+    padding: '0',
+    margin: '0',
+  }),
+  indicatorsContainer: (provided, state) => ({
+    ...provided,
+    height: '42px',
+  }),
+}
 
 const ProductPage = () => {
   const params = useParams()
   const product = params.product
   const { data: selectedProduct } = useGetSelectedMerchQuery({ id: product })
+  const isGiftCard = selectedProduct?.category === 'gift_cards'
 
   const [quantity, setQuantity] = useState(1)
 
@@ -56,6 +84,20 @@ const ProductPage = () => {
     { label: selectedProduct?.name, href: '#' },
   ]
 
+  const availableOptions = [50, 80, 150, 200]
+
+  const shippingStateOptions = availableOptions.map(value => ({
+    value: value.toString(),
+    label: `$${value}`,
+  }))
+
+  const [selectedValue, setSelectedValue] = useState<number | null>(50)
+
+  const handleSelectChange = (option: TOption | null) => {
+    const value = option ? parseInt(option.value, 10) : null
+    setSelectedValue(value)
+  }
+
   return (
     <div className='h-auto'>
       <BreadCrumbs paths={paths} title={selectedProduct?.name} />
@@ -70,23 +112,43 @@ const ProductPage = () => {
               <h1 className='text-[1.938rem] text-secondary-dark-gray font-bold suave-text'>{selectedProduct?.name}</h1>
 
               <div className='flex flex-col gap-[15px] w-max'>
-                <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>${selectedProduct?.price}</div>
+                {isGiftCard ? (
+                  <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>$50.00 - $200.00</div>
+                ) : (
+                  <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>${selectedProduct?.price}</div>
+                )}
 
-                <div className='border-t border-primary-hover-red w-full'></div>
+                <div className='border-t border-primary-hover-red w-full max-w-[60px]'></div>
               </div>
 
-              <div className='text-primary-gray'>{selectedProduct?.description}</div>
+              {!isGiftCard && <div className='text-primary-gray'>{selectedProduct?.description}</div>}
 
-              <div className='flex items-center gap-4'>
-                <div className='flex items-center border border-gray-300 px-2'>
-                  <button onClick={decreaseQuantity} className='px-2 text-xl'>
-                    -
-                  </button>
-                  <span className='px-4'>{quantity}</span>
-                  <button onClick={increaseQuantity} className='px-2 text-xl'>
-                    +
-                  </button>
-                </div>
+              <div className={`flex gap-4 ${isGiftCard ? 'flex-col' : 'items-center'}`}>
+                {!isGiftCard ? (
+                  <div className='flex items-center border border-gray-300 px-2'>
+                    <button onClick={decreaseQuantity} className='px-2 text-xl'>
+                      -
+                    </button>
+                    <span className='px-4'>{quantity}</span>
+                    <button onClick={increaseQuantity} className='px-2 text-xl'>
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <div className='flex flex-col gap-3'>
+                    <Input
+                      placeholder='Enter email for gift card'
+                      className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+                         focus:outline-none`}
+                    />
+                    <Select
+                      styles={customStyles}
+                      value={shippingStateOptions.find((option: TOption) => option.value === selectedValue?.toString()) || null}
+                      options={shippingStateOptions}
+                      onChange={option => handleSelectChange(option as TOption)}
+                    />
+                  </div>
+                )}
                 <button className='bg-primary-red text-white px-6 py-2 font-bold' onClick={handleAddToCart}>
                   Add to cart
                 </button>
@@ -94,7 +156,7 @@ const ProductPage = () => {
 
               <div className='text-primary-gray text-sm capitalize'>Category: {selectedProduct?.category}</div>
 
-              <div className='flex flex-col gap-2.5'>
+              {/* <div className='flex flex-col gap-2.5'>
                 <div className='text-secondary-dark-gray font-bold'>Share this product</div>
                 <div className='flex gap-1'>
                   <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
@@ -113,12 +175,12 @@ const ProductPage = () => {
                     <MyxIcon name='facebookShare' className='size-4' />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className='flex flex-col gap-[60px]'>
             <ReviewForm product={selectedProduct} />
-            <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.product_id} />
+            {!isGiftCard && <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.product_id} />}
           </div>
         </div>
       </div>
