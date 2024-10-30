@@ -1,15 +1,23 @@
+import DropdownCart from '@/components/DropdownCart/DropdownCart'
 import { MyxIcon } from '@/components/icons'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 import { TProduct } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import toast from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
 
 type TProductCardProps = {
   product: TProduct
 }
 const ProductCard = ({ product }: TProductCardProps) => {
-  const handleAddToCart = () => {
+  const dispatch = useDispatch()
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     const cartItems = getFromStorage('cart', true) || []
 
     const productToAdd = {
@@ -29,16 +37,18 @@ const ProductCard = ({ product }: TProductCardProps) => {
     }
 
     setToStorage('cart', cartItems, true)
+    dispatch(triggerCartUpdate())
+    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
   return (
     <div className='flex flex-col items-center gap-[15px]'>
       <Link href={`/booking/shop/${product?.id}`} className='max-w-[18.625rem] w-full relative'>
         <div className='w-[295px] h-[295px] overflow-hidden flex items-center justify-center'>
           <Image src={product?.avatar} alt='custom shop' width={295} height={295} className='object-cover' />
-        </div>{' '}
+        </div>
         <div
           onClick={handleAddToCart}
-          className='absolute bottom-0 right-0 h-8 w-8 bg-primary-hover-red text-white rounded-full flex items-center m-0 hover:w-[106px] hover:px-2 transition-all duration-300 hover:bg-red-500 overflow-hidden'
+          className='absolute bottom-0 right-0 p-2 h-8 w-8 bg-primary-hover-red text-white rounded-full flex items-center justify-center'
         >
           {/* <span className='ml-2 transition-opacity duration-300 text-xs font-bold opacity-0 group-hover:opacity-100'>
               Add to cart

@@ -5,6 +5,8 @@ import Navigation from '../Navigation/Navigation'
 import { MyxIcon } from '../icons'
 import DropdownCart from '../DropdownCart/DropdownCart'
 import { getFromStorage, setToStorage } from '@/utils/storage'
+import { useDispatch, useSelector } from 'react-redux'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 
 const Header = () => {
   const pathname = usePathname()
@@ -12,6 +14,11 @@ const Header = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [totalAmount, setTotalAmount] = useState(0)
+
+  const dispatch = useDispatch()
+
+  // Отримуємо тригер зі стану
+  const cartTrigger = useSelector((state: any) => state.user.cartTrigger)
 
   const handleMouseEnter = () => {
     setDropdownVisible(true)
@@ -31,6 +38,7 @@ const Header = () => {
 
     const total = updatedCartItems.reduce((sum: any, item: any) => sum + price(item) * item.quantity, 0)
     setTotalAmount(total)
+    dispatch(triggerCartUpdate())
   }
 
   useEffect(() => {
@@ -39,7 +47,7 @@ const Header = () => {
 
     const total = storedCartItems.reduce((sum: any, item: any) => sum + price(item) * item.quantity, 0)
     setTotalAmount(total)
-  }, [])
+  }, [cartTrigger])
 
   useEffect(() => {
     const handleScroll = () => {

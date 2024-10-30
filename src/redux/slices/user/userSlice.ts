@@ -1,9 +1,16 @@
 import { TProfileDetails, TUserState } from '@/types/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState: TUserState = {
+interface UserState {
+  profile: TProfileDetails | null
+  role: string | null
+  cartTrigger: boolean // Додаємо тригер для оновлення кошика
+}
+
+const initialState: UserState = {
   profile: null,
   role: null,
+  cartTrigger: false, // Ініціалізуємо тригер
 }
 
 const userSlice = createSlice({
@@ -20,8 +27,11 @@ const userSlice = createSlice({
       state.profile = null
       state.role = null
     },
+    triggerCartUpdate(state) {
+      state.cartTrigger = !state.cartTrigger
+    },
   },
 })
 
-export const { setUserProfile, setUserRole, clearUserProfile } = userSlice.actions
+export const { setUserProfile, setUserRole, clearUserProfile, triggerCartUpdate } = userSlice.actions
 export default userSlice.reducer

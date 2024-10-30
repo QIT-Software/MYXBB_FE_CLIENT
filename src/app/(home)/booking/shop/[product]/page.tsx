@@ -7,11 +7,13 @@ import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProd
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
 import { MyxIcon } from '@/components/icons'
 import { Input } from '@/components/ui/Input/Input'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 import { TOption } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Select, { StylesConfig } from 'react-select'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
@@ -40,6 +42,8 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
 
 const ProductPage = () => {
   const params = useParams()
+  const dispatch = useDispatch()
+
   const product = params.product
   const { data: selectedProduct } = useGetSelectedMerchQuery({ id: product })
   const isGiftCard = selectedProduct?.category === 'gift_cards'
@@ -96,6 +100,7 @@ const ProductPage = () => {
     }
 
     setToStorage('cart', cartItems, true)
+    dispatch(triggerCartUpdate())
   }
 
   const paths = [

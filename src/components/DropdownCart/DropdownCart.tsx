@@ -6,12 +6,14 @@ import { useRouter } from 'next/navigation'
 
 type TDropdownCartProps = {
   cartItems: any[]
-  totalAmount: number
-  onMouseEnter: () => void
-  onMouseLeave: () => void
-  removeItem: (id: string) => void
+  totalAmount?: number
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
+  removeItem?: (id: string) => void
+  isShortView?: boolean
+  t?: any
 }
-const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, removeItem }: TDropdownCartProps) => {
+const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, removeItem, isShortView, t }: TDropdownCartProps) => {
   const router = useRouter()
   return (
     <div
@@ -31,11 +33,14 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
                   width={60}
                   height={60}
                 />
-                <MyxIcon
-                  name='close'
-                  className='cursor-pointer absolute left-0 top-0 size-3.5 bg-primary-black text-white rounded-full'
-                  onClick={() => removeItem(item.product_id)} // Викликаємо функцію видалення
-                />
+                {!isShortView && (
+                  <MyxIcon
+                    name='close'
+                    className='cursor-pointer absolute left-0 top-0 size-3.5 bg-primary-black text-white rounded-full'
+                    // @ts-ignore
+                    onClick={() => removeItem(item.product_id)}
+                  />
+                )}
               </div>
               <div className='flex flex-col gap-[5px] text-[15px] text-gray-1000'>
                 <span>{item.name}</span>
@@ -46,10 +51,12 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
             </div>
           ))}
           <div className='flex flex-col gap-[15px]'>
-            <div className='flex gap-[2px] text-[15px] text-gray-1000'>
-              <span>Subtotal: </span>
-              <span>${totalAmount.toFixed(2)}</span>
-            </div>
+            {!isShortView && (
+              <div className='flex gap-[2px] text-[15px] text-gray-1000'>
+                <span>Subtotal: </span>
+                <span>${totalAmount && totalAmount.toFixed(2)}</span>
+              </div>
+            )}
 
             <div className='flex gap-2'>
               <Button

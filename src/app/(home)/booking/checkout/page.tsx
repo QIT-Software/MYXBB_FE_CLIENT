@@ -269,8 +269,8 @@ const CheckoutPage = () => {
           <div className='flex w-full gap-[60px]'>
             <div className='flex w-1/2 flex-col gap-4'>
               <div className='flex flex-col gap-6'>
-                <div className='flex justify-between'>
-                  <div className='flex flex-col gap-2'>
+                <div className='flex gap-3 items-center justify-between'>
+                  <div className='flex w-full flex-col'>
                     <Label text='First name *' className='text-secondary-dark-gray text-[15px] !font-normal' />
                     <Input
                       error={errors?.auth?.first_name}
@@ -296,7 +296,7 @@ const CheckoutPage = () => {
                     />
                     {errors?.auth?.first_name && <span className='text-red-500 text-xs'>{errors?.auth.first_name.message}</span>}
                   </div>
-                  <div className='flex flex-col gap-1'>
+                  <div className='flex w-full flex-col'>
                     <Label text='Last name' className='text-secondary-dark-gray text-[15px] !font-normal' />
                     <Input
                       error={errors?.auth?.last_name}

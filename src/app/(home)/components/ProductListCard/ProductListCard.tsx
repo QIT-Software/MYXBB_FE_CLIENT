@@ -1,14 +1,18 @@
 import { Button } from '@/components/ui/Button/Button'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 import { TProduct } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 type TProductListCardProps = {
   product: TProduct
 }
 const ProductListCard = ({ product }: TProductListCardProps) => {
+  const dispatch = useDispatch()
+
   const handleAddToCart = () => {
     const cartItems = getFromStorage('cart', true) || []
 
@@ -29,6 +33,7 @@ const ProductListCard = ({ product }: TProductListCardProps) => {
     }
 
     setToStorage('cart', cartItems, true)
+    dispatch(triggerCartUpdate())
   }
   return (
     <div className='flex w-full h-[300px]'>
