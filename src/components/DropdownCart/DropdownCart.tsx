@@ -34,13 +34,13 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
                 <MyxIcon
                   name='close'
                   className='cursor-pointer absolute left-0 top-0 size-3.5 bg-primary-black text-white rounded-full'
-                  onClick={() => removeItem(item.id)} // Викликаємо функцію видалення
+                  onClick={() => removeItem(item.product_id)} // Викликаємо функцію видалення
                 />
               </div>
               <div className='flex flex-col gap-[5px] text-[15px] text-gray-1000'>
                 <span>{item.name}</span>
                 <span className='text-gray-1000 opacity-50'>
-                  {item.quantity} × ${item.price}
+                  {item.quantity} × ${item.price || item.gift_card_item_price.toFixed(2)}
                 </span>
               </div>
             </div>
@@ -59,7 +59,11 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
               >
                 View Cart
               </Button>
-              <Button variant={'redSubmit'} className='text-xs  !py-2 !px-[14px] h-max'>
+              <Button
+                onClick={() => router.push('/booking/checkout')}
+                variant={'redSubmit'}
+                className='text-xs  !py-2 !px-[14px] h-max'
+              >
                 Checkout
               </Button>
             </div>

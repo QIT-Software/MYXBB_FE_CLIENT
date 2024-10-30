@@ -21,13 +21,15 @@ const Header = () => {
     setDropdownVisible(false)
   }
 
+  const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
+
   const removeItem = (id: string) => {
     const updatedCartItems = cartItems.filter((item: any) => item.product_id !== id)
     setCartItems(updatedCartItems)
     // @ts-ignore
     setToStorage('cart', updatedCartItems, true)
 
-    const total = updatedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
+    const total = updatedCartItems.reduce((sum: any, item: any) => sum + price(item) * item.quantity, 0)
     setTotalAmount(total)
   }
 
@@ -35,7 +37,7 @@ const Header = () => {
     const storedCartItems = getFromStorage('cart', true) || []
     setCartItems(storedCartItems)
 
-    const total = storedCartItems.reduce((sum: any, item: any) => sum + item.price * item.quantity, 0)
+    const total = storedCartItems.reduce((sum: any, item: any) => sum + price(item) * item.quantity, 0)
     setTotalAmount(total)
   }, [])
 
