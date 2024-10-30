@@ -130,7 +130,7 @@ const ProductPage = () => {
               <Image src={selectedProduct?.avatar} alt={'product image'} width={413} height={413} className='object-cover' />
             </div>
 
-            <div className='flex flex-col gap-[30px] max-w-[375px] w-full'>
+            <div className='flex flex-col gap-[30px] max-w-[50%] w-full'>
               <h1 className='text-[1.938rem] text-secondary-dark-gray font-bold suave-text'>{selectedProduct?.name}</h1>
 
               <div className='flex flex-col gap-[15px] w-max'>

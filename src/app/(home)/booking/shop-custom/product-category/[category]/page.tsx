@@ -85,7 +85,7 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
 const CategoryPage = () => {
   const params = useParams()
   const category = params.category
-  const [sorting, setSorting] = useState('')
+  const [sorting, setSorting] = useState('created_at')
   const [isGrid, setIsGrid] = useState(true)
 
   const { data: products, isLoading } = useGetProductsQuery({
@@ -97,7 +97,7 @@ const CategoryPage = () => {
   const sortingSelects = [
     { value: 'popularity', label: 'Sort by popularity' },
     { value: 'average_rating', label: 'Sort by average rating' },
-    { value: 'created_at', label: 'Sort by latest' },
+    { value: '-created_at', label: 'Sort by latest' },
     { value: 'price', label: 'Sort by price: low to high' },
     { value: '-price', label: 'Sort by price: high to low' },
   ]

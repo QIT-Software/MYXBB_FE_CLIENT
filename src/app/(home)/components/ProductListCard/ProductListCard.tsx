@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/Button/Button'
 import { TProduct } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 type TProductListCardProps = {
@@ -31,12 +32,20 @@ const ProductListCard = ({ product }: TProductListCardProps) => {
   }
   return (
     <div className='flex w-full h-[300px]'>
-      <div className='w-1/2 flex items-center justify-center'>
-        <Image src={product?.avatar} alt={'product image'} width={300} height={300} className='object-cover' />
+      <div className='w-1/2 flex h-[300px] items-center justify-center'>
+        <Image
+          src={product?.avatar}
+          alt={'product image'}
+          width={300}
+          height={300}
+          className='object-contain max-w-[300px] max-h-[300px]'
+        />
       </div>
       <div className='w-1/2 flex flex-col gap-[15px]'>
         <div className='flex flex-col gap-[5px]'>
-          <div className=' hover:text-primary-hover-red cursor-pointer'>{product?.name}</div>
+          <Link href={`/booking/shop/${product?.id}`} className=' hover:text-primary-hover-red cursor-pointer'>
+            {product?.name}
+          </Link>
           <div>${product?.price}</div>
         </div>
         <div className='text-[15px] text-primary-gray'>{product?.description}</div>
