@@ -70,6 +70,8 @@ const CheckoutPage = () => {
     watch,
     reset,
     setValue,
+    trigger,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
@@ -180,6 +182,21 @@ const CheckoutPage = () => {
       router.push(`${success.payment_link}`)
     }
     setIsLoading(false)
+  }
+
+  const toggleShowDifferentAddress = () => {
+    setShowDifferentAddress(!showDifferentAddress)
+
+    if (!showDifferentAddress) {
+      setValue('shipping_address.region', '')
+      setValue('shipping_address.state', '')
+      setValue('shipping_address.city', '')
+      setValue('shipping_address.address', '')
+      setValue('shipping_address.zip_code', '')
+      setValue('shipping_address.apartment', '')
+      clearErrors('shipping_address') 
+    }
+    trigger()
   }
 
   return (
@@ -527,7 +544,7 @@ const CheckoutPage = () => {
                     id='different_address'
                     className='form-checkbox'
                     checked={showDifferentAddress}
-                    onChange={() => setShowDifferentAddress(!showDifferentAddress)}
+                    onChange={toggleShowDifferentAddress}
                   />
                   <label htmlFor='different_address' className='text-[15px] text-secondary-dark-gray'>
                     Ship to a different address?

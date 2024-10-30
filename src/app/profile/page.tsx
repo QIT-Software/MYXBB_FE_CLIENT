@@ -16,6 +16,7 @@ import toast from 'react-hot-toast'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
 import { getUser } from '@/redux/slices/user/selectors'
+import { current } from '@reduxjs/toolkit'
 
 type TPasswordChange = {
   current_password: string
@@ -127,6 +128,7 @@ const ProfilePage = () => {
   const onSubmitPasswordChange = async (data: TPasswordChange) => {
     // delete data?.new_password
     const payload = {
+      old_password: data.current_password,
       password: data.new_password,
     }
     try {
