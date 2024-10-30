@@ -1,5 +1,6 @@
 'use client'
 import { useGetSelectedMerchQuery } from '@/api/Services'
+import { getCategoryDisplayName } from '@/api/utils/GetCategory'
 import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/RelatedProductCard'
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
@@ -100,7 +101,7 @@ const ProductPage = () => {
     { label: 'Home', href: '/' },
     { label: 'Shop', href: '/booking/shop-custom' },
     {
-      label: selectedProduct?.category,
+      label: getCategoryDisplayName(selectedProduct?.category),
       href: `/booking/shop-custom/product-category/${selectedProduct?.category}`,
     },
     { label: selectedProduct?.name, href: '#' },
@@ -182,7 +183,9 @@ const ProductPage = () => {
                 </button>
               </div>
 
-              <div className='text-primary-gray text-sm capitalize'>Category: {selectedProduct?.category}</div>
+              <div className='text-primary-gray text-sm capitalize'>
+                Category: {getCategoryDisplayName(selectedProduct?.category)}
+              </div>
 
               {/* <div className='flex flex-col gap-2.5'>
                 <div className='text-secondary-dark-gray font-bold'>Share this product</div>
