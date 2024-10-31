@@ -9,6 +9,10 @@ export type TLoginForm = {
   remember?: boolean
 }
 
+export type TGiftCard = {
+  gift_card_code: string
+}
+
 export type TResetPassword = {
   email: string
 }

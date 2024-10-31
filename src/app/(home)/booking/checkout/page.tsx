@@ -13,13 +13,14 @@ import Select, { StylesConfig } from 'react-select'
 import { useGetStatesQuery } from '@/api/Locations'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
 import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary'
-import { useCreateOrderMutation } from '@/api/Appointments'
+import { useAddGiftCardMutation, useCreateOrderMutation } from '@/api/Appointments'
 import { useGetProfileQuery, useLoginMutation, useSignupMutation } from '@/api/Auth'
 import { getUser } from '@/redux/slices/user/selectors'
 import { useSelector } from 'react-redux'
 import { getFromStorage, removeFromStorage } from '@/utils/storage'
 import { useRouter } from 'next/navigation'
 import CheckoutAuth from './components/CheckoutAuth/CheckoutAuth'
+import GiftCardAdding from './components/GiftCardAdding/GiftCardAdding'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -50,9 +51,13 @@ const CheckoutPage = () => {
   const [showDifferentAddress, setShowDifferentAddress] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [auth, setAuth] = useState(false)
+  const [showGift, setShowGift] = useState(false)
   const [signup] = useSignupMutation()
   const [createOrder] = useCreateOrderMutation()
+  const [card, setCard] = useState<string | null>(null)
   const [login, { isLoading: loginLoading }] = useLoginMutation()
+  const [addGiftCard, { data: giftCard }] = useAddGiftCardMutation()
+
   const router = useRouter()
 
   const paths = [
@@ -174,8 +179,9 @@ const CheckoutPage = () => {
     const orderData = {
       customer: profile?.id ? profile.id : customer?.id,
       billing_address: data.billing_address.state ? data.billing_address : null,
-      // shipping_address: data.shipping_address.state ? data.shipping_address : null,
       items: updatedCartItems,
+      ...(giftCard?.is_valid && { coupon: { code: card } }),
+      ...(showDifferentAddress ? { shipping_address: data.shipping_address } : { is_shipping_address_equals_billing: true }),
     }
     const success = await createOrder({ data: orderData }).unwrap()
     if (success) {
@@ -264,7 +270,10 @@ const CheckoutPage = () => {
           )}
           <div className='text-secondary-dark-gray'>
             Have a coupon?{' '}
-            <span className='cursor-pointer text-primary-hover-red hover:underline'>Click here to enter your code</span>
+            <span onClick={() => setShowGift(!showGift)} className='cursor-pointer text-primary-hover-red hover:underline'>
+              Click here to enter your code
+            </span>
+            {showGift && <GiftCardAdding card={card} setCard={setCard} addGiftCard={addGiftCard} />}
           </div>
         </div>
 
@@ -646,7 +655,11 @@ const CheckoutPage = () => {
               </div>
             </div>
             <div className='w-1/2'>
-              <CheckoutSummary isValid={isValid} loading={isLoading} />
+              <CheckoutSummary
+                isValid={isValid}
+                loading={isLoading}
+                giftAmount={giftCard?.is_valid ? giftCard?.amount_available : null}
+              />
             </div>
           </div>
         </form>
