@@ -24,30 +24,17 @@ const GiftCardAdding = ({ addGiftCard, card, setCard }: any) => {
   return (
     <div className='w-full bg-secondary-white flex flex-col gap-5 px-[30px] pt-[25px] pb-[20px]'>
       <div className='text-[15px] text-primary-gray'>If you have a coupon code, please apply it below.</div>
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex items-center gap-5'>
         <Input
-          placeholder='Username or email *'
+          placeholder='Coupon code'
           type='gift_card_code'
           onChange={handleChange}
-          //     {
-          // required: 'Email is required',
-          // pattern: {
-          //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-          //   message: 'Please enter a valid email address',
-          // },
-          // validate: value => {
-          //   const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
-          //   return noCyrillic || 'Email must not contain Cyrillic characters'
-          // },
-          //   })}
-          className={`mt-1 block w-full px-3 py-2 border text-[15px] text-gray-850 border-secondary-dark-gray/1
+          className={`mt-1 h-[50px] block w-full px-3 py-2 border text-[15px] text-gray-850 border-secondary-dark-gray/1
                  rounded-md shadow-sm focus:outline-none sm:text-sm`}
         />
 
-        <Button type='submit' className='max-w-[94px] w-full bg-primary-hover-red hover:bg-red-100'>
-          {/* {loginLoading ? <ClipLoader size={24} color={'#fff'} /> : */}
-          Sign in
-          {/* } */}
+        <Button type='submit' className='max-w-max w-full bg-primary-hover-red hover:bg-red-100'>
+          Apply coupon
         </Button>
       </form>
     </div>
