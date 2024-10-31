@@ -5,9 +5,40 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { Button } from '../ui/Button/Button'
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog'
+import { setToStorage } from '@/utils/storage'
+import { useDispatch } from 'react-redux'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
+import { useRouter } from 'next/navigation'
 
 const OrderCard = ({ order }: any) => {
+  const dispatch = useDispatch()
+  const router = useRouter()
   const [detailView, setDetailView] = useState(false)
+
+  const handleReorder = () => {
+    const existingCartItems = JSON.parse(localStorage.getItem('cart') || '[]')
+    const newCartItems = order.items.map((item: any) => ({
+      product_id: item.product_id,
+      name: item.product_name,
+      price: item.product_price ?? item.gift_card_item_price,
+      quantity: item.quantity,
+      image: item.avatar || '/images/product-placeholder.png',
+    }))
+
+    const updatedCartItems = [...existingCartItems]
+    newCartItems.forEach((newItem: any) => {
+      const existingItemIndex = updatedCartItems.findIndex(item => item.product_id === newItem.product_id)
+
+      if (existingItemIndex > -1) {
+        updatedCartItems[existingItemIndex].quantity += newItem.quantity
+      } else {
+        updatedCartItems.push(newItem)
+      }
+    })
+    // @ts-ignore
+    setToStorage('cart', updatedCartItems, true)
+    dispatch(triggerCartUpdate())
+  }
   return (
     <div className='border p-4 border-gray-200 rounded'>
       <div className='flex justify-between items-center'>
@@ -34,12 +65,14 @@ const OrderCard = ({ order }: any) => {
           </div>
           <div className='flex flex-col gap-3 items-center'>
             <ConfirmDialog
-              submit={() => {}}
+              submit={() => {
+                router.push('/booking/cart')
+              }}
               submitText='Got it'
               title='Your order has been placed successfully'
-              description='Thank you for ordering. Our Myxologist will contact you to check all details and confirm your oder as soon as possible.'
+              description='Thank you for ordering'
             >
-              <Button>Reorder</Button>
+              <Button onClick={handleReorder}>Reorder</Button>
             </ConfirmDialog>
           </div>
         </div>
