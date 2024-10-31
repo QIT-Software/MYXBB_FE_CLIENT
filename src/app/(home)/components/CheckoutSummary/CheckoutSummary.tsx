@@ -4,19 +4,20 @@ import { TCartItem } from '@/types/types'
 import { useEffect, useState } from 'react'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const CheckoutSummary = ({ isValid, loading }: any) => {
+const CheckoutSummary = ({ isValid, loading, giftAmount }: any) => {
   const [cartItems, setCartItems] = useState<TCartItem[]>([])
   const [subtotal, setSubtotal] = useState(0)
   const [tax, setTax] = useState(0)
   const [total, setTotal] = useState(0)
 
-  const updateSummary = (items: TCartItem[]) => {
+  const updateSummary = (items: TCartItem[], giftAmount: number | null) => {
     const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
     const newSubtotal = items.reduce((acc, item) => acc + price(item) * item.quantity, 0)
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-    const newTotal = parseFloat((newSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
+    const adjustedSubtotal = Math.max(newSubtotal - (giftAmount ?? 0), 0)
+    const newTotal = parseFloat((adjustedSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
 
-    setSubtotal(newSubtotal)
+    setSubtotal(adjustedSubtotal)
     setTax(newTax)
     setTotal(newTotal)
   }
@@ -24,8 +25,8 @@ const CheckoutSummary = ({ isValid, loading }: any) => {
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem('cart') || '[]')
     setCartItems(storedCartItems)
-    updateSummary(storedCartItems)
-  }, [])
+    updateSummary(storedCartItems, giftAmount)
+  }, [giftAmount])
 
   return (
     <div className='p-[30px] w-full bg-secondary-white flex flex-col gap-[30px]'>

@@ -73,10 +73,18 @@ export const appointmentsApi = mainApi.injectEndpoints({
         body: data,
       }),
     }),
+    addGiftCard: builder.mutation({
+      query: ({ data }) => ({
+        url: `orders/orders/check-gift-card/`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
 export const {
+  useAddGiftCardMutation,
   useAddReviewMutation,
   useCreateOrderMutation,
   useGetCustomBlendsQuery,
