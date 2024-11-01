@@ -96,18 +96,25 @@ const AuthForm = () => {
           <div className='flex flex-col gap-1'>
             <Label text='Email' />
             <Input
-              placeholder='Please enter your e-mail'
-              type='email'
+              placeholder='Please enter your e-mail or phone number'
+              type='text'
               id='email'
               {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: 'Please enter a valid email address',
-                },
+                required: 'Email or phone number is required',
                 validate: value => {
+                  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                  const isPhone = /^\+?[0-9]{10,15}$/.test(value)
                   const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
-                  return noCyrillic || 'Email must not contain Cyrillic characters'
+
+                  if (!noCyrillic) {
+                    return 'Email or phone number must not contain Cyrillic characters'
+                  }
+
+                  if (isEmail || isPhone) {
+                    return true
+                  }
+
+                  return 'Please enter a valid email address or phone number'
                 },
               })}
               className={`mt-1 block w-full px-3 py-2 border border-gray-300
