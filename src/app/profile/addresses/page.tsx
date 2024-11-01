@@ -283,7 +283,6 @@ const AddressBookPage = () => {
                 {renderAddress(profile?.shipping_address)}
                 <div className='flex gap-2'>
                   <button onClick={() => handleEdit('shipping')}>✏️</button>
-                  <button onClick={() => setShippingData(null)}>🗑️</button>
                 </div>
               </div>
             )}
