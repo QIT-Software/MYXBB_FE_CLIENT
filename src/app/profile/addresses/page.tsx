@@ -102,9 +102,11 @@ const AddressBookPage = () => {
 
   const handleEdit = (type: any) => {
     if (type === 'shipping') {
+      // @ts-ignore
       setValue('shipping_address', profile?.shipping_address)
       setShowShippingForm(true)
     } else if (type === 'billing') {
+      // @ts-ignore
       setValue('billing_address', profile?.billing_address)
       setShowBillingForm(true)
     }
@@ -162,7 +164,6 @@ const AddressBookPage = () => {
               {renderAddress(profile?.billing_address)}
               <div className='flex gap-2'>
                 <button onClick={() => handleEdit('billing')}>✏️</button>
-                <button onClick={() => setBillingData(null)}>🗑️</button>
               </div>
             </div>
           )}
