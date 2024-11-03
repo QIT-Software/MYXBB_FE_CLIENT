@@ -80,9 +80,8 @@ const Header = () => {
       >
         <div className='w-full flex justify-center'>
           <div
-            className={`max-w-[1200px] flex w-full py-2 text-white  translate-y-0 transition-all duration-800 justify-end text-sm font-medium items-center ${
-              isScrolled && 'translate-y-[-100%]'
-            }`}
+            className={`max-w-[1200px] flex w-full py-2 text-white  translate-y-0 transition-all
+               duration-800 justify-end text-sm font-medium items-center ${isScrolled && 'translate-y-[-100%]'}`}
           >
             <div className='relative' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
               <div className='flex items-center cursor-pointer gap-[5px]'>
