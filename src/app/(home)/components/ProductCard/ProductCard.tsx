@@ -40,7 +40,7 @@ const ProductCard = ({ product }: TProductCardProps) => {
       image: product.avatar,
     }
 
-    const existingProductIndex = cartItems.findIndex((item: any) => item.id === product.id)
+    const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === product.id)
 
     if (existingProductIndex >= 0) {
       cartItems[existingProductIndex].quantity += 1
@@ -52,6 +52,7 @@ const ProductCard = ({ product }: TProductCardProps) => {
     dispatch(triggerCartUpdate())
     toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
+
   return (
     <div className='flex flex-col items-center gap-[15px]'>
       <Link href={`/booking/shop/${product?.id}`} className='max-w-[18.625rem] w-full relative'>

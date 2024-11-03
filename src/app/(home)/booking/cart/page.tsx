@@ -10,6 +10,7 @@ import { TCartItem, TProduct } from '@/types/types'
 import { Button } from '@/components/ui/Button/Button'
 import Link from 'next/link'
 import { taxes } from '@/constants/taxes'
+import { useSelector } from 'react-redux'
 
 const CartPage = () => {
   const router = useRouter()
@@ -17,6 +18,7 @@ const CartPage = () => {
   const [subtotal, setSubtotal] = useState(0)
   const [tax, setTax] = useState(0)
   const [total, setTotal] = useState(0)
+  const cartTrigger = useSelector((state: any) => state.user.cartTrigger)
 
   const paths = [
     { label: 'Home', href: '/' },
@@ -27,7 +29,7 @@ const CartPage = () => {
     const cartItems = getFromStorage('cart', true) || []
     setCartItems(cartItems)
     updateSummary(cartItems)
-  }, [])
+  }, [cartTrigger])
 
   const updateSummary = (items: TCartItem[]) => {
     const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)

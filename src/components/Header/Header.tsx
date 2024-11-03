@@ -11,13 +11,13 @@ import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 const Header = () => {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
+  const [scrollPosition, setScrollPosition] = useState(0)
   const [isDropdownVisible, setDropdownVisible] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [totalAmount, setTotalAmount] = useState(0)
 
   const dispatch = useDispatch()
 
-  // Отримуємо тригер зі стану
   const cartTrigger = useSelector((state: any) => state.user.cartTrigger)
 
   const handleMouseEnter = () => {
@@ -51,14 +51,25 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50 && !pathname.includes('/profile'))
+      const currentScrollY = window.scrollY
+
+      if (Math.abs(currentScrollY - scrollPosition) > 30) {
+        setScrollPosition(currentScrollY)
+
+        if (currentScrollY > 50 && !pathname.includes('/profile')) {
+          setIsScrolled(true)
+        } else {
+          setIsScrolled(false)
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [scrollPosition, pathname])
 
   return (
     <div className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white' : 'bg-primary-black'}`}>
@@ -95,11 +106,9 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`flex flex-col items-center  w-full  ${
-          isScrolled
-            ? 'gap-[1.75rem] h-[186px] pt-[2.188rem] justify-between'
-            : ' justify-center gap-[3.5rem] h-[205px] pt-[4.375rem]'
-        } transition-all duration-300`}
+        className={`flex flex-col items-center w-full transition-all duration-300 ${
+          isScrolled ? 'smooth-transition justify-between' : 'reverse-smooth-transition justify-center'
+        }`}
       >
         <div>
           <Image src={isScrolled ? '/images/logo-black-text.webp' : '/images/site-logo.png'} alt='logo' width={250} height={40} />

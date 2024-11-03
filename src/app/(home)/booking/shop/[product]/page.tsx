@@ -88,6 +88,32 @@ const ProductPage = () => {
     }
   }
 
+  // const handleAddToCart = () => {
+  //   const cartItems = getFromStorage('cart', true) || []
+
+  //   const productToAdd = {
+  //     product_id: selectedProduct.id,
+  //     name: selectedProduct.name,
+  //     gift_card_item_price: isGiftCard ? selectedValue : null,
+  //     gift_card_recipient_email: isGiftCard ? recipientEmail : null,
+  //     price: isGiftCard ? null : selectedProduct.price,
+  //     quantity: quantity,
+  //     image: selectedProduct.avatar,
+  //   }
+
+  //   const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === selectedProduct.product_id)
+
+  //   if (existingProductIndex >= 0) {
+  //     cartItems[existingProductIndex].quantity += quantity
+  //   } else {
+  //     cartItems.push(productToAdd)
+  //   }
+
+  //   setToStorage('cart', cartItems, true)
+  //   dispatch(triggerCartUpdate())
+  //   toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+  // }
+
   const handleAddToCart = () => {
     const cartItems = getFromStorage('cart', true) || []
 
@@ -101,16 +127,17 @@ const ProductPage = () => {
       image: selectedProduct.avatar,
     }
 
-    const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === selectedProduct.product_id)
+    const existingProductIndex = cartItems.findIndex((item:any) => item.product_id === productToAdd.product_id)
 
     if (existingProductIndex >= 0) {
-      cartItems[existingProductIndex].quantity += quantity
+      cartItems[existingProductIndex].quantity += productToAdd.quantity
     } else {
       cartItems.push(productToAdd)
     }
 
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
+
     toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
 
@@ -237,7 +264,7 @@ const ProductPage = () => {
           </div>
           <div className='flex flex-col gap-[60px]'>
             <ReviewForm product={selectedProduct} />
-            {!isGiftCard && <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.product_id} />}
+            {!isGiftCard && <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.id} />}
           </div>
         </div>
       </div>
