@@ -85,7 +85,7 @@ const AppointmentPage = () => {
               Past
             </Button>
           </div>
-          {listToDisplay ? (
+          {listToDisplay?.length ? (
             listToDisplay.map((appointment: any) => (
               <div className='flex flex-col border border-secondary-black-blue' key={appointment.id}>
                 <div className='flex justify-between p-5'>
