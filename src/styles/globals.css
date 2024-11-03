@@ -141,12 +141,10 @@
   @keyframes smoothScroll {
     0% {
       gap: 3.5rem;
-      height: 205px;
       padding-top: 4.375rem;
     }
     100% {
       gap: 1.75rem;
-      height: 186px;
       padding-top: 2.188rem;
     }
   }
