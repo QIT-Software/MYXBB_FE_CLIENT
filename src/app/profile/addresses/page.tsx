@@ -15,6 +15,7 @@ import { usePatchProfileMutation } from '@/api/Auth'
 import { getUser } from '@/redux/slices/user/selectors'
 import { useSelector } from 'react-redux'
 import ClipLoader from 'react-spinners/ClipLoader'
+import { MyxIcon } from '@/components/icons'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -90,6 +91,14 @@ const AddressBookPage = () => {
     setShowShippingForm(false)
   }
 
+  const handleDelete = async (obj: any) => {
+    await patchProfile(obj)
+    // @ts-ignore
+    setValue('shipping_address', profile?.shipping_address)
+    // @ts-ignore
+    setValue('billing_address', profile?.billing_address)
+  }
+
   const getStateOptions = (region: string, states: Record<string, string[]>): TOption[] => {
     if (!states || !region) return []
     return (
@@ -163,7 +172,12 @@ const AddressBookPage = () => {
             <div className='flex justify-between items-center'>
               {renderAddress(profile?.billing_address)}
               <div className='flex gap-2'>
-                <button onClick={() => handleEdit('billing')}>✏️</button>
+                <button onClick={() => handleEdit('billing')}>
+                  <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                </button>
+                <button onClick={() => handleDelete({ billing_address: {} })}>
+                  <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                </button>
               </div>
             </div>
           )}
@@ -282,7 +296,12 @@ const AddressBookPage = () => {
               <div className='flex justify-between items-center'>
                 {renderAddress(profile?.shipping_address)}
                 <div className='flex gap-2'>
-                  <button onClick={() => handleEdit('shipping')}>✏️</button>
+                  <button onClick={() => handleEdit('shipping')}>
+                    <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                  </button>
+                  <button onClick={() => handleDelete({ shipping_address: {} })}>
+                    <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                  </button>
                 </div>
               </div>
             )}
