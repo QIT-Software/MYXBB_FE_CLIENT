@@ -237,7 +237,7 @@ const ProductPage = () => {
           </div>
           <div className='flex flex-col gap-[60px]'>
             <ReviewForm product={selectedProduct} />
-            {!isGiftCard && <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.product_id} />}
+            {!isGiftCard && <RelatedProducts category={selectedProduct?.category} currentProduct={selectedProduct?.id} />}
           </div>
         </div>
       </div>
