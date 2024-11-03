@@ -137,4 +137,25 @@
     justify-content: center;
     scroll-snap-align: start;
   }
+
+  @keyframes smoothScroll {
+    0% {
+      gap: 3.5rem;
+      height: 205px;
+      padding-top: 4.375rem;
+    }
+    100% {
+      gap: 1.75rem;
+      height: 186px;
+      padding-top: 2.188rem;
+    }
+  }
+
+  .smooth-transition {
+    animation: smoothScroll 0.4s forwards;
+  }
+
+  .reverse-smooth-transition {
+    animation: smoothScroll 0.4s reverse forwards;
+  }
 }
