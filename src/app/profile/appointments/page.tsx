@@ -85,7 +85,7 @@ const AppointmentPage = () => {
               Past
             </Button>
           </div>
-          {listToDisplay &&
+          {listToDisplay ? (
             listToDisplay.map((appointment: any) => (
               <div className='flex flex-col border border-secondary-black-blue' key={appointment.id}>
                 <div className='flex justify-between p-5'>
@@ -139,7 +139,18 @@ const AppointmentPage = () => {
                   </div>
                 )}
               </div>
-            ))}
+            ))
+          ) : (
+            <div className='flex mt-20 flex-col gap-10 items-center justify-center'>
+              <div className='flex flex-col gap-4 items-center'>
+                <div className='text-lg font-semibold'>No reservations yet? Let’s change that!</div>
+                <div>Book your first service today and receive your unique lipstick</div>
+              </div>
+              <div>
+                <Button onClick={() => router.push('/booking')}>Go to reserve your spot</Button>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className='flex mt-20 flex-col gap-10 items-center justify-center'>
