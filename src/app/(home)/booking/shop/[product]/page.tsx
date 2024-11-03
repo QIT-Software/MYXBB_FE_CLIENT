@@ -55,11 +55,22 @@ const ProductPage = () => {
   const [emailError, setEmailError] = useState<string | null>(null)
   const disabledCart = isGiftCard ? !recipientEmail || emailError : false
 
-  const increaseQuantity = () => setQuantity(prev => prev + 1)
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1)
+  const handleInputChange = e => {
+    const value = e.target.value
+
+    // Перевіряємо, чи введене значення є числом і більше за 1
+    if (/^\d*$/.test(value)) {
+      const numericValue = Number(value)
+      setQuantity(numericValue > 0 ? numericValue : 1)
     }
+  }
+
+  const decreaseQuantity = () => {
+    setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1))
+  }
+
+  const increaseQuantity = () => {
+    setQuantity(prevQuantity => prevQuantity + 1)
   }
 
   const validateEmail = (email: string) => {
@@ -67,16 +78,13 @@ const ProductPage = () => {
     return emailRegex.test(email)
   }
 
-  // Функція для обробки зміни поля
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value
     setRecipientEmail(email)
-
-    // Валідація електронної пошти
     if (!validateEmail(email)) {
       setEmailError('Please enter a valid email address')
     } else {
-      setEmailError(null) // Очищаємо помилку, якщо email валідний
+      setEmailError(null)
     }
   }
 
@@ -161,7 +169,12 @@ const ProductPage = () => {
                     <button onClick={decreaseQuantity} className='px-2 text-xl'>
                       -
                     </button>
-                    <span className='px-4'>{quantity}</span>
+                    <input
+                      type='text'
+                      value={quantity}
+                      onChange={handleInputChange}
+                      className='px-2 text-center w-12 border-none outline-none'
+                    />
                     <button onClick={increaseQuantity} className='px-2 text-xl'>
                       +
                     </button>
