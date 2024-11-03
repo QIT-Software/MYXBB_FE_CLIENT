@@ -53,7 +53,6 @@ const Header = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
 
-      // Оновлюємо позицію скролу лише якщо вона змінилась значно
       if (Math.abs(currentScrollY - scrollPosition) > 30) {
         setScrollPosition(currentScrollY)
 
@@ -114,7 +113,7 @@ const Header = () => {
         <div>
           <Image src={isScrolled ? '/images/logo-black-text.webp' : '/images/site-logo.png'} alt='logo' width={250} height={40} />
         </div>
-        {/* <Navigation isScrolled={isScrolled} /> */}
+        <Navigation isScrolled={isScrolled} />
       </div>
     </div>
   )
