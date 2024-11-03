@@ -15,6 +15,10 @@ const ProductCard = ({ product }: TProductCard) => {
           <div className='font-semibold'>{product.name}</div>
         </div>
         <div className='flex flex-col gap-4'>
+          <div className='uppercase'>Category</div>
+          <div className='font-semibold'>{product.category}</div>
+        </div>
+        <div className='flex flex-col gap-4'>
           <div className='uppercase'>Price</div>
           <div className='font-semibold'>${product.price}</div>
         </div>
