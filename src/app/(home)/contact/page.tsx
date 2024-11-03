@@ -111,9 +111,10 @@ const ContactPage = () => {
                 <Textarea
                   placeholder='Additional Information'
                   {...register('comment', { required: 'Comment is required' })}
-                  className={`!bg-transparent text-sm w-full h-[230px] p-2 border border-gray-125 !rounded-none resize-none outline-none focus:ring-1 focus:ring-transparent ${
-                    errors.comment ? 'border-red-500' : ''
-                  }`}
+                  className={`!bg-transparent text-sm w-full h-[230px] p-2 border border-gray-125
+                     !rounded-none resize-none outline-none focus:ring-1 focus:ring-transparent ${
+                       errors.comment ? 'border-red-500' : ''
+                     }`}
                 />
               </div>
               <Button

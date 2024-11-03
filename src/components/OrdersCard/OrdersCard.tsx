@@ -83,7 +83,7 @@ const OrderCard = ({ order }: any) => {
       {detailView && (
         <div className='flex flex-col gap-4'>
           <div className='w-full mt-4 border-b border-gray-200'></div>
-          {order.items.map((item, index) => (
+          {order.items.map((item: any, index: number) => (
             <div key={item.id} className='flex flex-col text-secondary-black'>
               <div className='flex gap-4 justify-between'>
                 <div className='flex gap-5'>
