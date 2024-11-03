@@ -55,7 +55,7 @@ const ProductPage = () => {
   const [emailError, setEmailError] = useState<string | null>(null)
   const disabledCart = isGiftCard ? !recipientEmail || emailError : false
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
     // Перевіряємо, чи введене значення є числом і більше за 1
