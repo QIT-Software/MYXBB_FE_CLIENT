@@ -24,10 +24,7 @@ const OrdersPage = () => {
               <p className='text-lg font-semibold'>No orders yet? Let’s change that!</p>
               <p className='text-base '>Start shopping now</p>
             </div>
-            <Button
-              className='px-4 py-2 font-semibold rounded'
-              onClick={() => router.push('/orders/create-order')} // Add your create order function here
-            >
+            <Button className='px-4 py-2 font-semibold rounded' onClick={() => router.push('/orders/create-order')}>
               Go to shop
             </Button>
           </div>
