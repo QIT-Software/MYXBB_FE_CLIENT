@@ -1,7 +1,6 @@
 import React from 'react'
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog'
 import { Button } from '../ui/Button/Button'
-import { MyxIcon } from '../icons'
 import { format, parseISO } from 'date-fns'
 
 type TProductCard = {
@@ -33,16 +32,6 @@ const ProductCard = ({ product }: TProductCard) => {
           >
             <Button>Reorder</Button>
           </ConfirmDialog>
-        </div>
-      </div>
-      <div className='flex px-5 py-[11px] border-t border-secondary-light-grey justify-end'>
-        <div className='flex gap-4 font-semibold items-center'>
-          Share this product:
-          <div className='flex items-center gap-2'>
-            <div className='p-[7px] min-h-[32px] items-center flex border border-secondary-black-blue/30 cursor-pointer'>
-              <MyxIcon name='share' />
-            </div>
-          </div>
         </div>
       </div>
     </div>

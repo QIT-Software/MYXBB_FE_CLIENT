@@ -133,6 +133,13 @@ export const authApi = mainApi.injectEndpoints({
       }),
       invalidatesTags: ['Cards'],
     }),
+    deletePaymentMethod: builder.mutation({
+      query: id => ({
+        url: `/user/payment-cards/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Cards'],
+    }),
     getPaymentCards: builder.query({
       query: () => ({
         url: `/user/payment-cards/`,
@@ -144,6 +151,7 @@ export const authApi = mainApi.injectEndpoints({
 })
 
 export const {
+  useDeletePaymentMethodMutation,
   useLoginMutation,
   useGetPaymentCardsQuery,
   useConfirmPasswordMutation,
