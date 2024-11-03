@@ -168,7 +168,7 @@ const AddressBookPage = () => {
             )}
           </div>
 
-          {profile?.billing_address && !showBillingForm && (
+          {profile?.billing_address !== null && !showBillingForm && (
             <div className='flex justify-between items-center'>
               {renderAddress(profile?.billing_address)}
               <div className='flex gap-2'>
@@ -292,7 +292,7 @@ const AddressBookPage = () => {
               )}
             </div>
 
-            {profile?.shipping_address && !showShippingForm && (
+            {profile?.shipping_address !== null && !showShippingForm && (
               <div className='flex justify-between items-center'>
                 {renderAddress(profile?.shipping_address)}
                 <div className='flex gap-2'>
