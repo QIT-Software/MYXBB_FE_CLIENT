@@ -94,7 +94,7 @@ const AuthForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col gap-1'>
-            <Label text='Email' />
+            <Label text='Email or Phone number' />
             <Input
               placeholder='Please enter your e-mail or phone number'
               type='text'
