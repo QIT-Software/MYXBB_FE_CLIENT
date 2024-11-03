@@ -19,7 +19,7 @@ export const navigationLinks: TNavigationLinks = [
   },
   {
     name: 'Account',
-    link: '/auth',
+    link: '/profile',
   },
   {
     name: 'Cart',
