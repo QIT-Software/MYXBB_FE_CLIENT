@@ -2,10 +2,13 @@ import { Button } from '@/components/ui/Button/Button'
 import { taxes } from '@/constants/taxes'
 import { TCartItem } from '@/types/types'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import ClipLoader from 'react-spinners/ClipLoader'
 
 const CheckoutSummary = ({ isValid, loading, giftAmount }: any) => {
   const [cartItems, setCartItems] = useState<TCartItem[]>([])
+  const cartTrigger = useSelector((state: any) => state.user.cartTrigger)
+
   const [subtotal, setSubtotal] = useState(0)
   const [tax, setTax] = useState(0)
   const [total, setTotal] = useState(0)
@@ -26,7 +29,7 @@ const CheckoutSummary = ({ isValid, loading, giftAmount }: any) => {
     const storedCartItems = JSON.parse(localStorage.getItem('cart') || '[]')
     setCartItems(storedCartItems)
     updateSummary(storedCartItems, giftAmount)
-  }, [giftAmount])
+  }, [giftAmount, cartTrigger])
 
   return (
     <div className='p-[30px] w-full bg-secondary-white flex flex-col gap-[30px]'>

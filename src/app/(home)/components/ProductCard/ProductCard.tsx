@@ -15,16 +15,16 @@ type TProductCardProps = {
 const ProductCard = ({ product }: TProductCardProps) => {
   const dispatch = useDispatch()
 
-  const [isHovered, setIsHovered] = useState(false) // Стан для відстеження наведення
+  const [isHovered, setIsHovered] = useState(false)
 
   const handleMouseEnter = () => {
     if (product.pictures && product.pictures[0]?.picture) {
-      setIsHovered(true) // Активуємо стан наведення, якщо є додаткове зображення
+      setIsHovered(true)
     }
   }
 
   const handleMouseLeave = () => {
-    setIsHovered(false) // Деактивуємо стан наведення
+    setIsHovered(false)
   }
 
   const handleAddToCart = (e: React.MouseEvent) => {
