@@ -42,6 +42,7 @@ const selectStyles: StylesConfig<{ value: string | number; label: string }> = {
 }
 
 const PaymentsPage = () => {
+  console.log('test')
   const { data: cards } = useGetPaymentCardsQuery({})
   const [submitPayment, { data }] = useSubmitPaymentMutation()
   const [deletePaymentMethod, { isLoading }] = useDeletePaymentMethodMutation()
