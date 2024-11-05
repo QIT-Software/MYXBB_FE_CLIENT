@@ -1,4 +1,5 @@
 'use client'
+import { useLoginMutation } from '@/api/Auth'
 import { Button } from '@/components/ui/Button/Button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/Dialog/Dialog'
 import { Input } from '@/components/ui/Input/Input'
@@ -6,12 +7,14 @@ import { TLoginForm } from '@/types/types'
 import { DialogClose } from '@radix-ui/react-dialog'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 type TAuthDialogProps = {
   handleClose?: () => void
   open: boolean
 }
 const AuthDialog = ({ open, handleClose }: TAuthDialogProps) => {
+  const [login, { isLoading }] = useLoginMutation()
   const {
     register,
     handleSubmit,
@@ -23,7 +26,7 @@ const AuthDialog = ({ open, handleClose }: TAuthDialogProps) => {
   })
 
   const onSubmit = async (data: TLoginForm) => {
-    // await login(data).unwrap()
+    await login(data).unwrap()
   }
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -83,7 +86,7 @@ const AuthDialog = ({ open, handleClose }: TAuthDialogProps) => {
               <Button variant='outlineBlack'>Cancel</Button>
             </DialogClose>
             <Button type='submit' disabled={!isValid} className='sm:w-2/3'>
-              Login
+              {isLoading ? <ClipLoader color='white' size={20} /> : 'Login'}
             </Button>
           </DialogFooter>
         </form>
