@@ -7,7 +7,7 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const CheckoutAuth = ({ login, loginLoading }: any) => {
+const CheckoutAuth = ({ login, loginLoading, hideDesc }: any) => {
   const [getProfile] = useLazyGetProfileQuery()
   const {
     register,
@@ -25,10 +25,12 @@ const CheckoutAuth = ({ login, loginLoading }: any) => {
   }
   return (
     <div className='w-full bg-secondary-white flex flex-col gap-5 px-[30px] pt-[25px] pb-[20px]'>
-      <div className='text-[15px] text-primary-gray'>
-        If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the
-        Billing & Shipping section.
-      </div>
+      {!hideDesc && (
+        <div className='text-[15px] text-primary-gray'>
+          If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the
+          Billing & Shipping section.
+        </div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
         <Input
           placeholder='Username or email *'

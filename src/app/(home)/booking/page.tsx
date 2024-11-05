@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import FaceForm from './FaceForm/FaceForm'
 import { Button } from '@/components/ui/Button/Button'
+import AuthDialog from '@/app/auth/components/AuthDialog/AuthDialog'
 
 const BookingPage = () => {
   return (

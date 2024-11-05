@@ -253,7 +253,7 @@ const RegistrationForm = () => {
               )}
             </div>
             <div className='flex flex-col'>
-              <Button type='submit' disabled={!isValid}>
+              <Button type='submit' disabled={!isValid || loginLoading}>
                 {loginLoading ? <ClipLoader size={24} color={'#fff'} /> : 'Sign Up'}
               </Button>
             </div>

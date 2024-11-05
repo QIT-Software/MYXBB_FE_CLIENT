@@ -153,7 +153,7 @@ export const authApi = mainApi.injectEndpoints({
         method: 'PATCH',
         body: { is_default: true },
       }),
-      providesTags: [{ type: 'Cards', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Cards', id: 'LIST' }],
     }),
   }),
 })
