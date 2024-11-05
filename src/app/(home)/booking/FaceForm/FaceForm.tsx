@@ -170,11 +170,11 @@ const FaceForm = ({ isFace }: TFaceForm) => {
         <div className='flex flex-col font-bold items-center gap-[1.6rem] text-[1.063rem] text-primary-black'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-              {currentStep === 2 && <ServiceStep isFace={isFace} control={control} setValue={setValue} errors={errors} />}
+              {currentStep === 0 && <ServiceStep isFace={isFace} control={control} setValue={setValue} errors={errors} />}
               {currentStep === 1 && (
                 <TimeStep isFace={isFace} watch={watch} setValue={setValue} register={register} errors={errors} />
               )}
-              {currentStep === 0 && (
+              {currentStep === 2 && (
                 <DetailsStep
                   setShowForm={setShowForm}
                   showForm={showForm}
