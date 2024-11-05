@@ -80,6 +80,11 @@ const AddressBookPage = () => {
     },
   })
 
+  const shipping = watch('shipping_address')
+
+  console.log('shipping', shipping)
+  const billing = watch('billing_address')
+
   const onSubmit = async (data: any) => {
     let combinedData = {
       billing_address: data.billing_address,
@@ -168,9 +173,9 @@ const AddressBookPage = () => {
             )}
           </div>
 
-          {profile?.billing_address !== null && !showBillingForm && (
+          {billing.address && !showBillingForm && (
             <div className='flex justify-between items-center'>
-              {renderAddress(profile?.billing_address)}
+              {renderAddress(profile.billing_address)}
               <div className='flex gap-2'>
                 <button onClick={() => handleEdit('billing')}>
                   <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
@@ -285,16 +290,16 @@ const AddressBookPage = () => {
           <div>
             <div className='flex flex-col gap-5'>
               <h2 className='text-lg uppercase'>Shipping Address</h2>
-              {!profile?.shipping_address && !showShippingForm && (
+              {!shipping.address && !showShippingForm && (
                 <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowShippingForm(true)}>
                   + Add Shipping Address
                 </div>
               )}
             </div>
 
-            {profile?.shipping_address !== null && !showShippingForm && (
+            {shipping.address && !showShippingForm && (
               <div className='flex justify-between items-center'>
-                {renderAddress(profile?.shipping_address)}
+                {renderAddress(profile.shipping_address)}
                 <div className='flex gap-2'>
                   <button onClick={() => handleEdit('shipping')}>
                     <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
