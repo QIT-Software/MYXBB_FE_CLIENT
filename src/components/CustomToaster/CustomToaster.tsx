@@ -26,15 +26,17 @@ const CustomToaster = ({ message, variant, dismiss }: TCustomToasterProps) => {
   )
 }
 
-const showToast = ({ message, variant }: any) => {
-  let toastId = ''
-  if (toastId !== '') {
-    toast.dismiss(toastId)
-  }
+export default CustomToaster
 
-  toastId = toast(<CustomToaster message={message} variant={variant} />, {
-    duration: 4000,
-  })
-}
+// const showToast = ({ message, variant, }: any) => {
+//   let toastId = ''
+//   if (toastId !== '') {
+//     toast.dismiss(toastId)
+//   }
 
-export default showToast
+//   toastId = toast(<CustomToaster message={message} variant={variant} />, {
+//     duration: 4000,
+//   })
+// }
+
+// export default showToast
