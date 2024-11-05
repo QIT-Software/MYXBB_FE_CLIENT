@@ -1,11 +1,12 @@
 import React from 'react'
 import { MyxIcon } from '../icons'
 import { cn } from '@/lib/utils'
+import toast from 'react-hot-toast'
 
 type TCustomToasterProps = {
   message: string
   variant: 'success' | 'error'
-  dismiss: () => void
+  dismiss?: () => void
 }
 const CustomToaster = ({ message, variant, dismiss }: TCustomToasterProps) => {
   return (
@@ -25,4 +26,15 @@ const CustomToaster = ({ message, variant, dismiss }: TCustomToasterProps) => {
   )
 }
 
-export default CustomToaster
+const showToast = ({ message, variant }: any) => {
+  let toastId = ''
+  if (toastId !== '') {
+    toast.dismiss(toastId)
+  }
+
+  toastId = toast(<CustomToaster message={message} variant={variant} />, {
+    duration: 4000,
+  })
+}
+
+export default showToast

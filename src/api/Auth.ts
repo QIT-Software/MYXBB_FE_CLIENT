@@ -147,10 +147,19 @@ export const authApi = mainApi.injectEndpoints({
       }),
       providesTags: [{ type: 'Cards', id: 'LIST' }],
     }),
+    markDefaultCard: builder.mutation({
+      query: id => ({
+        url: `/user/payment-cards/${id}`,
+        method: 'PATCH',
+        body: { is_default: true },
+      }),
+      providesTags: [{ type: 'Cards', id: 'LIST' }],
+    }),
   }),
 })
 
 export const {
+  useMarkDefaultCardMutation,
   useDeletePaymentMethodMutation,
   useLoginMutation,
   useGetPaymentCardsQuery,

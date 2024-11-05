@@ -5,6 +5,7 @@ import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/RelatedProductCard'
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
+import showToast from '@/components/CustomToaster/CustomToaster'
 import DropdownCart from '@/components/DropdownCart/DropdownCart'
 import { MyxIcon } from '@/components/icons'
 import { Input } from '@/components/ui/Input/Input'
@@ -88,32 +89,6 @@ const ProductPage = () => {
     }
   }
 
-  // const handleAddToCart = () => {
-  //   const cartItems = getFromStorage('cart', true) || []
-
-  //   const productToAdd = {
-  //     product_id: selectedProduct.id,
-  //     name: selectedProduct.name,
-  //     gift_card_item_price: isGiftCard ? selectedValue : null,
-  //     gift_card_recipient_email: isGiftCard ? recipientEmail : null,
-  //     price: isGiftCard ? null : selectedProduct.price,
-  //     quantity: quantity,
-  //     image: selectedProduct.avatar,
-  //   }
-
-  //   const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === selectedProduct.product_id)
-
-  //   if (existingProductIndex >= 0) {
-  //     cartItems[existingProductIndex].quantity += quantity
-  //   } else {
-  //     cartItems.push(productToAdd)
-  //   }
-
-  //   setToStorage('cart', cartItems, true)
-  //   dispatch(triggerCartUpdate())
-  //   toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
-  // }
-
   const handleAddToCart = () => {
     const cartItems = getFromStorage('cart', true) || []
 
@@ -127,7 +102,7 @@ const ProductPage = () => {
       image: selectedProduct.avatar,
     }
 
-    const existingProductIndex = cartItems.findIndex((item:any) => item.product_id === productToAdd.product_id)
+    const existingProductIndex = cartItems.findIndex((item: any) => item.product_id === productToAdd.product_id)
 
     if (existingProductIndex >= 0) {
       cartItems[existingProductIndex].quantity += productToAdd.quantity
@@ -138,7 +113,9 @@ const ProductPage = () => {
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
 
-    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+    showToast({ message: 'Gift card added successfully', variant: 'success' })
+
+    // toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
 
   const paths = [
