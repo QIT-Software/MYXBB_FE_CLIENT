@@ -56,7 +56,7 @@ const Header = () => {
       if (Math.abs(currentScrollY - scrollPosition) > 30) {
         setScrollPosition(currentScrollY)
 
-        if (currentScrollY > 50 && !pathname.includes('/profile')) {
+        if (currentScrollY > 50 && !pathname.includes('profile')) {
           setIsScrolled(true)
         } else {
           setIsScrolled(false)

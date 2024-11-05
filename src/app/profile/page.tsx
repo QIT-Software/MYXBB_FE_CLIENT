@@ -133,6 +133,7 @@ const ProfilePage = () => {
     }
     try {
       await patchProfile(payload).unwrap()
+
       toast(t => (
         <CustomToaster
           variant='success'

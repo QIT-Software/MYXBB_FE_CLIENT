@@ -1,14 +1,17 @@
 import { useAddGiftCardMutation } from '@/api/Appointments'
 import { useLazyGetProfileQuery } from '@/api/Auth'
+import showToast from '@/components/CustomToaster/CustomToaster'
+import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import { TGiftCard, TLoginForm } from '@/types/types'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const GiftCardAdding = ({ addGiftCard, card, setCard }: any) => {
+const GiftCardAdding = ({ addGiftCard, card, setCard, setShowGift }: any) => {
   const { register, handleSubmit } = useForm<TGiftCard>({
     mode: 'onChange',
   })
@@ -18,7 +21,22 @@ const GiftCardAdding = ({ addGiftCard, card, setCard }: any) => {
   }
 
   const onSubmit = async (data: TGiftCard) => {
-    await addGiftCard({ data: { gift_card_code: card } }).unwrap()
+    try {
+      await addGiftCard({ data: { gift_card_code: card } }).unwrap()
+      setShowGift(false)
+      // showToast({ message: 'Gift card added successfully', variant: 'success' })
+      toast(t => <CustomToaster variant='success' message={'Gift card added successfully'} dismiss={() => toast.dismiss(t.id)} />)
+    } catch (err: any) {
+      const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
+      // showToast({ message: `Failed to adding gift card: ${errorMessage}`, variant: 'error' })
+      toast(t => (
+        <CustomToaster
+          variant='error'
+          message={`Failed to adding gift card: ${errorMessage}`}
+          dismiss={() => toast.dismiss(t.id)}
+        />
+      ))
+    }
   }
 
   return (

@@ -51,6 +51,7 @@ export type TIconName =
   | 'linkedin'
   | 'youtube'
   | 'facebookLetter'
+  | 'dots'
 
 export type TIconElement = React.FunctionComponent<React.SVGAttributes<SVGElement>>
 
