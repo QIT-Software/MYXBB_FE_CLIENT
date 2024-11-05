@@ -273,7 +273,7 @@ const CheckoutPage = () => {
             <span onClick={() => setShowGift(!showGift)} className='cursor-pointer text-primary-hover-red hover:underline'>
               Click here to enter your code
             </span>
-            {showGift && <GiftCardAdding card={card} setCard={setCard} addGiftCard={addGiftCard} />}
+            {showGift && <GiftCardAdding card={card} setCard={setCard} addGiftCard={addGiftCard} setShowGift={setShowGift} />}
           </div>
         </div>
 
