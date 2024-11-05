@@ -16,6 +16,7 @@ import toast from 'react-hot-toast'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
 import { getUser } from '@/redux/slices/user/selectors'
+import { current } from '@reduxjs/toolkit'
 
 type TPasswordChange = {
   current_password: string
@@ -127,10 +128,12 @@ const ProfilePage = () => {
   const onSubmitPasswordChange = async (data: TPasswordChange) => {
     // delete data?.new_password
     const payload = {
+      old_password: data.current_password,
       password: data.new_password,
     }
     try {
       await patchProfile(payload).unwrap()
+
       toast(t => (
         <CustomToaster
           variant='success'
@@ -293,23 +296,13 @@ const ProfilePage = () => {
                         placeholder='Current Password'
                         type={showCurrentPassword ? 'text' : 'password'}
                         //@ts-ignore
-                        {...register('current_password', {
-                          required: 'Password is required',
-                          maxLength: {
-                            value: 20,
-                            message: 'Password must be less than 20 characters',
-                          },
-                          minLength: {
-                            value: 8,
-                            message: 'Password must be at least 8 characters',
-                          },
-                          validate: (value: any) => {
-                            if (!/[^\u0400-\u04FF]/.test(value)) {
-                              return 'Please verify that you are entering the correct password.'
-                            }
-                            if (/\s/.test(value)) {
-                              return 'Password must not contain spaces'
-                            }
+                        {...registerPassword('current_password', {
+                          required: 'Current password is required',
+                          minLength: { value: 8, message: 'Password must be at least 8 characters long' },
+                          validate: value => {
+                            if (!/[A-Z]/.test(value)) return 'Password must contain at least one uppercase letter'
+                            if (!/[0-9]/.test(value)) return 'Password must contain at least one number'
+                            if (!/[!@*]/.test(value)) return 'Password must contain at least one symbol (!@*)'
                             return true
                           },
                         })}

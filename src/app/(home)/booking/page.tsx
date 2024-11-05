@@ -3,6 +3,9 @@ import Link from 'next/link'
 import React from 'react'
 import FaceForm from './FaceForm/FaceForm'
 import { Button } from '@/components/ui/Button/Button'
+import AuthDialog from '@/app/auth/components/AuthDialog/AuthDialog'
+import { ScrollUpButton } from '@radix-ui/react-select'
+import ScrollToTopButton from '@/components/ScrollToTopButton/ScrollToTopButton'
 
 const BookingPage = () => {
   return (

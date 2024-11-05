@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/Button/Button'
+import { taxes } from '@/constants/taxes'
 
 const Summary = ({ subtotal, tax, total, onCheckout }: any) => {
   return (
@@ -13,6 +14,10 @@ const Summary = ({ subtotal, tax, total, onCheckout }: any) => {
         <div className='flex flex-col justify-between py-[10px] border-b border-primary-gray'>
           <p className='text-[15px] text-gray-900'>Tax</p>
           <p className='text-primary-gray'>${tax}</p>
+        </div>
+        <div className='flex flex-col justify-between py-[10px] border-b border-primary-gray'>
+          <p className='text-[15px] text-gray-900'>Shipping</p>
+          <p className='text-primary-gray'>${taxes.CHECKOUT_SHIPPING.toFixed(2)}</p>
         </div>
         <div className='flex flex-col justify-between font-bold text-lg py-[10px]'>
           <p className='text-gray-900'>Total</p>

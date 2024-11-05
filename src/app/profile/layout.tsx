@@ -21,11 +21,11 @@ export default function RootLayout({
   const pathname = usePathname()
   const token = getFromStorage(storageKeys.AUTH)
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     router.push('/auth')
-  //   }
-  // }, [pathname])
+  useEffect(() => {
+    if (!token) {
+      router.push('/auth')
+    }
+  }, [pathname])
   return (
     <Providers>
       <html lang='en'>

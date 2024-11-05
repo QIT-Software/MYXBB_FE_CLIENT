@@ -1,20 +1,26 @@
 import { Button } from '@/components/ui/Button/Button'
+import { taxes } from '@/constants/taxes'
 import { TCartItem } from '@/types/types'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import ClipLoader from 'react-spinners/ClipLoader'
 
-const CheckoutSummary = ({ isValid, loading }: any) => {
+const CheckoutSummary = ({ isValid, loading, giftAmount }: any) => {
   const [cartItems, setCartItems] = useState<TCartItem[]>([])
+  const cartTrigger = useSelector((state: any) => state.user.cartTrigger)
+
   const [subtotal, setSubtotal] = useState(0)
   const [tax, setTax] = useState(0)
   const [total, setTotal] = useState(0)
 
-  const updateSummary = (items: TCartItem[]) => {
-    const newSubtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+  const updateSummary = (items: TCartItem[], giftAmount: number | null) => {
+    const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
+    const newSubtotal = items.reduce((acc, item) => acc + price(item) * item.quantity, 0)
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-    const newTotal = parseFloat((newSubtotal + newTax).toFixed(2))
+    const adjustedSubtotal = Math.max(newSubtotal - (giftAmount ?? 0), 0)
+    const newTotal = parseFloat((adjustedSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
 
-    setSubtotal(newSubtotal)
+    setSubtotal(adjustedSubtotal)
     setTax(newTax)
     setTotal(newTotal)
   }
@@ -22,8 +28,8 @@ const CheckoutSummary = ({ isValid, loading }: any) => {
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem('cart') || '[]')
     setCartItems(storedCartItems)
-    updateSummary(storedCartItems)
-  }, [])
+    updateSummary(storedCartItems, giftAmount)
+  }, [giftAmount, cartTrigger])
 
   return (
     <div className='p-[30px] w-full bg-secondary-white flex flex-col gap-[30px]'>
@@ -37,7 +43,7 @@ const CheckoutSummary = ({ isValid, loading }: any) => {
                   <span className='text-primary-gray'>
                     {item.name} × {item.quantity}
                   </span>
-                  <span className='text-gray-900'>${item.price}</span>
+                  <span className='text-gray-900'>${item.price || item?.gift_card_item_price?.toFixed(2)}</span>
                 </div>
               </div>
             ))}
@@ -48,6 +54,10 @@ const CheckoutSummary = ({ isValid, loading }: any) => {
             <div className='flex flex-col justify-between py-[10px] border-b border-primary-gray'>
               <p className='text-[15px] text-gray-900'>Tax</p>
               <p className='text-primary-gray'>${tax}</p>
+            </div>
+            <div className='flex flex-col justify-between py-[10px] border-b border-primary-gray'>
+              <p className='text-[15px] text-gray-900'>Shipping</p>
+              <p className='text-primary-gray'>${taxes.CHECKOUT_SHIPPING.toFixed(2)}</p>
             </div>
             <div className='flex flex-col justify-between font-bold text-lg py-[10px]'>
               <p className='text-gray-900'>Total</p>

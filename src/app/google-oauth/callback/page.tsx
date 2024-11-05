@@ -20,6 +20,7 @@ const GoogleOAuthCallback = () => {
       router.push('/profile')
     } else {
       console.error('Access Token не знайдено')
+      router.push('/auth')
     }
   }, [router])
 

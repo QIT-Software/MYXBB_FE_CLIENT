@@ -4,6 +4,7 @@ import RelatedProductCard from '../RelatedProductCard/RelatedProductCard'
 import { TProduct } from '@/types/types'
 
 const RelatedProducts = ({ category, currentProduct }: { category?: string; currentProduct?: string }) => {
+  console.log(currentProduct, 'currentProduct')
   const { data: products } = useGetProductsQuery({
     is_for_shop: 'true',
     category: category || '',

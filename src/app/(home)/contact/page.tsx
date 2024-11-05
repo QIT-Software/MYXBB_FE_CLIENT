@@ -65,7 +65,7 @@ const ContactPage = () => {
         <div className='flex flex-col max-w-[500px] w-full items-center gap-8'>
           <h1 className='suave-text text-gray-700 text-[30px] uppercase tracking-[6px]'>Contact Form</h1>
           {!isSuccess ? (
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center justify-between h-full '>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 w-full items-center justify-between '>
               <div className='w-full flex flex-col gap-6'>
                 <Input
                   error={errors.name}
@@ -88,7 +88,7 @@ const ContactPage = () => {
                     },
                   })}
                   className={`text-sm !bg-transparent block w-full px-3 py-2 border border-gray-125 !rounded-none
-                focus:outline-none text-gray-700`}
+                focus:outline-none text-gray-700 ${errors.name ? 'border-red-500' : ''}`}
                 />
                 <Input
                   placeholder='Enter mail'
@@ -106,17 +106,20 @@ const ContactPage = () => {
                     },
                   })}
                   className={`text-sm !bg-transparent block w-full px-3 py-2 border border-gray-125 !rounded-none
-                focus:outline-none text-gray-700`}
+                focus:outline-none text-gray-700 ${errors.email ? 'border-red-500' : ''}`}
                 />
                 <Textarea
                   placeholder='Additional Information'
                   {...register('comment', { required: 'Comment is required' })}
-                  className='!bg-transparent text-sm w-full h-[230px] p-2 border border-gray-125 !rounded-none resize-none outline-none focus:ring-1 focus:ring-transparent'
+                  className={`!bg-transparent text-sm w-full h-[230px] p-2 border border-gray-125
+                     !rounded-none resize-none outline-none focus:ring-1 focus:ring-transparent ${
+                       errors.comment ? 'border-red-500' : ''
+                     }`}
                 />
               </div>
               <Button
                 type='submit'
-                className='!h-max max-w-max bg-primary-red hover:bg-primary-black text-white text-[10px] tracking-[3px] uppercase rounded-t-[25px] py-[23px] px-[75px]'
+                className='!h-max max-w-max bg-primary-red hover:bg-primary-black text-white text-[10px] tracking-[3px] uppercase rounded-[25px] py-[23px] px-[75px]'
               >
                 <p>Submit</p>
               </Button>

@@ -13,16 +13,14 @@ import Select, { StylesConfig } from 'react-select'
 import { useGetStatesQuery } from '@/api/Locations'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
 import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary'
-import { useCreateOrderMutation } from '@/api/Appointments'
-import { Button } from '@/components/ui/Button/Button'
-import { useLoginMutation, useSignupMutation } from '@/api/Auth'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
-import toast from 'react-hot-toast'
+import { useAddGiftCardMutation, useCreateOrderMutation } from '@/api/Appointments'
+import { useGetProfileQuery, useLoginMutation, useSignupMutation } from '@/api/Auth'
 import { getUser } from '@/redux/slices/user/selectors'
 import { useSelector } from 'react-redux'
 import { getFromStorage, removeFromStorage } from '@/utils/storage'
 import { useRouter } from 'next/navigation'
 import CheckoutAuth from './components/CheckoutAuth/CheckoutAuth'
+import GiftCardAdding from './components/GiftCardAdding/GiftCardAdding'
 
 const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
@@ -52,9 +50,14 @@ const CheckoutPage = () => {
   const profile = useSelector(getUser)
   const [showDifferentAddress, setShowDifferentAddress] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [auth, setAuth] = useState(false)
+  const [showGift, setShowGift] = useState(false)
   const [signup] = useSignupMutation()
   const [createOrder] = useCreateOrderMutation()
+  const [card, setCard] = useState<string | null>(null)
   const [login, { isLoading: loginLoading }] = useLoginMutation()
+  const [addGiftCard, { data: giftCard }] = useAddGiftCardMutation()
+
   const router = useRouter()
 
   const paths = [
@@ -70,6 +73,8 @@ const CheckoutPage = () => {
     watch,
     reset,
     setValue,
+    trigger,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
@@ -163,16 +168,20 @@ const CheckoutPage = () => {
       product_id: item.product_id,
       quantity: item.quantity,
       product_type: 'merch',
+      ...(item.gift_card_item_price && {
+        gift_card_item_price: item.gift_card_item_price,
+        gift_card_recipient_email: item.gift_card_recipient_email,
+      }),
     }))
-
     if (!profile) {
       customer = await signup(data.auth).unwrap()
     }
     const orderData = {
       customer: profile?.id ? profile.id : customer?.id,
       billing_address: data.billing_address.state ? data.billing_address : null,
-      // shipping_address: data.shipping_address.state ? data.shipping_address : null,
       items: updatedCartItems,
+      ...(giftCard?.is_valid && { coupon: { code: card } }),
+      ...(showDifferentAddress ? { shipping_address: data.shipping_address } : { is_shipping_address_equals_billing: true }),
     }
     const success = await createOrder({ data: orderData }).unwrap()
     if (success) {
@@ -180,6 +189,21 @@ const CheckoutPage = () => {
       router.push(`${success.payment_link}`)
     }
     setIsLoading(false)
+  }
+
+  const toggleShowDifferentAddress = () => {
+    setShowDifferentAddress(!showDifferentAddress)
+
+    if (!showDifferentAddress) {
+      setValue('shipping_address.region', '')
+      setValue('shipping_address.state', '')
+      setValue('shipping_address.city', '')
+      setValue('shipping_address.address', '')
+      setValue('shipping_address.zip_code', '')
+      setValue('shipping_address.apartment', '')
+      clearErrors('shipping_address')
+    }
+    trigger()
   }
 
   return (
@@ -237,14 +261,19 @@ const CheckoutPage = () => {
             <>
               <div className='text-secondary-dark-gray'>
                 Returning customer?{' '}
-                <span className='cursor-pointer text-primary-hover-red hover:underline'>Click here to login</span>
+                <span onClick={() => setAuth(!auth)} className='cursor-pointer text-primary-hover-red hover:underline'>
+                  Click here to login
+                </span>
               </div>
-              <CheckoutAuth login={login} loginLoading={loginLoading} />
+              {auth && <CheckoutAuth login={login} loginLoading={loginLoading} />}
             </>
           )}
           <div className='text-secondary-dark-gray'>
             Have a coupon?{' '}
-            <span className='cursor-pointer text-primary-hover-red hover:underline'>Click here to enter your code</span>
+            <span onClick={() => setShowGift(!showGift)} className='cursor-pointer text-primary-hover-red hover:underline'>
+              Click here to enter your code
+            </span>
+            {showGift && <GiftCardAdding card={card} setCard={setCard} addGiftCard={addGiftCard} setShowGift={setShowGift} />}
           </div>
         </div>
 
@@ -252,8 +281,8 @@ const CheckoutPage = () => {
           <div className='flex w-full gap-[60px]'>
             <div className='flex w-1/2 flex-col gap-4'>
               <div className='flex flex-col gap-6'>
-                <div className='flex justify-between'>
-                  <div className='flex flex-col gap-2'>
+                <div className='flex gap-3 items-center justify-between'>
+                  <div className='flex w-full flex-col'>
                     <Label text='First name *' className='text-secondary-dark-gray text-[15px] !font-normal' />
                     <Input
                       error={errors?.auth?.first_name}
@@ -279,7 +308,7 @@ const CheckoutPage = () => {
                     />
                     {errors?.auth?.first_name && <span className='text-red-500 text-xs'>{errors?.auth.first_name.message}</span>}
                   </div>
-                  <div className='flex flex-col gap-1'>
+                  <div className='flex w-full flex-col'>
                     <Label text='Last name' className='text-secondary-dark-gray text-[15px] !font-normal' />
                     <Input
                       error={errors?.auth?.last_name}
@@ -527,7 +556,7 @@ const CheckoutPage = () => {
                     id='different_address'
                     className='form-checkbox'
                     checked={showDifferentAddress}
-                    onChange={() => setShowDifferentAddress(!showDifferentAddress)}
+                    onChange={toggleShowDifferentAddress}
                   />
                   <label htmlFor='different_address' className='text-[15px] text-secondary-dark-gray'>
                     Ship to a different address?
@@ -626,7 +655,11 @@ const CheckoutPage = () => {
               </div>
             </div>
             <div className='w-1/2'>
-              <CheckoutSummary isValid={isValid} loading={isLoading} />
+              <CheckoutSummary
+                isValid={isValid}
+                loading={isLoading}
+                giftAmount={giftCard?.is_valid ? giftCard?.amount_available : null}
+              />
             </div>
           </div>
         </form>

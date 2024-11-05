@@ -125,11 +125,44 @@ export const authApi = mainApi.injectEndpoints({
         body: data,
       }),
     }),
+    submitPayment: builder.mutation({
+      query: token => ({
+        url: `/user/payment-cards/`,
+        method: 'POST',
+        body: token,
+      }),
+      invalidatesTags: ['Cards'],
+    }),
+    deletePaymentMethod: builder.mutation({
+      query: id => ({
+        url: `/user/payment-cards/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Cards'],
+    }),
+    getPaymentCards: builder.query({
+      query: () => ({
+        url: `/user/payment-cards/`,
+        method: 'GET',
+      }),
+      providesTags: [{ type: 'Cards', id: 'LIST' }],
+    }),
+    markDefaultCard: builder.mutation({
+      query: id => ({
+        url: `/user/payment-cards/${id}`,
+        method: 'PATCH',
+        body: { is_default: true },
+      }),
+      invalidatesTags: [{ type: 'Cards', id: 'LIST' }],
+    }),
   }),
 })
 
 export const {
+  useMarkDefaultCardMutation,
+  useDeletePaymentMethodMutation,
   useLoginMutation,
+  useGetPaymentCardsQuery,
   useConfirmPasswordMutation,
   useResetMutation,
   useGetProfileQuery,
@@ -142,4 +175,5 @@ export const {
   useFacebookTokenMutation,
   useSocialAuthMutation,
   useContactFormMutation,
+  useSubmitPaymentMutation,
 } = authApi

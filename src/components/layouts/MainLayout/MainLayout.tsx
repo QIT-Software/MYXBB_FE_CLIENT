@@ -4,8 +4,12 @@ import Footer from './components/Footer/Footer'
 import { usePathname } from 'next/navigation'
 import MainHeader from './components/MainHeader/MainHeader'
 import ThirdHeader from './components/ThirdHeader/ThirdHeader'
+import { useGetProfileQuery } from '@/api/Auth'
+import ScrollToTopButton from '@/components/ScrollToTopButton/ScrollToTopButton'
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
+  const { data: profile } = useGetProfileQuery({})
+
   const pathname = usePathname()
 
   return (
@@ -21,6 +25,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       )}
 
       <div className='flex '>
+        <ScrollToTopButton />
         <div className='w-full'>{children}</div>
       </div>
       <Footer />

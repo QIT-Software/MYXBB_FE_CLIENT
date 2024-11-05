@@ -1,8 +1,12 @@
+import { useGetProductsQuery } from '@/api/Services'
 import ShopButton from '@/components/ShopButton/ShopButton'
 import Image from 'next/image'
 import React from 'react'
 
 const GIftCardBlock = () => {
+  const category = 'gift_cards'
+  const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category })
+
   return (
     <div className='flex gap-7.5 justify-around'>
       <div className='flex flex-col items-center gap-[35px] pt-[8%]'>
@@ -15,7 +19,7 @@ const GIftCardBlock = () => {
             any occasion.
           </div>
         </div>
-        <ShopButton link='/' title='Shop now' />
+        <ShopButton link={`/booking/shop/${products?.results[0].id}`} title='Shop now' />
       </div>
       <div className='hover:bg-primary-black/20 max-h-[300px] max-w-[300px] w-full'>
         <Image src={'/images/gift-card-image.webp'} alt='custom shop' width={300} height={300} className='object-cover' />
