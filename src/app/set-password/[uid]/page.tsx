@@ -1,6 +1,5 @@
 'use client'
 import { useParams, useRouter } from 'next/navigation' // Або useSearchParams, якщо ви використовуєте нову навігацію Next.js
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
@@ -13,6 +12,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { MyxIcon } from '@/components/icons'
 import { useConfirmPasswordMutation } from '@/api/Auth'
 import Link from 'next/link'
+import { showToast } from '@/components/CustomToast/CustomToast'
 
 const SetNewPassword = () => {
   const { uid } = useParams()
@@ -36,18 +36,9 @@ const SetNewPassword = () => {
         new_password: data.new_password,
       }
       await confirmPassword(payload).unwrap()
-      toast(t => (
-        <CustomToaster variant='success' message={'Password has been successfully updated'} dismiss={() => toast.dismiss(t.id)} />
-      ))
+      showToast({ message: 'Password has been successfully updated', variant: 'success' })
     } catch (err: any) {
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
-      console.error('Failed to set new password: ', err)
+      showToast({ message: `Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`, variant: 'error' })
     }
   }
 
