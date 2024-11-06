@@ -1,5 +1,5 @@
 import { usePatchProfileMutation } from '@/api/Auth'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
+import { showToast } from '@/components/CustomToast/CustomToast'
 import { MyxIcon } from '@/components/icons'
 import { Button } from '@/components/ui/Button/Button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/Dialog/Dialog'
@@ -50,22 +50,10 @@ const ResetDialog = ({ open, setOpen, title, label }: TResetDialogProps) => {
     try {
       await patchProfile(data).unwrap()
       handleClose()
-      toast(t => (
-        <CustomToaster
-          variant='success'
-          message={'Personal information successfully updated'}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: 'Personal information successfully updated', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed to update personal information: ${errorMessage}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: `Failed to update personal information: ${errorMessage}`, variant: 'error' })
     }
   }
   return (

@@ -1,5 +1,4 @@
 'use client'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import AuthLayout from '@/components/layouts/AuthLayout'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
@@ -12,6 +11,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { useLoginMutation, useResetMutation } from '@/api/Auth'
 import { MyxIcon } from '@/components/icons'
+import { showToast } from '@/components/CustomToast/CustomToast'
 
 const ResetPasswordPage = () => {
   const [reset, { isLoading: resetLoading, isSuccess }] = useResetMutation()
@@ -28,14 +28,7 @@ const ResetPasswordPage = () => {
     try {
       await reset(data).unwrap()
     } catch (err: any) {
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
-      console.error('Failed to reset password: ', err)
+      showToast({ message: `Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`, variant: 'error' })
     }
   }
 

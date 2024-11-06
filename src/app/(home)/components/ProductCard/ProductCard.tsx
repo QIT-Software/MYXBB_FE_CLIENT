@@ -1,3 +1,4 @@
+import { showToast } from '@/components/CustomToast/CustomToast'
 import DropdownCart from '@/components/DropdownCart/DropdownCart'
 import { MyxIcon } from '@/components/icons'
 import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
@@ -50,7 +51,9 @@ const ProductCard = ({ product }: TProductCardProps) => {
 
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
-    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+    showToast({
+      customContent: <DropdownCart cartItems={cartItems} isShortView={true} />,
+    })
   }
 
   return (

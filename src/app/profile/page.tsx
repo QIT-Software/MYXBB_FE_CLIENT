@@ -11,12 +11,12 @@ import { Button } from '@/components/ui/Button/Button'
 import { useGetProfileQuery, usePatchAvatarMutation, usePatchProfileMutation } from '@/api/Auth'
 import { DatePicker } from '@/components/DatePicker/DatePicker'
 import Image from 'next/image'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import toast from 'react-hot-toast'
 import { format } from 'date-fns'
 import { useSelector } from 'react-redux'
 import { getUser } from '@/redux/slices/user/selectors'
 import { current } from '@reduxjs/toolkit'
+import { showToast } from '@/components/CustomToast/CustomToast'
 
 type TPasswordChange = {
   current_password: string
@@ -78,22 +78,10 @@ const ProfilePage = () => {
       }
       delete data.avatar
       await patchProfile(data).unwrap()
-      toast(t => (
-        <CustomToaster
-          variant='success'
-          message={'Personal information successfully updated'}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: 'Personal information successfully updated', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed to update personal information: ${errorMessage}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: `Failed to update personal information: ${errorMessage}`, variant: 'error' })
     }
   }
 
@@ -133,23 +121,10 @@ const ProfilePage = () => {
     }
     try {
       await patchProfile(payload).unwrap()
-
-      toast(t => (
-        <CustomToaster
-          variant='success'
-          message={'Personal information successfully updated'}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: 'Personal information successfully updated', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed to update personal information: ${errorMessage}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: `Failed to update personal information: ${errorMessage}`, variant: 'error' })
     }
   }
 

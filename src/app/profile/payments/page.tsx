@@ -5,7 +5,7 @@ import {
   useMarkDefaultCardMutation,
   useSubmitPaymentMutation,
 } from '@/api/Auth'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
+import { showToast } from '@/components/CustomToast/CustomToast'
 import { MyxIcon } from '@/components/icons'
 import PageHeader from '@/components/PageHeader/PageHeader'
 
@@ -122,22 +122,13 @@ const PaymentsPage = () => {
                 cardTokenizeResponseReceived={async (token: any) => {
                   try {
                     await submitPayment({ token: token?.token }).unwrap()
-                    toast(t => (
-                      <CustomToaster
-                        variant='success'
-                        message={'Payment method successfully added'}
-                        dismiss={() => toast.dismiss(t.id)}
-                      />
-                    ))
+                    showToast({ message: 'Payment method successfully added', variant: 'success' })
                   } catch (err: any) {
                     const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-                    toast(t => (
-                      <CustomToaster
-                        variant='error'
-                        message={`Failed to adding payment method: ${errorMessage}`}
-                        dismiss={() => toast.dismiss(t.id)}
-                      />
-                    ))
+                    showToast({
+                      message: `Failed to adding payment method: ${errorMessage}`,
+                      variant: 'error',
+                    })
                   }
                   setCreditData(false)
                 }}

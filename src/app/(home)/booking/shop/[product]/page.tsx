@@ -5,9 +5,8 @@ import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/RelatedProductCard'
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
-import showToast from '@/components/CustomToaster/CustomToaster'
+import { showToast } from '@/components/CustomToast/CustomToast'
 import DropdownCart from '@/components/DropdownCart/DropdownCart'
-import { MyxIcon } from '@/components/icons'
 import { Input } from '@/components/ui/Input/Input'
 import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 import { TOption } from '@/types/types'
@@ -112,8 +111,9 @@ const ProductPage = () => {
 
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
-
-    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+    showToast({
+      customContent: <DropdownCart cartItems={cartItems} isShortView={true} />,
+    })
   }
 
   const paths = [

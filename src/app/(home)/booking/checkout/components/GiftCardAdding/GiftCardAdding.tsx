@@ -1,7 +1,6 @@
 import { useAddGiftCardMutation } from '@/api/Appointments'
 import { useLazyGetProfileQuery } from '@/api/Auth'
-import showToast from '@/components/CustomToaster/CustomToaster'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
+import { showToast } from '@/components/CustomToast/CustomToast'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import { TGiftCard, TLoginForm } from '@/types/types'
@@ -24,18 +23,10 @@ const GiftCardAdding = ({ addGiftCard, card, setCard, setShowGift }: any) => {
     try {
       await addGiftCard({ data: { gift_card_code: card } }).unwrap()
       setShowGift(false)
-      // showToast({ message: 'Gift card added successfully', variant: 'success' })
-      toast(t => <CustomToaster variant='success' message={'Gift card added successfully'} dismiss={() => toast.dismiss(t.id)} />)
+      showToast({ message: 'Gift card added successfully', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-      // showToast({ message: `Failed to adding gift card: ${errorMessage}`, variant: 'error' })
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed to adding gift card: ${errorMessage}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
+      showToast({ message: `Failed to adding gift card: ${errorMessage}`, variant: 'error' })
     }
   }
 

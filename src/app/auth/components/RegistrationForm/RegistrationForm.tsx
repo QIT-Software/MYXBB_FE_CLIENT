@@ -10,10 +10,10 @@ import toast from 'react-hot-toast'
 import { TRegisterForm } from '@/types/types'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { MyxIcon } from '@/components/icons'
-import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import Link from 'next/link'
 import { MaskedInput } from 'antd-mask-input'
 import { baseURL } from '@/api/baseUrl'
+import { showToast } from '@/components/CustomToast/CustomToast'
 
 const RegistrationForm = () => {
   const router = useRouter()
@@ -45,14 +45,8 @@ const RegistrationForm = () => {
     try {
       await signup(data).unwrap()
     } catch (err: any) {
-      toast(t => (
-        <CustomToaster
-          variant='error'
-          message={`Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`}
-          dismiss={() => toast.dismiss(t.id)}
-        />
-      ))
-      console.error('Failed to register: ', err)
+      const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
+      showToast({ message: `Failed: ${errorMessage}`, variant: 'error' })
     }
   }
 
