@@ -5,10 +5,12 @@ import {
   useMarkDefaultCardMutation,
   useSubmitPaymentMutation,
 } from '@/api/Auth'
+import CustomToaster from '@/components/CustomToaster/CustomToaster'
 import { MyxIcon } from '@/components/icons'
 import PageHeader from '@/components/PageHeader/PageHeader'
 
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import ClipLoader from 'react-spinners/ClipLoader'
 //@ts-ignore
 import { CreditCard, PaymentForm } from 'react-square-web-payments-sdk'
@@ -118,7 +120,25 @@ const PaymentsPage = () => {
                 applicationId={process.env.NEXT_PUBLIC_SANDBOX_APPLICATION_ID}
                 locationId={process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID}
                 cardTokenizeResponseReceived={async (token: any) => {
-                  await submitPayment({ token: token?.token })
+                  try {
+                    await submitPayment({ token: token?.token }).unwrap()
+                    toast(t => (
+                      <CustomToaster
+                        variant='success'
+                        message={'Payment method successfully added'}
+                        dismiss={() => toast.dismiss(t.id)}
+                      />
+                    ))
+                  } catch (err: any) {
+                    const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
+                    toast(t => (
+                      <CustomToaster
+                        variant='error'
+                        message={`Failed to adding payment method: ${errorMessage}`}
+                        dismiss={() => toast.dismiss(t.id)}
+                      />
+                    ))
+                  }
                   setCreditData(false)
                 }}
               >
