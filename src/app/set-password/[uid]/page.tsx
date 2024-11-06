@@ -1,5 +1,5 @@
 'use client'
-import { useParams, useRouter } from 'next/navigation' // Або useSearchParams, якщо ви використовуєте нову навігацію Next.js
+import { useParams, useRouter } from 'next/navigation' 
 import AuthLayout from '@/components/layouts/AuthLayout'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'

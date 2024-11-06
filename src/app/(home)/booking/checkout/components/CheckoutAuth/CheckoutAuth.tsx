@@ -1,4 +1,5 @@
 import { useLazyGetProfileQuery } from '@/api/Auth'
+import { showToast } from '@/components/CustomToast/CustomToast'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import { TLoginForm } from '@/types/types'
@@ -20,8 +21,13 @@ const CheckoutAuth = ({ login, loginLoading, hideDesc }: any) => {
   })
 
   const onSubmit = async (data: TLoginForm) => {
-    await login(data).unwrap()
-    await getProfile({}).unwrap()
+    try {
+      await login(data).unwrap()
+      await getProfile({}).unwrap()
+      showToast({ message: 'Login successful', variant: 'success' })
+    } catch (err: any) {
+      showToast({ message: `Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`, variant: 'error' })
+    }
   }
   return (
     <div className='w-full bg-secondary-white flex flex-col gap-5 px-[30px] pt-[25px] pb-[20px]'>
