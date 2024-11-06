@@ -259,8 +259,8 @@ const AddressBookPage = () => {
                   placeholder='Zip code'
                   {...register('billing_address.zip_code', {
                     pattern: {
-                      value: /^[0-9-]+$/,
-                      message: 'Zip code must contain only numbers and dashes',
+                      value: /^[0-9]+(-[0-9]+)?$/,
+                      message: 'Zip code must be a number or in the format 12345-6789',
                     },
                     minLength: {
                       value: 4,
@@ -387,8 +387,8 @@ const AddressBookPage = () => {
                     placeholder='Zip code'
                     {...register('shipping_address.zip_code', {
                       pattern: {
-                        value: /^[0-9-]+$/,
-                        message: 'Zip code must contain only numbers and dashes',
+                        value: /^[0-9]+(-[0-9]+)?$/,
+                        message: 'Zip code must be a number or in the format 12345-6789',
                       },
                       minLength: {
                         value: 4,
