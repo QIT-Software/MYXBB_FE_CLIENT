@@ -113,9 +113,7 @@ const ProductPage = () => {
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
 
-    showToast({ message: 'Gift card added successfully', variant: 'success' })
-
-    // toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
   }
 
   const paths = [
