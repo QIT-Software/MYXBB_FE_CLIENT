@@ -82,7 +82,6 @@ const AddressBookPage = () => {
 
   const shipping = watch('shipping_address')
 
-  console.log('shipping', shipping)
   const billing = watch('billing_address')
 
   const onSubmit = async (data: any) => {
