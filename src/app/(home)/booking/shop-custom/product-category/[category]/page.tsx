@@ -88,7 +88,7 @@ const CategoryPage = () => {
   const [sorting, setSorting] = useState('created_at')
   const [isGrid, setIsGrid] = useState(true)
   const [page, setPage] = useState(1)
-  const itemsPerPage = 5
+  const itemsPerPage = 16
 
   const { data: products, isLoading } = useGetProductsQuery({
     ordering: sorting,
