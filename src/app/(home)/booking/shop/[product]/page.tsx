@@ -110,10 +110,10 @@ const ProductPage = () => {
     }
 
     setToStorage('cart', cartItems, true)
-    showToast('This is a success message!', 'success')
     dispatch(triggerCartUpdate())
-
-    // toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+    showToast({
+      customContent: <DropdownCart cartItems={cartItems} isShortView={true} />,
+    })
   }
 
   const paths = [

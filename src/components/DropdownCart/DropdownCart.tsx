@@ -11,9 +11,8 @@ type TDropdownCartProps = {
   onMouseLeave?: () => void
   removeItem?: (id: string) => void
   isShortView?: boolean
-  t?: any
 }
-const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, removeItem, isShortView, t }: TDropdownCartProps) => {
+const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, removeItem, isShortView }: TDropdownCartProps) => {
   const router = useRouter()
   return (
     <div
