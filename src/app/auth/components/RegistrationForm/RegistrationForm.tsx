@@ -45,7 +45,8 @@ const RegistrationForm = () => {
     try {
       await signup(data).unwrap()
     } catch (err: any) {
-      showToast({ message: `Failed: ${err.data.detail ? err.data?.detail : 'Something went wrong'}`, variant: 'error' })
+      const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
+      showToast({ message: `Failed: ${errorMessage}`, variant: 'error' })
     }
   }
 
