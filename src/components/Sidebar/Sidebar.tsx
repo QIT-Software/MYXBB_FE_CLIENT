@@ -14,6 +14,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     removeFromStorage(storageKeys.AUTH)
+    removeFromStorage(storageKeys.REFRESH)
     removeFromStorage('cart')
     router.push('/')
   }
