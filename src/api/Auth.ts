@@ -149,7 +149,7 @@ export const authApi = mainApi.injectEndpoints({
     }),
     markDefaultCard: builder.mutation({
       query: id => ({
-        url: `/user/payment-cards/${id}`,
+        url: `/user/payment-cards/${id}/`,
         method: 'PATCH',
         body: { is_default: true },
       }),
