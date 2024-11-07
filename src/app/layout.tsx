@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import '../styles/globals.css'
+import 'react-day-picker/style.css'
 import { Open_Sans, Libre_Franklin } from 'next/font/google'
 import MainLayout from '@/components/layouts/MainLayout/MainLayout'
 import { Providers } from '@/redux/provider'
