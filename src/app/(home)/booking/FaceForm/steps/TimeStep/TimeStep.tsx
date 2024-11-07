@@ -61,7 +61,6 @@ const TimeStep = ({ watch, setValue, errors, isFace }: TTimeStep) => {
               setValue('date', date)
               setValue('time', '')
             }}
-            className='max-w-[19.25rem] w-full h-max h-[14.5rem]'
           />
           <div className='max-w-[7.25rem] w-full h-full'>
             <RadioGroup value={selectedTime} onValueChange={time => setValue('time', time)} className='flex flex-col gap-1'>

@@ -41,6 +41,7 @@ const ProfilePage = () => {
     reset,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<TProfileDetails>({
     defaultValues: {
@@ -74,7 +75,7 @@ const ProfilePage = () => {
       }
 
       if (data.birthdate) {
-        data.birthdate = format(new Date(data.birthdate), 'MM-dd')
+        data.birthdate = format(new Date(data.birthdate), 'yyyy-MM-dd')
       }
       delete data.avatar
       await patchProfile(data).unwrap()
@@ -85,7 +86,6 @@ const ProfilePage = () => {
     }
   }
 
-  // Password Change Form
   const {
     register: registerPassword,
     handleSubmit: handleSubmitPassword,
@@ -243,7 +243,9 @@ const ProfilePage = () => {
                 <Controller
                   name='birthdate'
                   control={control}
-                  render={({ field }) => <DatePicker value={field.value} onChange={field.onChange} placeholder='MM/dd' />}
+                  render={({ field }) => (
+                    <DatePicker formatType='MM/dd/yyyy' value={field.value} onChange={field.onChange} placeholder='MM/DD/yyyy' />
+                  )}
                 />
               </div>
               <div className='flex gap-6'>
