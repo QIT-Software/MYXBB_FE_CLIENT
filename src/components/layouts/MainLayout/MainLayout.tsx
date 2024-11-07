@@ -25,10 +25,10 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       )}
 
       <div className='flex '>
-        <ScrollToTopButton />
+        {pathname !== '/myxperience' && <ScrollToTopButton />}
         <div className='w-full'>{children}</div>
       </div>
-      <Footer />
+      {pathname !== '/myxperience' && <Footer />}
     </div>
   )
 }

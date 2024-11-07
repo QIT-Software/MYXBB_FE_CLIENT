@@ -13,7 +13,7 @@ const MyxperiencePage = () => {
   const profile = useSelector(getUser)
   const pathname = usePathname()
   return (
-    <div className='snap-container'>
+    <div className='snap-container no-scrollbar'>
       {/* Block 1 */}
       <section
         className='snap-block bg-red-500 relative'
