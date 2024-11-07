@@ -1,5 +1,6 @@
 'use client'
 import { useLoginMutation } from '@/api/Auth'
+import { showToast } from '@/components/CustomToast/CustomToast'
 import { Button } from '@/components/ui/Button/Button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/Dialog/Dialog'
 import { Input } from '@/components/ui/Input/Input'
@@ -10,7 +11,7 @@ import { useForm } from 'react-hook-form'
 import ClipLoader from 'react-spinners/ClipLoader'
 
 type TAuthDialogProps = {
-  handleClose?: () => void
+  handleClose: () => void
   open: boolean
 }
 const AuthDialog = ({ open, handleClose }: TAuthDialogProps) => {
@@ -19,6 +20,7 @@ const AuthDialog = ({ open, handleClose }: TAuthDialogProps) => {
     register,
     handleSubmit,
     setValue,
+    reset,
     trigger,
     formState: { errors, isValid },
   } = useForm<TLoginForm>({
@@ -26,7 +28,15 @@ const AuthDialog = ({ open, handleClose }: TAuthDialogProps) => {
   })
 
   const onSubmit = async (data: TLoginForm) => {
-    await login(data).unwrap()
+    try {
+      await login(data).unwrap()
+      showToast({ message: `Login successful`, variant: 'success' })
+      reset()
+      handleClose()
+    } catch (err: any) {
+      const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
+      showToast({ message: `Failed: ${errorMessage}`, variant: 'error' })
+    }
   }
   return (
     <Dialog open={open} onOpenChange={handleClose}>
