@@ -13,12 +13,7 @@ const NotFoundLayout = ({ children }: { children: React.ReactNode }) => {
     <Providers>
       <html lang='en'>
         <body className={libre_franklin.className}>
-          <CustomToastProvider />
-
-          {/* <MainLayout> */}
           {children}
-
-          {/* </MainLayout> */}
         </body>
       </html>
     </Providers>
