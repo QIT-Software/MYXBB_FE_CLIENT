@@ -269,8 +269,8 @@ const MyxperiencePage = () => {
         </div>
       </section>
       {/* Block 5 */}
-      <section className='snap-block bg-experience-50'>
-        <div className='w-[60%]'>
+      <section className='snap-block bg-experience-50 flex'>
+        <div className='w-[60%] flex items-center justify-center'>
           <div className='max-w-[669px] w-full py-[55px] pl-[100px] pr-[77px] text-white flex flex-col gap-[30px]'>
             <div className='flex flex-col gap-[15px] text-white'>
               <p className='suave-text uppercase text-[25px] tracking-[2.5px]'>RESERVE YOUR SPOT!</p>
@@ -279,7 +279,7 @@ const MyxperiencePage = () => {
                 to MYX with you!
               </p>
             </div>
-            <div className='flex flex-col gap-[30px]'>
+            <div className='flex gap-[30px]'>
               <Link
                 href='/booking'
                 className='uppercase text-experience-50 w-max bg-white py-5 px-[50px] rounded-full text-xs font-black tracking-wider'
@@ -300,7 +300,7 @@ const MyxperiencePage = () => {
             style={{
               backgroundImage: "url('/images/auth-bg.webp')",
               backgroundSize: 'cover',
-              backgroundRepeat: ' no-repeat',
+              backgroundRepeat: 'no-repeat',
               backgroundPosition: '50%',
               height: '50vh',
             }}
@@ -309,7 +309,7 @@ const MyxperiencePage = () => {
             style={{
               backgroundImage: "url('/images/blue-lips.webp')",
               backgroundSize: 'cover',
-              backgroundRepeat: ' no-repeat',
+              backgroundRepeat: 'no-repeat',
               backgroundPosition: '50%',
               height: '50vh',
             }}
