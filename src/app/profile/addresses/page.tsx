@@ -421,14 +421,13 @@ const AddressBookPage = () => {
                 />
                 <span className={cn('text-secondary-black')}>Shipping Address the same as billing</span>
               </div>
-              {!isShippingEqualsBilling && (
-                <div className='col-span-2 flex gap-4'>
-                  <Button type='submit'>Save</Button>
-                  <Button type='button' variant='blackUnderline' onClick={() => setShowShippingForm(false)}>
-                    Cancel
-                  </Button>
-                </div>
-              )}
+
+              <div className='col-span-2 flex gap-4'>
+                <Button type='submit'>Save</Button>
+                <Button type='button' variant='blackUnderline' onClick={() => setShowShippingForm(false)}>
+                  Cancel
+                </Button>
+              </div>
             </form>
           )}
         </>
