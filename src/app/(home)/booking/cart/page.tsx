@@ -10,9 +10,11 @@ import { TCartItem, TProduct } from '@/types/types'
 import { Button } from '@/components/ui/Button/Button'
 import Link from 'next/link'
 import { taxes } from '@/constants/taxes'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 
 const CartPage = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const [cartItems, setCartItems] = useState([])
   const [subtotal, setSubtotal] = useState(0)
@@ -47,6 +49,7 @@ const CartPage = () => {
     setCartItems(updatedCartItems)
     localStorage.setItem('cart', JSON.stringify(updatedCartItems))
     updateSummary(updatedCartItems)
+    dispatch(triggerCartUpdate())
   }
 
   const handleQuantityChange = (id: any, newQuantity: any) => {
