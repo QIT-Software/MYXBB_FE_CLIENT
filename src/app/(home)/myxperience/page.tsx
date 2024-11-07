@@ -1,10 +1,17 @@
 'use client'
+import { MyxIcon } from '@/components/icons'
+import { mainNavigationLinks } from '@/constants/navigation'
+import { getUser } from '@/redux/slices/user/selectors'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Carousel } from 'react-responsive-carousel'
 
 const MyxperiencePage = () => {
+  const profile = useSelector(getUser)
+  const pathname = usePathname()
   return (
     <div className='snap-container'>
       {/* Block 1 */}
@@ -17,6 +24,32 @@ const MyxperiencePage = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
+        <div className='absolute top-[70px] right-[70px] top-[70px] right-[70px] flex justify-center items-center py-5'>
+          <nav className='flex gap-6'>
+            {mainNavigationLinks.map(item => (
+              <Link
+                href={item.link}
+                key={item.name}
+                className={`hover:text-secondary-hover text-xs uppercase text-white font-bold tracking-widest ${
+                  pathname === item.link && 'text-secondary-hover'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+          <Link
+            href='/profile'
+            className={`ml-6 size-8 overflow-hidden flex items-center
+                   justify-center bg-white/40 rounded-full cursor-pointer ${!profile?.avatar && 'opacity-25'}`}
+          >
+            {profile?.avatar ? (
+              <Image src={profile?.avatar} alt='avatar' width={40} height={40} className='rounded-full' />
+            ) : (
+              <MyxIcon name='user' className='w-[18px] h-[18px] flex items-center justify-center text-white' />
+            )}
+          </Link>
+        </div>
         <div className='absolute max-w-[1400px] w-full left-[50%] bottom-[115px] translate-x-[-50%]'>
           <div className='flex flex-col gap-[10px]'>
             <div className='flex flex-col gap-[17px] items-center'>

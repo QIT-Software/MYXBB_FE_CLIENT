@@ -19,7 +19,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       ) : pathname === '/contact' ? (
         <ThirdHeader />
       ) : pathname === '/myxperience' ? (
-        <div></div>
+        <></>
       ) : (
         <Header />
       )}
