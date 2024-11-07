@@ -13,6 +13,8 @@ import BagsBlock from '../../components/BagsBlock/BagsBlock'
 import GIftCardBlock from '../../components/GIftCardBlock/GIftCardBlock'
 
 const CustomShopPage = () => {
+  const { data: products } = useGetProductsQuery({ is_for_shop: true })
+  console.log(products, 'products')
   return (
     <div className='flex flex-col py-[4.375rem] w-full'>
       <div className='flex items-center justify-center px-[3.125rem]'>

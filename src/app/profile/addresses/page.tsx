@@ -94,6 +94,7 @@ const AddressBookPage = () => {
     let combinedData = {
       billing_address: data.billing_address,
       shipping_address: data.is_shipping_address_equals_billing ? data.billing_address : data.shipping_address,
+      is_shipping_address_equals_billing: data.is_shipping_address_equals_billing,
     }
 
     await patchProfile(combinedData)
@@ -176,7 +177,7 @@ const AddressBookPage = () => {
                   <div className='text-primary-black'>
                     <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
                     <div>{`${profile?.billing_address?.full_address}`}</div>
-                    <div>{`${profile?.phone}`}</div>
+                    {profile.phone && <div>{`${profile?.phone}`}</div>}
                   </div>
                   <div className='flex gap-2'>
                     <button onClick={() => handleEdit('billing')}>
@@ -280,6 +281,16 @@ const AddressBookPage = () => {
                   <span className='text-red-500'>{errors?.billing_address?.zip_code.message}</span>
                 )}
               </div>
+              <div className='w-full flex gap-2 items-center'>
+                <Controller
+                  name='is_shipping_address_equals_billing'
+                  control={control}
+                  render={({ field }) => (
+                    <Checkbox id='is_shipping_address_equals_billing' checked={field.value} onCheckedChange={field.onChange} />
+                  )}
+                />
+                <span className={cn('text-secondary-black')}>Shipping Address the same as billing</span>
+              </div>
               <div className='col-span-2 flex gap-4'>
                 <Button type='submit'>Save</Button>
                 <Button type='button' variant='blackUnderline' onClick={() => setShowBillingForm(false)}>
@@ -311,7 +322,7 @@ const AddressBookPage = () => {
                     <button onClick={() => handleEdit('shipping')}>
                       <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
                     </button>
-                    <button onClick={() => handleDelete({ shipping_address: {} })}>
+                    <button onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}>
                       <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
                     </button>
                   </div>
@@ -410,16 +421,6 @@ const AddressBookPage = () => {
                 {errors?.shipping_address?.zip_code && (
                   <span className='text-red-500'>{errors.shipping_address.zip_code.message}</span>
                 )}
-              </div>
-              <div className='w-full flex gap-2 items-center'>
-                <Controller
-                  name='is_shipping_address_equals_billing'
-                  control={control}
-                  render={({ field }) => (
-                    <Checkbox id='is_shipping_address_equals_billing' checked={field.value} onCheckedChange={field.onChange} />
-                  )}
-                />
-                <span className={cn('text-secondary-black')}>Shipping Address the same as billing</span>
               </div>
 
               <div className='col-span-2 flex gap-4'>

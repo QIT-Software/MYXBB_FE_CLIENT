@@ -18,7 +18,7 @@ export const servicesApi = mainApi.injectEndpoints({
         if (offset) params.append('offset', offset)
 
         return {
-          url: `/orders/merch/?${params.toString()}`,
+          url: `/orders/merch?${params.toString()}`,
           method: 'GET',
         }
       },
