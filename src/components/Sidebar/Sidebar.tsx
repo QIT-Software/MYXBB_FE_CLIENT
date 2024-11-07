@@ -14,8 +14,9 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     removeFromStorage(storageKeys.AUTH)
+    removeFromStorage(storageKeys.REFRESH)
     removeFromStorage('cart')
-    router.push('/auth')
+    router.push('/')
   }
   return (
     <aside className='flex max-w-[238px] w-full flex-col min-h-screen justify-between border-r border-secondary-light-grey'>

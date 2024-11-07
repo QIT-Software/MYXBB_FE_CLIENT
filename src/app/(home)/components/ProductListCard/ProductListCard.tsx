@@ -1,3 +1,4 @@
+import { showToast } from '@/components/CustomToast/CustomToast'
 import DropdownCart from '@/components/DropdownCart/DropdownCart'
 import { Button } from '@/components/ui/Button/Button'
 import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
@@ -36,7 +37,9 @@ const ProductListCard = ({ product }: TProductListCardProps) => {
 
     setToStorage('cart', cartItems, true)
     dispatch(triggerCartUpdate())
-    toast(t => <DropdownCart cartItems={cartItems} isShortView={true} t={t} />)
+    showToast({
+      customContent: <DropdownCart cartItems={cartItems} isShortView={true} />,
+    })
   }
   return (
     <div className='flex w-full h-[300px]'>

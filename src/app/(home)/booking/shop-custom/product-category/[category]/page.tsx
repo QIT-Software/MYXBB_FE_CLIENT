@@ -87,11 +87,15 @@ const CategoryPage = () => {
   const category = params.category
   const [sorting, setSorting] = useState('created_at')
   const [isGrid, setIsGrid] = useState(true)
+  const [page, setPage] = useState(1)
+  const itemsPerPage = 16
 
   const { data: products, isLoading } = useGetProductsQuery({
     ordering: sorting,
     is_for_shop: 'true',
     category: category || '',
+    limit: itemsPerPage,
+    offset: (page - 1) * itemsPerPage,
   })
 
   const sortingSelects = [
@@ -105,6 +109,7 @@ const CategoryPage = () => {
   const handleSortChange = (option: { value: string } | null) => {
     if (option) {
       setSorting(option.value)
+      setPage(1)
     } else {
       setSorting('')
     }
@@ -117,6 +122,18 @@ const CategoryPage = () => {
   ]
 
   const categoryDisplayName = getCategoryDisplayName(category)
+
+  const handleNextPage = () => {
+    if (products?.results.length === itemsPerPage) {
+      setPage(prevPage => prevPage + 1)
+    }
+  }
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(prevPage => prevPage - 1)
+    }
+  }
 
   if (isLoading)
     return (
@@ -146,9 +163,9 @@ const CategoryPage = () => {
             </div>
             <div className='flex gap-5 items-center'>
               <div className='text-gray-850'>
-                {products?.results.length <= 16
-                  ? `Showing 1–${products?.results.length} of ${products?.results.length} results`
-                  : `Showing 1–16 of ${products?.results.length} results`}
+                {`Showing ${(page - 1) * itemsPerPage + 1}–${Math.min(page * itemsPerPage, products.count)} of ${
+                  products.count
+                } results`}
               </div>
               <div className='flex text-gray-850'>
                 <div
@@ -179,6 +196,31 @@ const CategoryPage = () => {
               ))}
             </div>
           )}
+          <div className='flex items-center justify-center gap-4 mt-4'>
+            <button onClick={handlePreviousPage} disabled={page === 1} className={`${page === 1 ? 'hidden' : 'text-primary'}`}>
+              <MyxIcon name='arrow' className='w-5 h-5' />
+            </button>
+            <div className='flex gap-1'>
+              {page > 1 && (
+                <button onClick={() => setPage(page - 1)} className='p-1 text-primary'>
+                  {page - 1}
+                </button>
+              )}
+              <span className='p-1 border-b-2 border-primary-red text-primary'>{page}</span>
+              {products?.results.length === itemsPerPage && (
+                <button onClick={() => setPage(page + 1)} className='p-1 text-primary'>
+                  {page + 1}
+                </button>
+              )}
+            </div>
+            <button
+              onClick={handleNextPage}
+              disabled={products?.results.length < itemsPerPage}
+              className={`${products?.results.length < itemsPerPage ? 'hidden' : 'text-primary'}`}
+            >
+              <MyxIcon name='arrow' className='w-5 h-5 rotate-180' />
+            </button>
+          </div>
         </div>
       </div>
     </div>

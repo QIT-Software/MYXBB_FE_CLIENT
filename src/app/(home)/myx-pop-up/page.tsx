@@ -397,8 +397,8 @@ const BookingMoreThanSixPage = () => {
                       {...register('zip_code', {
                         required: 'Zip code is required',
                         pattern: {
-                          value: /^[0-9]+$/,
-                          message: 'Zip code must be a number',
+                          value: /^[0-9]+(-[0-9]+)?$/,
+                          message: 'Zip code must be a number or in the format 12345-6789',
                         },
                         minLength: {
                           value: 4,

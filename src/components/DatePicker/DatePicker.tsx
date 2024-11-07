@@ -34,6 +34,11 @@ export function DatePicker({
   const today = startOfDay(new Date())
 
   const handleSelectDate = (date: any) => {
+    console.log(date, 'date')
+    const selectedDate = startOfDay(date)
+    if (disablePast && isBefore(selectedDate, today)) {
+      return
+    }
     onChange(date)
     setIsPopoverOpen(false)
   }
@@ -53,7 +58,7 @@ export function DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-auto p-0' align='start'>
+      <PopoverContent className='bg-white w-auto p-0' align='start'>
         {/* @ts-ignore */}
         {calendarRed ? (
           <RedCalender
@@ -66,11 +71,10 @@ export function DatePicker({
         ) : (
           <Calendar
             mode='single'
-            selected={value}
+            selected={value as any}
             onSelect={handleSelectDate}
+            className='!bg-white'
             disabled={(date: any) => disablePast && isBefore(startOfDay(date), today)}
-            initialFocus
-            className='bg-white'
           />
         )}
       </PopoverContent>

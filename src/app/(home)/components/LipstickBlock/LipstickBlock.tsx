@@ -17,7 +17,7 @@ const LipstickBlock = () => {
         <div className='z-[1] absolute bottom-[17%] left-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[190px] w-full border-b border-primary-gray'></div>
       </div>
       <div className='grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-9'>
-        {products?.results?.map((product: TProduct) => (
+        {products?.results.slice(0, 6).map((product: TProduct) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

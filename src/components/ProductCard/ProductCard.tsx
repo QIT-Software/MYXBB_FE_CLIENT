@@ -10,7 +10,7 @@ const ProductCard = ({ product }: TProductCard) => {
   return (
     <div className='border border-secondary-black-blue text-primary-black'>
       <div className='p-5 flex justify-between items-center'>
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 max-w-[200px] w-full'>
           <div className='uppercase'>Name</div>
           <div className='font-semibold'>{product.name}</div>
         </div>

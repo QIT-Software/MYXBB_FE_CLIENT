@@ -10,9 +10,11 @@ import { TCartItem, TProduct } from '@/types/types'
 import { Button } from '@/components/ui/Button/Button'
 import Link from 'next/link'
 import { taxes } from '@/constants/taxes'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 
 const CartPage = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const [cartItems, setCartItems] = useState([])
   const [subtotal, setSubtotal] = useState(0)
@@ -35,7 +37,7 @@ const CartPage = () => {
     const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
     const newSubtotal = items.reduce((acc, item) => acc + price(item) * item.quantity, 0)
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-    const shippingCost = 7.5 // Вартість доставки
+    const shippingCost = 7.5
     const newTotal = parseFloat((newSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
 
     setSubtotal(newSubtotal)
@@ -47,6 +49,7 @@ const CartPage = () => {
     setCartItems(updatedCartItems)
     localStorage.setItem('cart', JSON.stringify(updatedCartItems))
     updateSummary(updatedCartItems)
+    dispatch(triggerCartUpdate())
   }
 
   const handleQuantityChange = (id: any, newQuantity: any) => {

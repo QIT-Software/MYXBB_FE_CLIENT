@@ -9,14 +9,16 @@ export const servicesApi = mainApi.injectEndpoints({
       }),
     }),
     getProducts: builder.query({
-      query: ({ is_for_shop = false, category = '', ordering = '' }) => {
+      query: ({ is_for_shop = false, category = '', limit = 0, offset = 0, ordering = '' }) => {
         const params = new URLSearchParams()
         if (category) params.append('category', category)
         if (is_for_shop) params.append('is_for_shop', is_for_shop.toString())
         if (ordering) params.append('ordering', ordering)
+        if (limit) params.append('limit', limit)
+        if (offset) params.append('offset', offset)
 
         return {
-          url: `/orders/merch/?${params.toString()}`,
+          url: `/orders/merch?${params.toString()}`,
           method: 'GET',
         }
       },

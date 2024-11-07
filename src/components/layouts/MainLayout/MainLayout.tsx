@@ -19,16 +19,16 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       ) : pathname === '/contact' ? (
         <ThirdHeader />
       ) : pathname === '/myxperience' ? (
-        <div></div>
+        <></>
       ) : (
         <Header />
       )}
 
       <div className='flex '>
-        <ScrollToTopButton />
+        {pathname !== '/myxperience' && <ScrollToTopButton />}
         <div className='w-full'>{children}</div>
       </div>
-      <Footer />
+      {pathname !== '/myxperience' && <Footer />}
     </div>
   )
 }
