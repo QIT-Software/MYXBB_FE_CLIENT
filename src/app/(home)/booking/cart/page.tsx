@@ -37,7 +37,7 @@ const CartPage = () => {
     const price = (item: any) => (item.price ? item.price : item.gift_card_item_price)
     const newSubtotal = items.reduce((acc, item) => acc + price(item) * item.quantity, 0)
     const newTax = parseFloat((newSubtotal * 0.0852).toFixed(2))
-    const shippingCost = 7.5 // Вартість доставки
+    const shippingCost = 7.5
     const newTotal = parseFloat((newSubtotal + newTax + taxes.CHECKOUT_SHIPPING).toFixed(2))
 
     setSubtotal(newSubtotal)

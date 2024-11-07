@@ -41,7 +41,7 @@ const MyxperiencePage = () => {
       {/* Block 2 */}
       <SectionWithAnimatedImages />
       {/* Block 3 */}
-      <section className='snap-block bg-secondary-black-blue'>
+      <section className='relative snap-block bg-secondary-black-blue'>
         <div className='w-full flex flex-col gap-[70px] h-full pt-[100px] pl-[110px] pb-[80px] overflow-hidden'>
           <div className='flex gap-[125px] px-[20px]'>
             <div className='flex max-w-max w-full flex-col gap-[25px] items-start text-white'>
@@ -58,7 +58,7 @@ const MyxperiencePage = () => {
             </div>
           </div>
 
-          <div className='z-10 absolute flex gap-3 right-[50px] bottom-[400px]'>
+          <div className='z-10 absolute flex gap-3 right-[50px] bottom-[500px]'>
             <div className='z-10 hover:opacity-50 cursor-pointer'>
               <Image
                 onClick={handlePrev}
