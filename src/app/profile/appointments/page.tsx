@@ -13,10 +13,11 @@ const AppointmentPage = () => {
   const profile = useSelector(getUser)
   const router = useRouter()
 
-  
   const [status, setStatus] = useState<'Upcoming' | 'Past'>('Upcoming')
 
   const upcomingList = profile?.appointments.filter((appointment: any) => {
+    if (appointment.is_cancelled) return false
+
     const appointmentDateTime = new Date(parseISO(appointment.date))
     const [hours, minutes] = appointment.time.split(/:| /)
     const period = appointment.time.split(' ')[1]
@@ -27,6 +28,7 @@ const AppointmentPage = () => {
   })
 
   const pastList = profile?.appointments.filter((appointment: any) => {
+    if (appointment.is_cancelled) return true
     const appointmentDateTime = new Date(parseISO(appointment.date))
     const [hours, minutes] = appointment.time.split(/:| /)
     const period = appointment.time.split(' ')[1]

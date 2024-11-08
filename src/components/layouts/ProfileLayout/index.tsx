@@ -8,7 +8,6 @@ const ProfileLayout = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     refetch()
-    console.log('ff')
   }, [refetch])
 
   return (
