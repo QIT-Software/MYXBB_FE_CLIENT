@@ -141,6 +141,7 @@ const BookingMoreThanSixPage = () => {
     try {
       const updatedData = {
         ...data,
+        phone: data.phone ? data.phone.replace(/\s+/g, '') : undefined,
         date: data.date ? format(new Date(data.date), 'yyyy-MM-dd') : undefined,
       }
 
