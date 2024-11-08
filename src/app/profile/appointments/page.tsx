@@ -13,6 +13,7 @@ const AppointmentPage = () => {
   const profile = useSelector(getUser)
   const router = useRouter()
 
+  
   const [status, setStatus] = useState<'Upcoming' | 'Past'>('Upcoming')
 
   const upcomingList = profile?.appointments.filter((appointment: any) => {

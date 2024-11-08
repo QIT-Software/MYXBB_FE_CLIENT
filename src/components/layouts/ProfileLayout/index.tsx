@@ -1,10 +1,15 @@
 import { useGetProfileQuery } from '@/api/Auth'
 import Header from '@/components/Header/Header'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 
 const ProfileLayout = ({ children }: { children: ReactNode }) => {
-  const { data: profile } = useGetProfileQuery({})
+  const { data: profile, refetch } = useGetProfileQuery({})
+
+  useEffect(() => {
+    refetch()
+    console.log('ff')
+  }, [refetch])
 
   return (
     <div className='flex flex-col gap-[60px]'>
