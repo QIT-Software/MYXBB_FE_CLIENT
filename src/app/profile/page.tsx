@@ -68,17 +68,20 @@ const ProfilePage = () => {
 
   const onSubmit = async (data: TProfileDetails) => {
     try {
+      const processedData = {
+        ...data,
+        phone: data.phone.replace(/\s+/g, ''),
+        birthdate: data.birthdate ? format(new Date(data.birthdate), 'yyyy-MM-dd') : undefined,
+      }
+
       if (selectedFile) {
         const avatar = new FormData()
         avatar.append('avatar', selectedFile)
         await patchAvatar(avatar).unwrap()
       }
 
-      if (data.birthdate) {
-        data.birthdate = format(new Date(data.birthdate), 'yyyy-MM-dd')
-      }
-      delete data.avatar
-      await patchProfile(data).unwrap()
+      delete processedData.avatar
+      await patchProfile(processedData).unwrap()
       showToast({ message: 'Personal information successfully updated', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'

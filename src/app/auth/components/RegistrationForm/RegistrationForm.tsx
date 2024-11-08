@@ -43,7 +43,12 @@ const RegistrationForm = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      await signup(data).unwrap()
+      const processedData = {
+        ...data,
+        phone: data.phone.replace(/\s+/g, ''),
+      }
+
+      await signup(processedData).unwrap()
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
       showToast({ message: `Failed: ${errorMessage}`, variant: 'error' })
