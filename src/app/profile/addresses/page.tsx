@@ -163,34 +163,37 @@ const AddressBookPage = () => {
         </div>
       ) : (
         <>
-          {!profile?.billing_address?.full_address && !showBillingForm ? (
-            <div className='flex flex-col gap-5'>
-              <h2 className='text-lg uppercase'>Billing Address</h2>
-              <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowBillingForm(true)}>
-                + Add Billing Address
-              </div>
-            </div>
-          ) : (
-            <>
-              {!showBillingForm && (
-                <div className='flex justify-between items-center'>
-                  <div className='text-primary-black'>
-                    <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
-                    <div>{`${profile?.billing_address?.full_address}`}</div>
-                    {profile.phone && <div>{`${profile?.phone}`}</div>}
-                  </div>
-                  <div className='flex gap-2'>
-                    <button onClick={() => handleEdit('billing')}>
-                      <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                    <button onClick={() => handleDelete({ billing_address: {} })}>
-                      <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                  </div>
+          <div className='flex flex-col gap-3'>
+            <h2 className='text-lg uppercase'>Billing Address</h2>
+
+            {!profile?.billing_address?.full_address && !showBillingForm ? (
+              <div className='flex flex-col gap-5'>
+                <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowBillingForm(true)}>
+                  + Add Billing Address
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            ) : (
+              <>
+                {!showBillingForm && (
+                  <div className='flex justify-between items-center'>
+                    <div className='text-primary-black'>
+                      <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
+                      <div>{`${profile?.billing_address?.full_address}`}</div>
+                      {profile.phone && <div>{`${profile?.phone}`}</div>}
+                    </div>
+                    <div className='flex gap-2'>
+                      <button onClick={() => handleEdit('billing')}>
+                        <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                      </button>
+                      <button onClick={() => handleDelete({ billing_address: {} })}>
+                        <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
           {showBillingForm && (
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
@@ -302,34 +305,36 @@ const AddressBookPage = () => {
 
           <div className='border-b border-secondary-light-grey' />
 
-          {!profile?.shipping_address?.full_address && !showShippingForm ? (
-            <div className='flex flex-col gap-5'>
-              <h2 className='text-lg uppercase'>Shipping Address</h2>
-              <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowShippingForm(true)}>
-                + Add Shipping Address
-              </div>
-            </div>
-          ) : (
-            <>
-              {!showShippingForm && (
-                <div className='flex justify-between items-center'>
-                  <div className='text-primary-black'>
-                    <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
-                    <div>{`${profile?.shipping_address?.full_address}`}</div>
-                    {profile?.phone && <div>{`${profile?.phone}`}</div>}
-                  </div>
-                  <div className='flex gap-2'>
-                    <button onClick={() => handleEdit('shipping')}>
-                      <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                    <button onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}>
-                      <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                  </div>
+          <div className='flex flex-col gap-3'>
+            <h2 className='text-lg uppercase'>Shipping Address</h2>
+            {!profile?.shipping_address?.full_address && !showShippingForm ? (
+              <div className='flex flex-col gap-5'>
+                <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowShippingForm(true)}>
+                  + Add Shipping Address
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            ) : (
+              <>
+                {!showShippingForm && (
+                  <div className='flex justify-between items-center'>
+                    <div className='text-primary-black'>
+                      <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
+                      <div>{`${profile?.shipping_address?.full_address}`}</div>
+                      {profile?.phone && <div>{`${profile?.phone}`}</div>}
+                    </div>
+                    <div className='flex gap-2'>
+                      <button onClick={() => handleEdit('shipping')}>
+                        <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                      </button>
+                      <button onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}>
+                        <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
           {showShippingForm && (
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
