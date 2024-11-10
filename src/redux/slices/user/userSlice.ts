@@ -4,13 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface UserState {
   profile: TProfileDetails | null
   role: string | null
-  cartTrigger: boolean // Додаємо тригер для оновлення кошика
+  cartTrigger: boolean
 }
 
 const initialState: UserState = {
   profile: null,
   role: null,
-  cartTrigger: false, // Ініціалізуємо тригер
+  cartTrigger: false,
 }
 
 const userSlice = createSlice({
