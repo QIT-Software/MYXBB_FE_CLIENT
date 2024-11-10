@@ -8,6 +8,7 @@ import {
 import { showToast } from '@/components/CustomToast/CustomToast'
 import { MyxIcon } from '@/components/icons'
 import PageHeader from '@/components/PageHeader/PageHeader'
+import { Button } from '@/components/ui/Button/Button'
 
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -133,7 +134,7 @@ const PaymentsPage = () => {
                   setCreditData(false)
                 }}
               >
-                <CreditCard />
+                <CreditCard>Add Credit Card</CreditCard>
               </PaymentForm>
             )}
           </div>
