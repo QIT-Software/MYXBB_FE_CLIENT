@@ -70,7 +70,7 @@ const OrderCard = ({ order }: any) => {
               }}
               submitText='Got it'
               title='Your order has been placed successfully'
-              description='Thank you for ordering'
+              description='Your order added to cart'
             >
               <Button onClick={handleReorder}>Reorder</Button>
             </ConfirmDialog>
