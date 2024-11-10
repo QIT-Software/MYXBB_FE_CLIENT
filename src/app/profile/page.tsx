@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { getUser } from '@/redux/slices/user/selectors'
 import { current } from '@reduxjs/toolkit'
 import { showToast } from '@/components/CustomToast/CustomToast'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 type TPasswordChange = {
   current_password: string
@@ -26,7 +27,7 @@ type TPasswordChange = {
 
 const ProfilePage = () => {
   const [patchProfile, { isLoading }] = usePatchProfileMutation()
-  const [patchAvatar] = usePatchAvatarMutation()
+  const [patchAvatar, { isLoading: isLoadingAvatar }] = usePatchAvatarMutation()
 
   const profile = useSelector(getUser)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -253,7 +254,7 @@ const ProfilePage = () => {
               </div>
               <div className='flex gap-6'>
                 <Button type='submit' className='w-[144px] sm:w-full'>
-                  Update profile
+                  {isLoadingAvatar || isLoading ? <ClipLoader size={20} color='white' /> : 'Update profile'}
                 </Button>
                 <Button type='button' variant={'blackUnderline'} onClick={() => reset()}>
                   Cancel
