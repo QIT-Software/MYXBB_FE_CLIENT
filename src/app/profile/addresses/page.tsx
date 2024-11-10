@@ -87,6 +87,7 @@ const AddressBookPage = () => {
   useEffect(() => {
     if (profile) {
       setValue('billing_address', profile?.billing_address)
+      setValue('shipping_address', profile?.shipping_address)
     }
   }, [profile])
 
@@ -167,37 +168,38 @@ const AddressBookPage = () => {
           <ClipLoader color='red' size={50} />
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-3'>
           <div className='flex flex-col gap-3'>
             <h2 className='text-lg uppercase'>Billing Address</h2>
-
-            {!profile?.billing_address?.full_address && !showBillingForm ? (
-              <div className='flex flex-col gap-5'>
-                <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowBillingForm(true)}>
-                  + Add Billing Address
-                </div>
-              </div>
-            ) : (
-              <>
-                {!showBillingForm && (
-                  <div className='flex justify-between items-center'>
-                    <div className='text-primary-black'>
-                      <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
-                      <div>{`${profile?.billing_address?.full_address}`}</div>
-                      {profile.phone && <div>{`${profile?.phone}`}</div>}
-                    </div>
-                    <div className='flex gap-2'>
-                      <button onClick={() => handleEdit('billing')}>
-                        <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
-                      </button>
-                      <button onClick={() => handleDelete({ billing_address: {} })}>
-                        <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
-                      </button>
-                    </div>
+            <div>
+              {!profile?.billing_address?.full_address && !showBillingForm ? (
+                <div className='flex flex-col gap-5'>
+                  <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowBillingForm(true)}>
+                    + Add Billing Address
                   </div>
-                )}
-              </>
-            )}
+                </div>
+              ) : (
+                <>
+                  {!showBillingForm && (
+                    <div className='flex justify-between items-center'>
+                      <div className='text-primary-black'>
+                        <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
+                        <div>{`${profile?.billing_address?.full_address}`}</div>
+                        {profile.phone && <div>{`${profile?.phone}`}</div>}
+                      </div>
+                      <div className='flex gap-2'>
+                        <button onClick={() => handleEdit('billing')}>
+                          <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                        </button>
+                        <button onClick={() => handleDelete({ billing_address: {} })}>
+                          <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
 
           {showBillingForm && (
