@@ -92,9 +92,14 @@ const AddressBookPage = () => {
 
   const onSubmit = async (data: any) => {
     let combinedData = {
-      billing_address: data.billing_address,
-      shipping_address: data.is_shipping_address_equals_billing ? data.billing_address : data.shipping_address,
-      is_shipping_address_equals_billing: data.is_shipping_address_equals_billing,
+      ...data,
+      billing_address: data.billing_address.address ? data.billing_address : profile?.billing_address,
+    }
+
+    if (data.is_shipping_address_equals_billing === true) {
+      delete combinedData.shipping_address
+    } else {
+      combinedData.shipping_address = data.shipping_address
     }
 
     await patchProfile(combinedData)
@@ -162,7 +167,7 @@ const AddressBookPage = () => {
           <ClipLoader color='red' size={50} />
         </div>
       ) : (
-        <>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='flex flex-col gap-3'>
             <h2 className='text-lg uppercase'>Billing Address</h2>
 
@@ -196,7 +201,7 @@ const AddressBookPage = () => {
           </div>
 
           {showBillingForm && (
-            <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
+            <div className='grid grid-cols-2 gap-6 mt-4'>
               <div>
                 <Label required text='Address' />
                 <Input
@@ -300,7 +305,7 @@ const AddressBookPage = () => {
                   Cancel
                 </Button>
               </div>
-            </form>
+            </div>
           )}
 
           <div className='border-b border-secondary-light-grey' />
@@ -337,7 +342,7 @@ const AddressBookPage = () => {
           </div>
 
           {showShippingForm && (
-            <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
+            <div className='grid grid-cols-2 gap-6 mt-4'>
               <div>
                 <Label required text='Address' />
                 <Input
@@ -434,9 +439,9 @@ const AddressBookPage = () => {
                   Cancel
                 </Button>
               </div>
-            </form>
+            </div>
           )}
-        </>
+        </form>
       )}
     </div>
   )
