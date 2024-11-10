@@ -32,6 +32,7 @@ const baseQueryWithReauth: BaseQueryFn<FetchArgs | any, unknown, FetchBaseQueryE
       result = await baseQuery(args, api, extraOptions)
     } else {
       removeFromStorage(storageKeys.AUTH)
+      removeFromStorage(storageKeys.REFRESH)
       // if (window.location.pathname !== '/auth') {
       //   window.location.replace('/auth')
       // }

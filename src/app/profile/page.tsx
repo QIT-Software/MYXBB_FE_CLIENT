@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { getUser } from '@/redux/slices/user/selectors'
 import { current } from '@reduxjs/toolkit'
 import { showToast } from '@/components/CustomToast/CustomToast'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 type TPasswordChange = {
   current_password: string
@@ -26,7 +27,7 @@ type TPasswordChange = {
 
 const ProfilePage = () => {
   const [patchProfile, { isLoading }] = usePatchProfileMutation()
-  const [patchAvatar] = usePatchAvatarMutation()
+  const [patchAvatar, { isLoading: isLoadingAvatar }] = usePatchAvatarMutation()
 
   const profile = useSelector(getUser)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -68,17 +69,20 @@ const ProfilePage = () => {
 
   const onSubmit = async (data: TProfileDetails) => {
     try {
+      const processedData = {
+        ...data,
+        phone: data.phone.replace(/\s+/g, ''),
+        birthdate: data.birthdate ? format(new Date(data.birthdate), 'yyyy-MM-dd') : undefined,
+      }
+
       if (selectedFile) {
         const avatar = new FormData()
         avatar.append('avatar', selectedFile)
         await patchAvatar(avatar).unwrap()
       }
 
-      if (data.birthdate) {
-        data.birthdate = format(new Date(data.birthdate), 'yyyy-MM-dd')
-      }
-      delete data.avatar
-      await patchProfile(data).unwrap()
+      delete processedData.avatar
+      await patchProfile(processedData).unwrap()
       showToast({ message: 'Personal information successfully updated', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
@@ -250,7 +254,7 @@ const ProfilePage = () => {
               </div>
               <div className='flex gap-6'>
                 <Button type='submit' className='w-[144px] sm:w-full'>
-                  Update profile
+                  {isLoadingAvatar || isLoading ? <ClipLoader size={20} color='white' /> : 'Update profile'}
                 </Button>
                 <Button type='button' variant={'blackUnderline'} onClick={() => reset()}>
                   Cancel

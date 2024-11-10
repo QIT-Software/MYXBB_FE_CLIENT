@@ -7,8 +7,11 @@ import { storageKeys } from '@/constants/storage'
 import { removeFromStorage } from '@/utils/storage'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { clearUserProfile } from '@/redux/slices/user/userSlice'
 
 const Sidebar = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -16,6 +19,7 @@ const Sidebar = () => {
     removeFromStorage(storageKeys.AUTH)
     removeFromStorage(storageKeys.REFRESH)
     removeFromStorage('cart')
+    dispatch(clearUserProfile())
     router.push('/')
   }
   return (

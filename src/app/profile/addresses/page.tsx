@@ -88,14 +88,20 @@ const AddressBookPage = () => {
   useEffect(() => {
     if (profile) {
       setValue('billing_address', profile?.billing_address)
+      setValue('shipping_address', profile?.shipping_address)
     }
   }, [profile])
 
   const onSubmit = async (data: any) => {
     let combinedData = {
-      billing_address: data.billing_address,
-      shipping_address: data.is_shipping_address_equals_billing ? data.billing_address : data.shipping_address,
-      is_shipping_address_equals_billing: data.is_shipping_address_equals_billing,
+      ...data,
+      billing_address: data.billing_address.address ? data.billing_address : profile?.billing_address,
+    }
+
+    if (data.is_shipping_address_equals_billing === true) {
+      delete combinedData.shipping_address
+    } else {
+      combinedData.shipping_address = data.shipping_address
     }
 
     await patchProfile(combinedData)
@@ -163,38 +169,42 @@ const AddressBookPage = () => {
           <ClipLoader color='red' size={50} />
         </div>
       ) : (
-        <>
-          {!profile?.billing_address?.full_address && !showBillingForm ? (
-            <div className='flex flex-col gap-5'>
-              <h2 className='text-lg uppercase'>Billing Address</h2>
-              <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowBillingForm(true)}>
-                + Add Billing Address
-              </div>
-            </div>
-          ) : (
-            <>
-              {!showBillingForm && (
-                <div className='flex justify-between items-center'>
-                  <div className='text-primary-black'>
-                    <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
-                    <div>{`${profile?.billing_address?.full_address}`}</div>
-                    {profile.phone && <div>{`${profile?.phone}`}</div>}
-                  </div>
-                  <div className='flex gap-2'>
-                    <button onClick={() => handleEdit('billing')}>
-                      <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                    <button onClick={() => handleDelete({ billing_address: {} })}>
-                      <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-3'>
+          <div className='flex flex-col gap-3'>
+            <h2 className='text-lg uppercase'>Billing Address</h2>
+            <div>
+              {!profile?.billing_address?.full_address && !showBillingForm ? (
+                <div className='flex flex-col gap-5'>
+                  <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowBillingForm(true)}>
+                    + Add Billing Address
                   </div>
                 </div>
+              ) : (
+                <>
+                  {!showBillingForm && (
+                    <div className='flex justify-between items-center'>
+                      <div className='text-primary-black'>
+                        <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
+                        <div>{`${profile?.billing_address?.full_address}`}</div>
+                        {profile.phone && <div>{`${profile?.phone}`}</div>}
+                      </div>
+                      <div className='flex gap-2'>
+                        <button onClick={() => handleEdit('billing')}>
+                          <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                        </button>
+                        <button onClick={() => handleDelete({ billing_address: {} })}>
+                          <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
-            </>
-          )}
+            </div>
+          </div>
 
           {showBillingForm && (
-            <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
+            <div className='grid grid-cols-2 gap-6 mt-4'>
               <div>
                 <Label required text='Address' />
                 <Input
@@ -298,42 +308,44 @@ const AddressBookPage = () => {
                   Cancel
                 </Button>
               </div>
-            </form>
+            </div>
           )}
 
           <div className='border-b border-secondary-light-grey' />
 
-          {!profile?.shipping_address?.full_address && !showShippingForm ? (
-            <div className='flex flex-col gap-5'>
-              <h2 className='text-lg uppercase'>Shipping Address</h2>
-              <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowShippingForm(true)}>
-                + Add Shipping Address
-              </div>
-            </div>
-          ) : (
-            <>
-              {!showShippingForm && (
-                <div className='flex justify-between items-center'>
-                  <div className='text-primary-black'>
-                    <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
-                    <div>{`${profile?.shipping_address?.full_address}`}</div>
-                    {profile?.phone && <div>{`${profile?.phone}`}</div>}
-                  </div>
-                  <div className='flex gap-2'>
-                    <button onClick={() => handleEdit('shipping')}>
-                      <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                    <button onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}>
-                      <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
-                    </button>
-                  </div>
+          <div className='flex flex-col gap-3'>
+            <h2 className='text-lg uppercase'>Shipping Address</h2>
+            {!profile?.shipping_address?.full_address && !showShippingForm ? (
+              <div className='flex flex-col gap-5'>
+                <div className='cursor-pointer font-semibold text-base capitalize' onClick={() => setShowShippingForm(true)}>
+                  + Add Shipping Address
                 </div>
-              )}
-            </>
-          )}
+              </div>
+            ) : (
+              <>
+                {!showShippingForm && (
+                  <div className='flex justify-between items-center'>
+                    <div className='text-primary-black'>
+                      <div>{`${profile?.first_name} ${profile?.last_name}`}</div>
+                      <div>{`${profile?.shipping_address?.full_address}`}</div>
+                      {profile?.phone && <div>{`${profile?.phone}`}</div>}
+                    </div>
+                    <div className='flex gap-2'>
+                      <button onClick={() => handleEdit('shipping')}>
+                        <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
+                      </button>
+                      <button onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}>
+                        <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
           {showShippingForm && (
-            <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-2 gap-6 mt-4'>
+            <div className='grid grid-cols-2 gap-6 mt-4'>
               <div>
                 <Label required text='Address' />
                 <Input
@@ -430,9 +442,9 @@ const AddressBookPage = () => {
                   Cancel
                 </Button>
               </div>
-            </form>
+            </div>
           )}
-        </>
+        </form>
       )}
     </div>
   )

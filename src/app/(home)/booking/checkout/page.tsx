@@ -174,7 +174,15 @@ const CheckoutPage = () => {
       }),
     }))
     if (!profile) {
-      customer = await signup(data.auth).unwrap()
+      const processedData = {
+        ...data,
+        auth: {
+          ...data.auth,
+          phone: data.auth.phone.replace(/\s+/g, ''),
+        },
+      }
+
+      customer = await signup(processedData.auth).unwrap()
     }
     const orderData = {
       customer: profile?.id ? profile.id : customer?.id,

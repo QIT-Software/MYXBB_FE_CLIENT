@@ -9,7 +9,7 @@ import { MyxIcon } from '@/components/icons'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
-function Calendar({ className, classNames, showOutsideDays = true, selected, ...props }: any) {
+function Calendar({ className, classNames, showOutsideDays = true, selected, onSelect, ...props }: any) {
   const defaultClassNames = getDefaultClassNames()
 
   return (
@@ -17,6 +17,8 @@ function Calendar({ className, classNames, showOutsideDays = true, selected, ...
       captionLayout={'dropdown-years'}
       showOutsideDays={showOutsideDays}
       mode='single'
+      selected={selected}
+      onSelect={onSelect}
       classNames={{
         root: `${defaultClassNames.root} shadow-lg p-5`,
         chevron: `${defaultClassNames.chevron} fill-amber-500`,

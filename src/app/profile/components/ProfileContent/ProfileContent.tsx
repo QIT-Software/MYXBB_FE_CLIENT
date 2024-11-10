@@ -58,17 +58,23 @@ const ProfileContent = ({ initialData }: TProfileContentProps) => {
 
   const onSubmit = async (data: TProfileDetails) => {
     try {
+      const processedData = {
+        ...data,
+        phone: data.phone.replace(/\s+/g, ''),
+      }
+
       if (selectedFile) {
         const avatar = new FormData()
         avatar.append('avatar', selectedFile)
         await patchAvatar(avatar).unwrap()
       }
-      delete data.avatar
-      await patchProfile(data).unwrap()
+
+      delete processedData.avatar
+      await patchProfile(processedData).unwrap()
       showToast({ message: 'Personal information successfully updated', variant: 'success' })
     } catch (err: any) {
       const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-      showToast({ message: `Failed to update personal information: ${errorMessage}`, variant: 'success' })
+      showToast({ message: `Failed to update personal information: ${errorMessage}`, variant: 'error' })
     }
   }
   return (
