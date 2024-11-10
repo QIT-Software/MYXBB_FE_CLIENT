@@ -19,7 +19,7 @@ const GoogleOAuthCallback = () => {
 
       if (accessToken) {
         try {
-          await socialAuth({ access_token: accessToken })
+          await socialAuth({ access_token: accessToken }).unwrap()
           router.push('/profile')
         } catch (error) {
           console.error('Помилка під час виконання соціальної авторизації:', error)
