@@ -117,25 +117,28 @@ const PaymentsPage = () => {
                 </div>
               </div>
             ) : (
-              <PaymentForm
-                applicationId={process.env.NEXT_PUBLIC_SANDBOX_APPLICATION_ID}
-                locationId={process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID}
-                cardTokenizeResponseReceived={async (token: any) => {
-                  try {
-                    await submitPayment({ token: token?.token }).unwrap()
-                    showToast({ message: 'Payment method successfully added', variant: 'success' })
-                  } catch (err: any) {
-                    const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
-                    showToast({
-                      message: `Failed to adding payment method: ${errorMessage}`,
-                      variant: 'error',
-                    })
-                  }
-                  setCreditData(false)
-                }}
-              >
-                <CreditCard>Add Credit Card</CreditCard>
-              </PaymentForm>
+              <div className='flex flex-col gap-4'>
+                <Button onClick={() => setCreditData(false)} className='w-[100px]'>Cancel</Button>
+                <PaymentForm
+                  applicationId={process.env.NEXT_PUBLIC_SANDBOX_APPLICATION_ID}
+                  locationId={process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID}
+                  cardTokenizeResponseReceived={async (token: any) => {
+                    try {
+                      await submitPayment({ token: token?.token }).unwrap()
+                      showToast({ message: 'Payment method successfully added', variant: 'success' })
+                    } catch (err: any) {
+                      const errorMessage = err.data ? Object.values(err.data)[0] : 'Unknown error'
+                      showToast({
+                        message: `Failed to adding payment method: ${errorMessage}`,
+                        variant: 'error',
+                      })
+                    }
+                    setCreditData(false)
+                  }}
+                >
+                  <CreditCard>Add Credit Card</CreditCard>
+                </PaymentForm>
+              </div>
             )}
           </div>
           <div className='border border-secondary-light-grey'></div>
