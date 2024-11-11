@@ -364,11 +364,13 @@ const BookingMoreThanSixPage = () => {
                   {errors?.party_size && <span className='text-red-500'>{errors.party_size.message}</span>}
                 </div>
                 <div className='w-full flex flex-col gap-1'>
-                  <Label text='Comment or Message' className='text-primary-gray text-base font-bold' />
+                  <Label text='Comment or Message' required className='text-primary-gray text-base font-bold' />
                   <Textarea
+                    required
                     {...register('comment')}
                     className='w-full h-[100px] p-2 border border-secondary-gray rounded-md resize-none outline-none focus:ring-1 focus:ring-transparent resize-y	'
                   />
+                  {errors?.comment && <span className='text-red-500'>{errors.comment?.message}</span>}
                 </div>
               </div>
             </>
