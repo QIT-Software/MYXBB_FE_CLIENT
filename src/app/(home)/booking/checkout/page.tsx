@@ -218,30 +218,36 @@ const CheckoutPage = () => {
     <div className='h-auto flex items-center flex-col'>
       <BreadCrumbs paths={paths} title={'Checkout'} />
 
-      <div className='flex max-w-[1300px] w-full items-center justify-center pt-[70px] pb-[10px]'>
-        <div className='w-1/3 text-2xl flex flex-col gap-2.5 items-center justify-center'>
+      <div className='flex max-w-[1200px] w-full items-center justify-center pt-[70px] pb-[10px] relative'>
+        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative'>
           <div className='font-bold text-gray-975'>Your Cart</div>
-          <div className='relative flex items-center justify-center gap-4'>
-            <div className=' w-[50px] h-[50px] font-bold bg-primary-hover-red text-white rounded-full flex items-center justify-center'>
+          <div className='flex items-center justify-center'>
+            <div className='w-[50px] h-[50px] font-bold bg-primary-hover-red text-white rounded-full flex items-center justify-center z-10'>
               1
             </div>
+            <div className='absolute w-[calc(50%-55px)] h-[3px] bg-primary-hover-red right-0'></div>
           </div>
         </div>
-        <div className='w-1/3 text-2xl flex flex-col gap-2.5 text-gray-975 items-center'>
+
+        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative'>
           <div className='font-bold text-gray-975'>Checkout Details</div>
-          <div className='flex items-center justify-center gap-4'>
-            <div className=' w-[50px] h-[50px] font-bold bg-primary-hover-red text-white rounded-full flex items-center justify-center'>
+          <div className='flex items-center justify-center'>
+            <div className='absolute w-[calc(50%-55px)] h-[3px] left-0 bg-primary-hover-red'></div>
+            <div className='w-[50px] h-[50px] bg-primary-hover-red text-white rounded-full flex font-bold items-center justify-center z-10'>
               2
             </div>
+            <div className='absolute w-[calc(50%-55px)] h-[3px] right-0 bg-primary-hover-red'></div>
           </div>
         </div>
-        <div className='w-1/3 text-2xl flex flex-col gap-2.5 text-gray-975 items-center'>
+
+        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative'>
           <div className='font-bold' style={{ color: 'rgba(57,66,68,0.3)' }}>
             Order Complete
           </div>
-          <div className='flex items-center justify-center gap-4'>
+          <div className='flex items-center justify-center'>
+            <div className='absolute w-[calc(50%-55px)] h-[3px] left-0' style={{ backgroundColor: 'rgba(57,66,68,0.09)' }}></div>
             <div
-              className='w-[50px] h-[50px] font-bold rounded-full flex items-center justify-center'
+              className='w-[50px] h-[50px] font-bold rounded-full flex items-center justify-center z-10'
               style={{ backgroundColor: 'rgba(57,66,68,0.09)', color: 'rgba(57,66,68,0.3)' }}
             >
               3

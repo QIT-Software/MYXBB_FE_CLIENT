@@ -57,6 +57,7 @@ const AddressBookPage = () => {
     register,
     handleSubmit,
     control,
+    reset,
     watch,
     setValue,
     trigger,
@@ -106,6 +107,7 @@ const AddressBookPage = () => {
     }
 
     await patchProfile(combinedData).unwrap()
+    reset()
     setShowBillingForm(false)
     setShowShippingForm(false)
   }
