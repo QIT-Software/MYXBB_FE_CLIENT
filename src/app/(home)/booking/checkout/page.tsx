@@ -167,7 +167,7 @@ const CheckoutPage = () => {
     const updatedCartItems = cartItems.map((item: any) => ({
       product_id: item.product_id,
       quantity: item.quantity,
-      product_type: 'merch',
+      product_type: item.product_type ? item.product_type : 'merch',
       ...(item.gift_card_item_price && {
         gift_card_item_price: item.gift_card_item_price,
         gift_card_recipient_email: item.gift_card_recipient_email,
