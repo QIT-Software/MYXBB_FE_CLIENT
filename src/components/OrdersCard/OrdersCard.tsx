@@ -18,6 +18,7 @@ const OrderCard = ({ order }: any) => {
   const handleReorder = () => {
     const existingCartItems = JSON.parse(localStorage.getItem('cart') || '[]')
     const newCartItems = order.items.map((item: any) => ({
+      product_type: item.item_type,
       product_id: item.product_id,
       name: item.product_name,
       price: item.product_price ?? item.gift_card_item_price,

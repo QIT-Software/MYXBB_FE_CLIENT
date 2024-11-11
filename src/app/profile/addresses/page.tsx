@@ -2,7 +2,7 @@
 'use client'
 import { Controller, useForm } from 'react-hook-form'
 // import { Input, Button } from '@/components/ui'
-import { use, useEffect, useState } from 'react'
+import { use, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/Input/Input'
 import { Button } from '@/components/ui/Button/Button'
 import PageHeader from '@/components/PageHeader/PageHeader'
@@ -51,6 +51,8 @@ const AddressBookPage = () => {
   const [showShippingForm, setShowShippingForm] = useState(false)
   const [showBillingForm, setShowBillingForm] = useState(false)
 
+  const initialIsShippingEqualsBilling = useRef(profile?.is_shipping_address_equals_billing)
+
   const {
     register,
     handleSubmit,
@@ -61,7 +63,7 @@ const AddressBookPage = () => {
     formState: { errors },
   } = useForm<any>({
     defaultValues: {
-      is_shipping_address_equals_billing: false,
+      is_shipping_address_equals_billing: profile?.is_shipping_address_equals_billing || false,
       billing_address: profile?.billing_address || {
         address: '',
         region: '',
@@ -87,30 +89,30 @@ const AddressBookPage = () => {
 
   useEffect(() => {
     if (profile) {
-      setValue('billing_address', profile?.billing_address)
-      setValue('shipping_address', profile?.shipping_address)
+      setValue('billing_address', profile.billing_address)
+      setValue('shipping_address', profile.shipping_address)
+      setValue('is_shipping_address_equals_billing', profile.is_shipping_address_equals_billing)
     }
-  }, [profile])
+  }, [profile, setValue])
 
   const onSubmit = async (data: any) => {
+    const isManuallyChanged = isShippingEqualsBilling !== initialIsShippingEqualsBilling.current
+    console.log(isManuallyChanged, 'isManuallyChanged')
+
     let combinedData = {
       ...data,
       billing_address: data.billing_address.address ? data.billing_address : profile?.billing_address,
+      shipping_address: !isManuallyChanged && data.shipping_address.address ? data.shipping_address : null,
+      is_shipping_address_equals_billing: isManuallyChanged ? isShippingEqualsBilling : !data.shipping_address.address,
     }
 
-    if (data.is_shipping_address_equals_billing === true) {
-      delete combinedData.shipping_address
-    } else {
-      combinedData.shipping_address = data.shipping_address
-    }
-
-    await patchProfile(combinedData)
+    await patchProfile(combinedData).unwrap()
     setShowBillingForm(false)
     setShowShippingForm(false)
   }
 
   const handleDelete = async (obj: any) => {
-    await patchProfile(obj)
+    await patchProfile(obj).unwrap()
     // @ts-ignore
     setValue('shipping_address', profile?.shipping_address)
     // @ts-ignore
@@ -189,10 +191,10 @@ const AddressBookPage = () => {
                         {profile.phone && <div>{`${profile?.phone}`}</div>}
                       </div>
                       <div className='flex gap-2'>
-                        <button onClick={() => handleEdit('billing')}>
+                        <button type='button' onClick={() => handleEdit('billing')}>
                           <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
                         </button>
-                        <button onClick={() => handleDelete({ billing_address: {} })}>
+                        <button type='button' onClick={() => handleDelete({ billing_address: {} })}>
                           <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
                         </button>
                       </div>
@@ -331,10 +333,13 @@ const AddressBookPage = () => {
                       {profile?.phone && <div>{`${profile?.phone}`}</div>}
                     </div>
                     <div className='flex gap-2'>
-                      <button onClick={() => handleEdit('shipping')}>
+                      <button type='button' onClick={() => handleEdit('shipping')}>
                         <MyxIcon name='edit' width={20} height={20} className='hover:text-primary-red' />
                       </button>
-                      <button onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}>
+                      <button
+                        type='button'
+                        onClick={() => handleDelete({ shipping_address: {}, is_shipping_address_equals_billing: false })}
+                      >
                         <MyxIcon name='delete' width={20} height={20} className='hover:text-primary-red' />
                       </button>
                     </div>
