@@ -2,11 +2,37 @@ import React from 'react'
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog'
 import { Button } from '../ui/Button/Button'
 import { format, parseISO } from 'date-fns'
+import { useDispatch } from 'react-redux'
+import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 
 type TProductCard = {
   product: any
 }
 const ProductCard = ({ product }: TProductCard) => {
+  const dispatch = useDispatch()
+  const handleReorder = () => {
+    const existingCartItems = JSON.parse(localStorage.getItem('cart') || '[]')
+
+    const newCartItem = {
+      product_type: 'custom_blend',
+      product_id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+    }
+
+    const updatedCartItems = [...existingCartItems]
+    const existingItemIndex = updatedCartItems.findIndex(item => item.product_id === newCartItem.product_id)
+
+    if (existingItemIndex > -1) {
+      updatedCartItems[existingItemIndex].quantity += newCartItem.quantity
+    } else {
+      updatedCartItems.push(newCartItem)
+    }
+
+    localStorage.setItem('cart', JSON.stringify(updatedCartItems))
+    dispatch(triggerCartUpdate())
+  }
   return (
     <div className='border border-secondary-black-blue text-primary-black'>
       <div className='p-5 flex justify-between items-center'>
@@ -29,10 +55,10 @@ const ProductCard = ({ product }: TProductCard) => {
 
         <div className='flex flex-col gap-4'>
           <ConfirmDialog
-            submit={() => {}}
+            submit={handleReorder}
             submitText='Got it'
             title='Your order has been placed successfully'
-            description='Thank you for ordering. Our Myxologist will contact you to check all details and confirm your oder as soon as possible.'
+            description='Your order added to cart'
           >
             <Button>Reorder</Button>
           </ConfirmDialog>

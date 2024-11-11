@@ -26,7 +26,7 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
             <div key={item.product_id} className='flex gap-[15px] items-center pb-[15px]'>
               <div className='flex items-center relative'>
                 <Image
-                  src={item.image || '/images/auth-bg.webp'}
+                  src={item.image || '/images/product-placeholder.png'}
                   alt={item.name}
                   className='object-cover'
                   width={60}

@@ -27,7 +27,13 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
                 className='size-5 text-secondary-dark-gray opacity-30 cursor-pointer'
                 onClick={() => onRemoveItem(item.product_id)}
               />
-              <Image src={`${item.image}`} alt={item.name} width={60} height={60} className='w-[60px] h-[60px]object-cover' />
+              <Image
+                src={item.image ? `${item?.image}` : '/images/product-placeholder.png'}
+                alt={item.name}
+                width={60}
+                height={60}
+                className='w-[60px] h-[60px]object-cover'
+              />
               <div>
                 <Link href={'/'} className='text-secondary-dark-gray font-normal hover:text-primary-hover-red'>
                   {item.name}
