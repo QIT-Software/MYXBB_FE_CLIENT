@@ -64,7 +64,7 @@ const AddressBookPage = () => {
     formState: { errors },
   } = useForm<any>({
     defaultValues: {
-      is_shipping_address_equals_billing: profile?.is_shipping_address_equals_billing || false,
+      is_shipping_address_equals_billing: false,
       billing_address: profile?.billing_address || {
         address: '',
         region: '',
@@ -97,13 +97,15 @@ const AddressBookPage = () => {
 
   const onSubmit = async (data: any) => {
     const isManuallyChanged = isShippingEqualsBilling !== initialIsShippingEqualsBilling.current
-    console.log(isManuallyChanged, 'isManuallyChanged')
 
     let combinedData = {
       ...data,
-      billing_address: data.billing_address.address ? data.billing_address : profile?.billing_address,
-      shipping_address: !isManuallyChanged && data.shipping_address.address ? data.shipping_address : null,
-      is_shipping_address_equals_billing: isManuallyChanged ? isShippingEqualsBilling : !data.shipping_address.address,
+      billing_address: data.billing_address,
+      shipping_address: data.shipping_address,
+    }
+
+    if (combinedData.is_shipping_address_equals_billing) {
+      delete combinedData.shipping_address
     }
 
     await patchProfile(combinedData).unwrap()
