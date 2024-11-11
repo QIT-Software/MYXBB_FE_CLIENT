@@ -94,36 +94,35 @@ const AppointmentPage = () => {
                 <div className='flex justify-between p-5'>
                   <div className='flex flex-col gap-6 items-start'>
                     <div className='flex gap-8 items-center justify-center'>
-                      <div className='flex gap-2 max-w-[88px] w-full items-center'>
+                      <div className='flex gap-2 min-w-[88px] w-full items-center'>
                         <MyxIcon name='pin' className='size-5' />
                         <span className='text-base'>WHERE</span>
                       </div>
                       <div className='flex flex-col gap-2 font-semibold'>
-                        <span>{appointment.location_title}</span>
-                        <span>
-                          {appointment.address.city}, {appointment.address.state}
-                        </span>
+                        <p className='truncate'>
+                          {appointment.location_title}, {appointment.address.city} {appointment.address.state}
+                        </p>
                       </div>
                     </div>
                     <div className='flex gap-8 items-center justify-center'>
-                      <div className='flex gap-2 max-w-[88px] w-full items-center'>
+                      <div className='flex gap-2 min-w-[88px] w-full items-center'>
                         <MyxIcon name='clock' className='size-5' />
                         <span className='text-base'>WHEN</span>
                       </div>
                       <div className='flex flex-col gap-2 font-semibold'>
-                        <span>{appointment.date}</span>
-                        <span>
+                        <p>{appointment.date}</p>
+                        <p className='truncate'>
                           {appointment.time} - {appointment.finish_time}
-                        </span>
+                        </p>
                       </div>
                     </div>
                     <div className='flex gap-8 items-center justify-center'>
-                      <div className='flex gap-2 max-w-[88px] w-full items-center'>
+                      <div className='flex gap-2 min-w-[88px] w-full items-center'>
                         <MyxIcon name='event' className='size-5' />
                         <span className='text-base'>WHAT</span>
                       </div>
-                      <div className='flex flex-col gap-2 font-semibold'>
-                        <p>{appointment.service_title}</p>
+                      <div className='flex flex-col gap-2 font-semibold w-full'>
+                        <p className='w-full truncate'>{appointment.service_title}</p>
                         <p>{appointment.total_number_of_persons} persons</p>
                       </div>
                     </div>

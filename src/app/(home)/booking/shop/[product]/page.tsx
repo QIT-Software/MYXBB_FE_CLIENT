@@ -1,3 +1,4 @@
+//@ts-nocheck
 'use client'
 import { useGetSelectedMerchQuery } from '@/api/Services'
 import { getCategoryDisplayName } from '@/api/utils/GetCategory'
@@ -48,6 +49,8 @@ const ProductPage = () => {
 
   const product = params.product
   const { data: selectedProduct } = useGetSelectedMerchQuery({ id: product })
+
+  console.log(selectedProduct, 'selectedProduct')
   const isGiftCard = selectedProduct?.category === 'gift_cards'
 
   const [quantity, setQuantity] = useState(1)
@@ -140,14 +143,54 @@ const ProductPage = () => {
     setSelectedValue(value)
   }
 
+  const [mainImage, setMainImage] = useState(null)
+
+  const handleImageClick = imageUrl => {
+    setMainImage(imageUrl)
+  }
+
   return (
     <div className='h-auto'>
       <BreadCrumbs paths={paths} title={selectedProduct?.name} />
       <div className='w-full flex items-center justify-center min-h-full py-[4.375rem]'>
         <div className='flex flex-col gap-[30px] justify-center max-w-[1200px] w-full'>
           <div className='flex justify-center gap-[3.75rem]'>
-            <div className='relative'>
-              <Image src={selectedProduct?.avatar} alt={'product image'} width={413} height={413} className='object-cover' />
+            <div>
+              <div className='relative'>
+                <Image
+                  src={mainImage ? mainImage : selectedProduct?.avatar}
+                  alt='product image'
+                  width={413}
+                  height={413}
+                  className='object-cover'
+                />
+              </div>
+
+              {selectedProduct?.pictures?.length > 0 && (
+                <div className='flex gap-2 mt-4'>
+                  <div onClick={() => handleImageClick(selectedProduct?.avatar)} className='cursor-pointer'>
+                    <Image
+                      src={selectedProduct?.avatar}
+                      alt='product thumbnail'
+                      width={100}
+                      height={100}
+                      className='object-cover'
+                    />
+                  </div>
+
+                  {selectedProduct?.pictures?.map((pictureObj, index): any => (
+                    <div key={index} onClick={() => handleImageClick(pictureObj.picture)} className='cursor-pointer'>
+                      <Image
+                        src={pictureObj.picture}
+                        alt={`product thumbnail ${index}`}
+                        width={100}
+                        height={100}
+                        className='object-cover'
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className='flex flex-col gap-[30px] max-w-[50%] w-full'>
@@ -248,3 +291,96 @@ const ProductPage = () => {
 }
 
 export default ProductPage
+
+//  <div className='flex justify-center gap-[3.75rem]'>
+//             <div className='relative'>
+//               <Image src={selectedProduct?.avatar} alt={'product image'} width={413} height={413} className='object-cover' />
+//             </div>
+
+//             <div className='flex flex-col gap-[30px] max-w-[50%] w-full'>
+//               <h1 className='text-[1.938rem] text-secondary-dark-gray font-bold suave-text'>{selectedProduct?.name}</h1>
+
+//               <div className='flex flex-col gap-[15px] w-max'>
+//                 {isGiftCard ? (
+//                   <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>$50.00 - $200.00</div>
+//                 ) : (
+//                   <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>${selectedProduct?.price}</div>
+//                 )}
+
+//                 <div className='border-t border-primary-hover-red w-full max-w-[60px]'></div>
+//               </div>
+
+//               {!isGiftCard && <div className='text-primary-gray'>{selectedProduct?.description}</div>}
+
+//               <div className={`flex gap-4 ${isGiftCard ? 'flex-col' : 'items-center'}`}>
+//                 {!isGiftCard ? (
+//                   <div className='flex items-center border border-gray-300 px-2'>
+//                     <button onClick={decreaseQuantity} className='px-2 text-xl'>
+//                       -
+//                     </button>
+//                     <input
+//                       type='text'
+//                       value={quantity}
+//                       onChange={handleInputChange}
+//                       className='px-2 text-center w-12 border-none outline-none'
+//                     />
+//                     <button onClick={increaseQuantity} className='px-2 text-xl'>
+//                       +
+//                     </button>
+//                   </div>
+//                 ) : (
+//                   <div className='flex flex-col gap-3'>
+//                     <Select
+//                       styles={customStyles}
+//                       value={shippingStateOptions.find((option: TOption) => option.value === selectedValue?.toString()) || null}
+//                       options={shippingStateOptions}
+//                       onChange={option => handleSelectChange(option as TOption)}
+//                     />
+//                     <div>
+//                       <Input
+//                         value={recipientEmail}
+//                         onChange={handleChange}
+//                         placeholder='Enter email for gift card'
+//                         className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+//                          focus:outline-none`}
+//                       />
+//                       {emailError && <p className='text-red-500 text-sm mt-1'>{emailError}</p>}
+//                     </div>
+//                   </div>
+//                 )}
+//                 <button
+//                   //@ts-ignore
+//                   disabled={disabledCart}
+//                   className='bg-primary-red text-white px-6 py-2 font-bold disabled:opacity-20'
+//                   onClick={handleAddToCart}
+//                 >
+//                   Add to cart
+//                 </button>
+//               </div>
+
+//               <div className='text-primary-gray text-sm capitalize'>
+//                 Category: {getCategoryDisplayName(selectedProduct?.category)}
+//               </div>
+
+//               {/* <div className='flex flex-col gap-2.5'>
+//                 <div className='text-secondary-dark-gray font-bold'>Share this product</div>
+//                 <div className='flex gap-1'>
+//                   <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
+//                     <MyxIcon name='twitter' className='size-4' />
+//                   </div>
+//                   <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
+//                     <MyxIcon name='pinterest' className='size-4' />
+//                   </div>
+//                   <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
+//                     <MyxIcon name='linkedin' className='size-4' />
+//                   </div>
+//                   <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
+//                     <MyxIcon name='whatsapp' className='size-4' />
+//                   </div>
+//                   <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
+//                     <MyxIcon name='facebookShare' className='size-4' />
+//                   </div>
+//                 </div>
+//               </div> */}
+//             </div>
+//           </div>
