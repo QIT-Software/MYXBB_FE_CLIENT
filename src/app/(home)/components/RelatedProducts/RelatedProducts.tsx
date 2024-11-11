@@ -24,7 +24,7 @@ const RelatedProducts = ({ category, currentProduct }: { category?: string; curr
       <div className='text-2xl font-bold'>Related products</div>
       <div className='grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-[50px]'>
         {filteredProducts.length &&
-          filteredProducts.map((product: TProduct) => <RelatedProductCard key={product.id} product={product} />)}
+          filteredProducts.slice(0, 6).map((product: TProduct) => <RelatedProductCard key={product.id} product={product} />)}
       </div>
     </div>
   )
