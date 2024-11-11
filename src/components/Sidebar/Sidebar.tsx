@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { clearUserProfile } from '@/redux/slices/user/userSlice'
 
-const Sidebar = () => {
+const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const pathname = usePathname()
@@ -23,16 +23,23 @@ const Sidebar = () => {
     router.push('/')
   }
   return (
-    <aside className='flex max-w-[238px] w-full flex-col min-h-screen justify-between border-r border-secondary-light-grey'>
-      <div className='flex flex-col gap-4 pr-6'>
+    <aside className='flex max-w-[238px] w-full flex-col min-h-screen justify-between border-r border-secondary-light-grey sm:flex-col sm:min-h-0 sm:h-max sm:w-full sm:max-w-full sm:border-none'>
+      <div className='flex flex-col gap-4 pr-6 md:pr-4'>
         {sidebarLinks.map(item => {
           const isActive = pathname === item.link
 
           return (
-            <Link href={item.link} key={item.name} className='flex w-full items-center gap-3'>
-              <Image width={44} height={44} src={item.image} alt='logo' />
-              <div className={`text-lg ${isActive ? 'font-bold text-primary-black' : 'text-primary-black'}`}>{item.name}</div>
-            </Link>
+            <>
+              <Link
+                href={item.link}
+                key={item.name}
+                className='flex w-full items-center gap-3 sm:border-b sm:border-secondary-black-hover sm:pb-2'
+              >
+                <Image width={44} height={44} src={item.image} alt='logo' />
+                <div className={`text-lg ${isActive ? 'font-bold text-primary-black' : 'text-primary-black'}`}>{item.name}</div>
+              </Link>
+              <div className='hidden sm:flex sm:flex-col'>{isActive && children}</div>
+            </>
           )
         })}
       </div>

@@ -56,9 +56,10 @@ const Header = () => {
       if (Math.abs(currentScrollY - scrollPosition) > 30) {
         setScrollPosition(currentScrollY)
 
+        // Only set `isScrolled` based on scroll position if pathname does not include "profile"
         if (currentScrollY > 50 && !pathname.includes('profile')) {
           setIsScrolled(true)
-        } else {
+        } else if (!pathname.includes('profile')) {
           setIsScrolled(false)
         }
       }
@@ -74,8 +75,8 @@ const Header = () => {
   return (
     <div className='min-h-[250px]'>
       <div
-        className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'top-[-36px] bg-white' : 'bg-primary-black'
+        className={`w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'top-[-36px] bg-white' : 'bg-primary-black'} ${
+          pathname.includes('profile') ? 'block' : 'fixed'
         }`}
       >
         <div className='w-full flex justify-center'>

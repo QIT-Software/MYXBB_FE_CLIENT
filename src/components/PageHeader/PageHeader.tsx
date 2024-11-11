@@ -6,7 +6,7 @@ type TPageHeaderProps = {
 }
 const PageHeader = ({ title, children }: TPageHeaderProps) => {
   return (
-    <div className='flex flex-col gap-4 w-full'>
+    <div className='flex flex-col gap-4 w-full sm:hidden'>
       <h1 className='text-[1.75rem] font-semibold'>{title}</h1>
       <div className='w-full border-b-2 border-gray-700'></div>
     </div>
