@@ -218,34 +218,37 @@ const CheckoutPage = () => {
     <div className='h-auto flex items-center flex-col'>
       <BreadCrumbs paths={paths} title={'Checkout'} />
 
-      <div className='flex max-w-[1200px] w-full items-center justify-center pt-[70px] pb-[10px] relative'>
-        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative'>
+      <div className='flex max-w-[1200px] w-full items-center justify-center pt-[70px] pb-[10px] relative md:flex-col md:items-start md:px-[50px] md:gap-10 sm:flex-col sm:px-5 sm:gap-10'>
+        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative md:w-full md:flex-row-reverse md:items-center md:justify-end sm:w-full sm:flex-row-reverse sm:items-start sm:justify-end'>
           <div className='font-bold text-gray-975'>Your Cart</div>
           <div className='flex items-center justify-center'>
             <div className='w-[50px] h-[50px] font-bold bg-primary-hover-red text-white rounded-full flex items-center justify-center z-10'>
               1
             </div>
-            <div className='absolute w-[calc(50%-55px)] h-[3px] bg-primary-hover-red right-0'></div>
+            <div className='absolute w-[calc(50%-55px)] h-[3px] bg-primary-hover-red right-0 md:left-[24px] md:top-[56px] md:h-[14px] md:w-[3px] sm:left-[24px] sm:top-[56px] sm:h-[14px] sm:w-[3px]'></div>
           </div>
         </div>
 
-        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative'>
+        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative md:w-full md:flex-row-reverse md:items-center md:justify-end sm:w-full sm:flex-row-reverse sm:items-start sm:justify-end'>
           <div className='font-bold text-gray-975'>Checkout Details</div>
           <div className='flex items-center justify-center'>
-            <div className='absolute w-[calc(50%-55px)] h-[3px] left-0 bg-primary-hover-red'></div>
-            <div className='w-[50px] h-[50px] bg-primary-hover-red text-white rounded-full flex font-bold items-center justify-center z-10'>
+            <div className=' bg-primary-hover-red absolute w-[calc(50%-55px)] h-[3px] left-0 md:left-[24px] md:bottom-[56px] md:h-[14px] md:w-[3px] sm:left-[24px] sm:bottom-[56px] sm:h-[14px] sm:w-[3px]'></div>
+            <div className='w-[50px] h-[50px] rounded-full flex font-bold items-center justify-center bg-primary-hover-red text-white z-10'>
               2
             </div>
-            <div className='absolute w-[calc(50%-55px)] h-[3px] right-0 bg-primary-hover-red'></div>
+            <div className=' bg-primary-hover-red absolute w-[calc(50%-55px)] h-[3px] right-0 md:left-[24px] md:top-[56px] md:h-[14px] md:w-[3px] sm:left-[24px] sm:top-[56px] sm:h-[14px] sm:w-[3px]'></div>
           </div>
         </div>
 
-        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative'>
+        <div className='w-1/3 text-2xl flex flex-col items-center gap-2.5 relative md:w-full md:flex-row-reverse md:items-center md:justify-end sm:w-full sm:flex-row-reverse sm:items-start sm:justify-end'>
           <div className='font-bold' style={{ color: 'rgba(57,66,68,0.3)' }}>
             Order Complete
           </div>
           <div className='flex items-center justify-center'>
-            <div className='absolute w-[calc(50%-55px)] h-[3px] left-0' style={{ backgroundColor: 'rgba(57,66,68,0.09)' }}></div>
+            <div
+              className='absolute w-[calc(50%-55px)] h-[3px] left-0 md:left-[24px] md:bottom-[56px] md:h-[14px] md:w-[3px] sm:left-[24px] sm:bottom-[56px] sm:h-[14px] sm:w-[3px]'
+              style={{ backgroundColor: 'rgba(57,66,68,0.09)' }}
+            ></div>
             <div
               className='w-[50px] h-[50px] font-bold rounded-full flex items-center justify-center z-10'
               style={{ backgroundColor: 'rgba(57,66,68,0.09)', color: 'rgba(57,66,68,0.3)' }}
@@ -256,7 +259,7 @@ const CheckoutPage = () => {
         </div>
       </div>
 
-      <div className='flex flex-col max-w-[1300px] w-full gap-[35px] py-[70px] relative'>
+      <div className='flex flex-col max-w-[1300px] w-full gap-[35px] py-[70px] relative md:py-[30px] md:px-[15px] sm:py-[30px] sm:px-[15px]'>
         <div className='flex max-h-[356px] relative'>
           <Image
             src={'/images/checkout-bg.webp'}
@@ -270,11 +273,11 @@ const CheckoutPage = () => {
           </h1>
         </div>
 
-        <div className='flex flex-col gap-[20px] pt-[55px]'>
+        <div className='flex flex-col gap-[20px] pt-[55px] md:p-0'>
           {!profile && (
             <>
               <div className='text-secondary-dark-gray'>
-                Returning customer?{' '}
+                Returning customer?
                 <span onClick={() => setAuth(!auth)} className='cursor-pointer text-primary-hover-red hover:underline'>
                   Click here to login
                 </span>
@@ -292,10 +295,10 @@ const CheckoutPage = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex w-full gap-[60px]'>
-            <div className='flex w-1/2 flex-col gap-4'>
+          <div className='flex w-full gap-[60px] md:flex-col sm:flex-col'>
+            <div className='flex w-1/2 flex-col gap-4 md:w-full sm:w-full'>
               <div className='flex flex-col gap-6'>
-                <div className='flex gap-3 items-center justify-between'>
+                <div className='flex gap-3 items-center justify-between md:flex-col sm:flex-col'>
                   <div className='flex w-full flex-col'>
                     <Label text='First name *' className='text-secondary-dark-gray text-[15px] !font-normal' />
                     <Input
@@ -668,7 +671,7 @@ const CheckoutPage = () => {
                 </div>
               </div>
             </div>
-            <div className='w-1/2'>
+            <div className='w-1/2 md:w-full sm:w-full'>
               <CheckoutSummary
                 isValid={isValid}
                 loading={isLoading}
