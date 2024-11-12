@@ -8,10 +8,10 @@ const GIftCardBlock = () => {
   const { data: products } = useGetProductsQuery({ is_for_shop: 'true', category })
 
   return (
-    <div className='flex gap-7.5 justify-around'>
+    <div className='flex gap-7.5 justify-around md:flex-col-reverse sm:flex-col-reverse md:items-center sm:items-center'>
       <div className='flex flex-col items-center gap-[35px] pt-[8%]'>
         <div className='flex flex-col gap-2.5 max-w-[630px] w-full'>
-          <div className='suave-text text-[3.063rem] text-primary-black text-center'>
+          <div className='suave-text text-[3.063rem] text-primary-black text-center md:text-[2.5rem] sm:text-[2.5rem]'>
             Make Your Mark <br /> with a MYX gift card
           </div>
           <div className='text-center text-primary-gray'>
@@ -21,7 +21,7 @@ const GIftCardBlock = () => {
         </div>
         <ShopButton link={`/booking/shop/${products?.results[0].id}`} title='Shop now' />
       </div>
-      <div className='hover:bg-primary-black/20 max-h-[300px] max-w-[300px] w-full'>
+      <div className='max-h-[300px] max-w-[300px] w-full'>
         <Image src={'/images/gift-card-image.webp'} alt='custom shop' width={300} height={300} className='object-cover' />
       </div>
     </div>

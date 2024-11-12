@@ -11,8 +11,8 @@ const LipstickBlock = () => {
   if (!products?.results.length) return <></>
 
   return (
-    <div className='flex flex-col gap-9 max-w-['>
-      <div className='flex items-center justify-center z-[2] text-[3.438rem] text-primary-black font-bold text-center suave-text relative'>
+    <div className='flex flex-col gap-9'>
+      <div className='flex items-center justify-center z-[2] text-[3.438rem] text-primary-black font-bold text-center suave-text relative md:text-[2.5rem] sm:text-[2.5rem]'>
         Lipstick
         <div className='z-[1] absolute bottom-[17%] left-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[190px] w-full border-b border-primary-gray'></div>
       </div>
