@@ -30,9 +30,9 @@ const ContactPage = () => {
     }
   }
   return (
-    <div className='w-full flex bg-gray-25'>
+    <div className='w-full flex bg-gray-25 md:flex-col sm:flex-col'>
       <div
-        className='w-2/5 bg-cover flex bg-center justify-center'
+        className='w-2/5 bg-cover flex bg-center justify-center md:w-full sm:w-full'
         style={{
           backgroundImage: "url('/images/checkout-bg.webp')",
           backgroundSize: 'cover',
@@ -40,7 +40,7 @@ const ContactPage = () => {
           backgroundPosition: '50%',
         }}
       >
-        <div className='max-w-[400px] w-full flex items-center justify-center flex-col gap-[70px] py-[65px]'>
+        <div className='max-w-[400px] w-full flex items-center justify-center flex-col gap-[70px] py-[65px] md:px-[15px] md:max-w-full md:w-full md:py-[40px] sm:py-[15px] sm:max-w-full sm:py-[20px]'>
           <div className='suave-text tracking-[6px] text-[30px] text-white'>STAY IN THE MYX</div>
           <div className='flex flex-col gap-[55px]'>
             <div className='border-l-2 border-white pl-[25px] flex flex-col gap-[30px]'>
@@ -61,8 +61,8 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-      <div className='w-3/5 pt-[60px] flex justify-center'>
-        <div className='flex flex-col max-w-[500px] w-full items-center gap-8'>
+      <div className='w-3/5 pt-[60px] flex justify-center md:pb-[60px] md:px-[15px] sm:px-[15px] md:max-w-full md:w-full md:py-[40px] sm:py-[20px] sm:w-full sm:max-w-full'>
+        <div className='flex flex-col max-w-[500px] w-full items-center gap-8 md:max-w-full sm:max-w-full'>
           <h1 className='suave-text text-gray-700 text-[30px] uppercase tracking-[6px]'>Contact Form</h1>
           {!isSuccess ? (
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4 w-full items-center justify-between '>

@@ -5,13 +5,13 @@ import { packagesList } from '@/constants/packages'
 const PackagesSection = () => {
   return (
     <div className='w-full bg-gray-450 pt-[72px]'>
-      <div className='flex flex-col gap-[30px] items-center justify-center w-full'>
+      <div className='flex flex-col gap-[30px] items-center justify-center w-full md:pb-[120px] md:px-[15px]'>
         <div className='flex flex-col items-center'>
           <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text'>PACKAGES</div>
           <div className='text-gray-700 suave-text'>Per Person</div>
         </div>
         <div className='flex items-center max-w-[1140px] w-full'>
-          <div className='flex flex-wrap gap-x-[70px] justify-center gap-y-[60px]'>
+          <div className='flex flex-wrap gap-x-[70px] justify-center gap-y-[60px] md:gap-x-5 md:grid md:grid-cols-2 md:gap-y-5 md:gap-x-5'>
             {packagesList.map(pkg => (
               <PackageCard key={pkg.title} item={pkg} />
             ))}
