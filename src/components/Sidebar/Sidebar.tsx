@@ -39,7 +39,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                   <Image width={44} height={44} src={item.image} alt='logo' />
                   <div className={`text-lg ${isActive ? 'font-bold text-primary-black' : 'text-primary-black'}`}>{item.name}</div>
                 </div>
-                <MyxIcon name='chevronDown' className={`size-6 ${isActive && 'rotate-180'}`} />
+                <MyxIcon name='chevronDown' className={`hidden sm:block  size-6 ${isActive && 'rotate-180'}`} />
               </Link>
               {isActive && <div className='hidden sm:flex sm:flex-col'>{children}</div>}
             </div>

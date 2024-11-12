@@ -92,7 +92,6 @@ const AddressBookPage = () => {
     if (profile) {
       setValue('billing_address', profile.billing_address)
       setValue('shipping_address', profile.shipping_address)
-      setValue('is_shipping_address_equals_billing', profile.is_shipping_address_equals_billing)
     }
   }, [profile, setValue])
 
