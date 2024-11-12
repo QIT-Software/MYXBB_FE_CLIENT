@@ -210,7 +210,7 @@ const AddressBookPage = () => {
           </div>
 
           {showBillingForm && (
-            <div className='grid grid-cols-2 gap-6 mt-4 md:flex md:flex-col'>
+            <div className='grid grid-cols-2 gap-6 mt-4 md:flex md:flex-col sm:flex sm:flex-col'>
               <div>
                 <Label required text='Address' />
                 <Input
@@ -354,7 +354,7 @@ const AddressBookPage = () => {
           </div>
 
           {showShippingForm && (
-            <div className='grid grid-cols-2 gap-6 mt-4 md:flex md:flex-col'>
+            <div className='grid grid-cols-2 gap-6 mt-4 md:flex md:flex-col sm:flex sm:flex-col'>
               <div>
                 <Label required text='Address' />
                 <Input

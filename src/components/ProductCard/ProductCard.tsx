@@ -35,7 +35,7 @@ const ProductCard = ({ product }: TProductCard) => {
   }
   return (
     <div className='border border-secondary-black-blue text-primary-black'>
-      <div className='p-5 flex justify-between items-center md:hidden'>
+      <div className='p-5 flex justify-between items-center md:hidden sm:hidden'>
         <div className='flex flex-col gap-4 max-w-[200px] w-full'>
           <div className='uppercase'>Name</div>
           <div className='font-semibold'>{product.name}</div>
@@ -64,7 +64,7 @@ const ProductCard = ({ product }: TProductCard) => {
           </ConfirmDialog>
         </div>
       </div>
-      <div className='p-4 hidden justify-between items-start md:flex'>
+      <div className='p-4 hidden justify-between items-start md:flex sm:flex'>
         <div className='flex flex-col gap-5 flex-shrink'>
           <div className='flex gap-4 max-w-max w-full'>
             <div className='uppercase min-w-[90px]'>Name</div>

@@ -12,7 +12,7 @@ const BookingPage = () => {
     <div className='flex flex-col'>
       <div className='w-screen h-screen bg-cover bg-center' style={{ backgroundImage: "url('/images/booking-bg.webp')" }}></div>
       <div className='flex bg-primary-brown justify-center pt-[2.188rem] px-[3.75rem] pb-[7.5rem]'>
-        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem]'>
+        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col'>
           <div>
             <Image src={'/images/face-myx-booking.webp'} alt='logo' width={685} height={511} />
           </div>
@@ -23,7 +23,7 @@ const BookingPage = () => {
         </div>
       </div>
       <div className='flex justify-center bg-primary-black pt-[2.188rem] px-[3.75rem] pb-[7.5rem]'>
-        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem]'>
+        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col'>
           <div>
             <Image src={'/images/myx-lips-booking.webp'} alt='logo' width={685} height={511} />
           </div>
@@ -33,9 +33,9 @@ const BookingPage = () => {
           </div>
         </div>
       </div>
-      <div className='flex'>
+      <div className='flex md:flex-col'>
         <div
-          className='py-[15px] pt-[2.188rem] h-[15.75rem] w-1/2 bg-cover items-center flex flex-col gap-10'
+          className='py-[15px] pt-[2.188rem] h-[15.75rem] w-1/2 bg-cover items-center flex flex-col gap-10 md:w-full'
           style={{ backgroundImage: "url('/images/booking-btn-one.webp')" }}
         >
           <div className='flex items-center flex-col gap-[0.625rem]'>
@@ -50,7 +50,7 @@ const BookingPage = () => {
           </Link>
         </div>
         <div
-          className='py-[15px] pt-[2.188rem] h-[15.75rem] w-1/2 bg-cover items-center flex flex-col gap-10'
+          className='py-[15px] pt-[2.188rem] h-[15.75rem] w-1/2 bg-cover items-center flex flex-col gap-10 md:w-full'
           style={{ backgroundImage: "url('/images/booking-btn-two.webp')" }}
         >
           <div className='flex items-center flex-col gap-[0.625rem]'>

@@ -3,7 +3,7 @@ import React from 'react'
 
 const PackageCard = ({ item }: any) => {
   return (
-    <div className='bg-white pt-[2.188rem] px-[3.75rem] max-w-[500px] w-full rounded-[14px] max-h-max'>
+    <div className='bg-white pt-[2.188rem] px-[3.75rem] max-w-[500px] w-full rounded-[14px] max-h-max md:max-h-full md:justify-between md:flex-col md:flex'>
       <div className='flex flex-col'>
         <div className='text-gray-650 tracking-[3px] text-[27px] font-light uppercase suave-text'>{item.title}</div>
         <div className='w-full h-[2px] border border-gray-550'></div>

@@ -183,7 +183,10 @@ const ProfilePage = () => {
         </div>
 
         <div className='flex gap-7 mt-8 md:flex-col'>
-          <form onSubmit={handleSubmit(onSubmit)} className='flex max-w-[361px] w-full flex-col gap-5 md:max-w-full'>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='flex max-w-[361px] w-full flex-col gap-5 md:max-w-full sm:max-w-full'
+          >
             <div className='uppercase text-primary-black text-base'>Basic information</div>
             <div className='flex flex-col gap-7 w-full sm:w-full'>
               <div className='w-full flex flex-col gap-1'>
@@ -263,7 +266,7 @@ const ProfilePage = () => {
             </div>
 
             <div className='md:flex md:flex-row-reverse md:justify-between md:items-center md:gap-4'>
-              <div className='flex max-w-[361px] w-full flex-col gap-5 mt-11 md:mt-0 md:w-full'>
+              <div className='flex max-w-[361px] w-full flex-col gap-5 mt-11 md:mt-0 md:w-full sm:mt-0 sm:w-full sm:max-w-full'>
                 {showPasswordForm ? (
                   <form onSubmit={handleSubmitPassword(onSubmitPasswordChange)} className='flex flex-col gap-5'>
                     <div className='flex flex-col gap-7 w-full sm:w-full'>
