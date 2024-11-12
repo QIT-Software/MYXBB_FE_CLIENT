@@ -15,8 +15,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className='flex flex-col'>
       {pathname === '/' ? (
-        // <MainHeader />
-        <></>
+        <MainHeader />
       ) : pathname === '/contact' ? (
         <ThirdHeader />
       ) : pathname === '/myxperience' ? (
