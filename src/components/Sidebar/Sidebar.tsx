@@ -24,22 +24,25 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
   }
   return (
     <aside className='flex max-w-[238px] w-full flex-col min-h-screen justify-between border-r border-secondary-light-grey sm:flex-col sm:min-h-0 sm:h-max sm:w-full sm:max-w-full sm:border-none'>
-      <div className='flex flex-col gap-4 pr-6 md:pr-4'>
+      <div className='flex flex-col gap-4 pr-6 md:pr-4 sm:pr-0'>
         {sidebarLinks.map(item => {
           const isActive = pathname === item.link
 
           return (
-            <>
+            <div className='flex gap-4 flex-col'>
               <Link
                 href={item.link}
                 key={item.name}
-                className='flex w-full items-center gap-3 sm:border-b sm:border-secondary-black-hover sm:pb-2'
+                className='flex w-full items-center gap-3 sm:border-b sm:border-secondary-black-hover sm:pb-2 sm:justify-between'
               >
-                <Image width={44} height={44} src={item.image} alt='logo' />
-                <div className={`text-lg ${isActive ? 'font-bold text-primary-black' : 'text-primary-black'}`}>{item.name}</div>
+                <div className='flex items-center gap-3'>
+                  <Image width={44} height={44} src={item.image} alt='logo' />
+                  <div className={`text-lg ${isActive ? 'font-bold text-primary-black' : 'text-primary-black'}`}>{item.name}</div>
+                </div>
+                <MyxIcon name='chevronDown' className={`size-6 ${isActive && 'rotate-180'}`} />
               </Link>
-              <div className='hidden sm:flex sm:flex-col'>{isActive && children}</div>
-            </>
+              {isActive && <div className='hidden sm:flex sm:flex-col'>{children}</div>}
+            </div>
           )
         })}
       </div>

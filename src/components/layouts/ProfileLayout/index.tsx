@@ -12,7 +12,7 @@ const ProfileLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className='flex flex-col gap-[60px]'>
-      <Header />
+      {/* <Header /> */}
       <div className='flex h-full flex-row px-[70px] md:px-4 sm:flex-col-reverse sm:px-4'>
         <Sidebar>{children}</Sidebar>
         <div className='w-full pl-[54px] sm:pl-0 sm:hidden'>{children}</div>
