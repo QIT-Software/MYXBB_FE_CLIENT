@@ -29,7 +29,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
           const isActive = pathname === item.link
 
           return (
-            <div className='flex gap-4 flex-col'>
+            <div className='flex gap-4 flex-col' key={item.name}>
               <Link
                 href={item.link}
                 key={item.name}
