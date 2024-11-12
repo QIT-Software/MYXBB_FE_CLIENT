@@ -22,6 +22,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         <></>
       ) : (
         <Header />
+        // <></>
       )}
 
       <div className='flex '>
