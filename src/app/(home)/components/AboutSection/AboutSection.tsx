@@ -5,10 +5,10 @@ import React from 'react'
 const AboutSection = () => {
   return (
     <div className='w-full bg-gray-450'>
-      <div className='flex flex-col pt-[8.125rem] md:pt-[90px] gap-15 items-center pb-[5.625rem] md:px-[42px]'>
+      <div className='flex flex-col pt-[8.125rem] md:pt-[90px] gap-15 items-center pb-[5.625rem] md:px-[42px] sm:px-[15px]'>
         <div className='flex flex-col gap-5'>
           <div className='flex flex-col gap-4 items-center'>
-            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text md:text-[36px]'>
+            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text md:text-[36px] sm:text-[21px]'>
               About MYX Blend bar
             </div>
             <div className='w-[78px] border-2 border-secondary-main-red'></div>
