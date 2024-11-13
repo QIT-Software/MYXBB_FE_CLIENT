@@ -33,21 +33,6 @@ const AuthForm = () => {
     mode: 'onChange',
   })
 
-  // useEffect(() => {
-  //   const savedEmail = localStorage.getItem('myxx_email')
-  //   const savedPassword = localStorage.getItem('myxx_password')
-  //   const savedRememberMe = localStorage.getItem('myxx_rememberMe') === 'true'
-  //   if (savedEmail) {
-  //     setValue('email', savedEmail)
-  //   }
-  //   if (savedPassword) {
-  //     setValue('password', savedPassword)
-  //   }
-  //   setRememberMe(savedRememberMe)
-
-  //   trigger(['email', 'password'])
-  // }, [setValue, trigger])
-
   const onSubmit = async (data: any) => {
     if (rememberMe) {
       localStorage.setItem('myxx_email', data.email)
@@ -183,11 +168,11 @@ const AuthForm = () => {
             <div className='w-full border-b border-gray-300'></div>
           </div>
           <div className='flex items-center justify-center gap-4'>
-            <Button type='button' variant={'outlineBlack'} className='size-8 p-2' onClick={handleFacebookSignup}>
+            <Button type='button' variant={'outlineBlack'} className='size-8 p-2 md:p-0 sm:p-0' onClick={handleFacebookSignup}>
               <MyxIcon name='facebook' width={16} height={16} />
             </Button>
-            <Button type='button' variant={'outlineBlack'} className='size-8 p-2' onClick={handleGoogleSignup}>
-              <MyxIcon name='google' width={16} height={16} />
+            <Button type='button' variant={'outlineBlack'} className='size-8 p-2 md:p-0 sm:p-0' onClick={handleGoogleSignup}>
+              <MyxIcon name='google' width={16} height={16} className='size-4' />
             </Button>
           </div>
         </div>
