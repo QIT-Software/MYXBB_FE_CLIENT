@@ -18,7 +18,7 @@ const CustomShopPage = () => {
   console.log(products, 'products')
   return (
     <div className='flex flex-col py-[4.375rem] w-full'>
-      <div className='flex items-center justify-center px-[3.125rem]'>
+      <div className='flex items-center justify-center px-[3.125rem] md:px-4 sm:px-4'>
         <div className='max-w-[1300px] w-full items-center flex flex-col'>
           <div className='z-[2] text-[4.375rem] text-primary-black font-bold text-center suave-text pb-[7.25rem] relative'>
             Shop MYX
@@ -31,7 +31,7 @@ const CustomShopPage = () => {
               <ClipLoader color={'red'} loading={true} size={50} />
             </div>
           ) : (
-            <div className='flex justify-center items-center max-w-[1200px] w-full gap-7'>
+            <div className='flex justify-center items-center max-w-[1200px] w-full gap-7 md:flex-col sm:flex-col'>
               <div className='flex w-1/2'>
                 <Image src={products.featured_product.avatar} alt='custom shop' width={585} height={585} />
               </div>

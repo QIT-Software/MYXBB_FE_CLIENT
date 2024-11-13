@@ -5,10 +5,10 @@ import React from 'react'
 const AboutSection = () => {
   return (
     <div className='w-full bg-gray-450'>
-      <div className='flex flex-col pt-[8.125rem] md:pt-[90px] gap-15 items-center pb-[5.625rem] md:px-[42px]'>
+      <div className='flex flex-col pt-[8.125rem] md:pt-[90px] gap-15 items-center pb-[5.625rem] md:px-[42px] sm:px-[15px]'>
         <div className='flex flex-col gap-5'>
           <div className='flex flex-col gap-4 items-center'>
-            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text md:text-[36px]'>
+            <div className='uppercase text-gray-700 tracking-[5px] text-[57px] font-light suave-text md:text-[36px] sm:text-[21px]'>
               About MYX Blend bar
             </div>
             <div className='w-[78px] border-2 border-secondary-main-red'></div>
@@ -25,29 +25,34 @@ const AboutSection = () => {
           Learn More
         </Link>
       </div>
-      <div className='flex w-full bg-white h-[770px] md:flex-col md:h-auto'>
+      <div className='flex w-full bg-white h-[770px] md:flex-col md:h-auto sm:flex-col sm:h-auto'>
         <Link
           href={'/'}
           style={{ backgroundImage: "url('/images/about-link-four.webp')" }}
-          className='relative w-1/2 bg-cover bg-center bg-no-repeat md:w-full'
+          className='relative w-1/2 bg-cover bg-center bg-no-repeat md:w-full sm:w-full'
         >
-          <div className='w-full flex flex-col gap-[2.188rem] text-white absolute items-center left-1/2 -translate-x-1/2  bottom-[50%] translate-y-1/2 md:relative md:py-[120px]'>
+          <div
+            className='w-full flex flex-col gap-[2.188rem] text-white absolute items-center left-1/2 -translate-x-1/2  bottom-[50%] translate-y-1/2
+           md:relative md:py-[120px] md:translate-x-0 md:translate-y-0 md:left-0 sm:w-full sm:relative sm:py-[120px] sm:translate-x-0 sm:translate-y-0 sm:left-0 sm:px-[15px]'
+          >
             <div className='flex flex-col'>
-              <div className='w-full text-center suave-text font-light uppercase text-5xl tracking-[2.5px]'>MYXPERIENCE</div>
-              <div className='max-w-[455px] w-full text-[21px] text-white text-center leading-[48px]'>
+              <div className='w-full text-center suave-text font-light uppercase text-5xl tracking-[2.5px] sm:text-[24px]'>
+                MYXPERIENCE
+              </div>
+              <div className='max-w-[455px] w-full text-[21px] text-white text-center leading-[48px] sm:text-[15px]'>
                 Each MYXperience is tailored to you! Create your perfect custom lip product today!
               </div>
             </div>
-            <div className='cursor-pointer text-xs text-white uppercase max-w-[337px] w-full bg-white/25 hover:bg-white/50 py-[20px] px-[29px] rounded-[55px]'>
+            <div className='cursor-pointer text-xs text-white uppercase max-w-[337px] w-full bg-white/25 hover:bg-white/50 py-[20px] px-[29px] rounded-[55px] sm:max-w-[calc(100%-40px)] sm:text-center'>
               <div className='text-xs font-black text-white tracking-[4px]'>Explore the MYXperience</div>
             </div>
           </div>
         </Link>
-        <div className='p-[2.188rem] flex flex-col gap-[2.188rem] w-1/2 md:w-full md:p-[35px] md:h-full'>
-          <div className='flex flex-row gap-8 w-full max-h-[250px] md:h-[250px]'>
+        <div className='p-[2.188rem] flex flex-col gap-[2.188rem] w-1/2 md:w-full md:p-[35px] md:h-full sm:w-full sm:p-[15px]'>
+          <div className='flex flex-row gap-8 w-full h-[250px] md:h-[250px] sm:flex-col'>
             <Link
               href={'/'}
-              className='relative w-1/2 h-[15.625rem] hover:scale-[1.03] h-full bg-cover bg-center bg-no-repeat'
+              className='relative w-1/2 h-[15.625rem] hover:scale-[1.03] h-full bg-cover bg-center bg-no-repeat sm:w-full'
               style={{ backgroundImage: "url('/images/about-link-one.webp')" }}
             >
               <div className='w-full flex flex-col text-white uppercase text-2xl tracking-[2.5px] font-light absolute left-1/2 -translate-x-1/2  bottom-[20px]'>
@@ -58,7 +63,7 @@ const AboutSection = () => {
             </Link>
             <Link
               href={'/'}
-              className='relative w-1/2 hover:scale-[1.03] h-[15.625rem] h-full bg-cover bg-center bg-no-repeat'
+              className='relative w-1/2 hover:scale-[1.03] h-[15.625rem] h-full bg-cover bg-center bg-no-repeat sm:w-full'
               style={{ backgroundImage: "url('/images/about-link-two.webp')" }}
             >
               <div className='flex flex-col text-white uppercase text-2xl tracking-[2.5px] font-light absolute left-[20px] bottom-[20px]'>
@@ -68,7 +73,7 @@ const AboutSection = () => {
           </div>
           <Link
             href={'/'}
-            className='relative h-[415px] hover:scale-[1.03] bg-cover bg-center bg-no-repeat'
+            className='relative h-[415px] hover:scale-[1.03] bg-cover bg-center bg-no-repeat sm:max-h-[180px]'
             style={{ backgroundImage: "url('/images/about-link-three.webp')" }}
           >
             <div className='flex flex-col text-white uppercase text-2xl tracking-[2.5px] font-light absolute left-[20px] bottom-[20px]'>

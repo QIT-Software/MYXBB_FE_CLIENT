@@ -10,7 +10,7 @@ const AboutPage = () => {
         <div className='flex flex-col gap-7 pt-[50px] pb-[70px] md:px-[42px] sm:px-[15px]'>
           <div className='flex flex-col gap-4 items-center relative'>
             <Image src={'/images/lips-bg.webp'} alt={'lips bg'} width={405} height={230} className='object-cover' />
-            <div className='absolute top-[50%] flex flex-col items-center justify-center sm:top-[75%]'>
+            <div className='absolute top-[50%] z-10 flex flex-col items-center justify-center sm:top-[75%]'>
               <h1 className='uppercase text-gray-700 tracking-[5px] text-[48px] font-light suave-text md:text-[36px] md:text-center sm:text-[24px]'>
                 About MYX Blend bar
               </h1>
