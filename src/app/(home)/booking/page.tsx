@@ -10,11 +10,20 @@ import ScrollToTopButton from '@/components/ScrollToTopButton/ScrollToTopButton'
 const BookingPage = () => {
   return (
     <div className='flex flex-col'>
-      <div className='w-screen h-screen bg-cover bg-center' style={{ backgroundImage: "url('/images/booking-bg.webp')" }}></div>
+      <div
+        className='w-screen h-screen bg-cover bg-center sm:px-[15px] sm:py-[35px]'
+        style={{ backgroundImage: "url('/images/booking-bg.webp')" }}
+      ></div>
       <div className='flex bg-primary-brown justify-center pt-[2.188rem] px-[3.75rem] pb-[7.5rem]'>
-        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col'>
+        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col sm:flex-col sm:px-[15px] sm:py-[35px]'>
           <div>
-            <Image src={'/images/face-myx-booking.webp'} alt='logo' width={685} height={511} />
+            <Image
+              src={'/images/face-myx-booking.webp'}
+              alt='logo'
+              width={685}
+              height={511}
+              className='object-cover sm:max-w-full'
+            />
           </div>
           <div className='flex flex-col gap-[1.125rem] items-center'>
             <div className='text-[3rem] text-white font-light uppercase'>RESERVE YOUR SPOT</div>
