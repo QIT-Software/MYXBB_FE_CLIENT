@@ -17,8 +17,8 @@ const PackagesSection = () => {
             ))}
           </div>
         </div>
-        <div className='flex flex-row gap-[70px] max-w-[1070px] w-full bg-white rounded-[14px]'>
-          <div className='flex px-[60px] pt-[43px]'>
+        <div className='flex flex-row gap-[70px] max-w-[1070px] w-full bg-white rounded-[14px] md:px-[15px] sm:px-[20px] sm:flex-col sm:gap-0'>
+          <div className='flex px-[60px] pt-[43px] sm:flex-col sm:px-[20px]'>
             <div className='flex flex-col'>
               <div className='text-secondary-main-red tracking-[3px] text-2xl font-light uppercase suave-text'>
                 PACKAGE ADD-ONS
@@ -29,7 +29,7 @@ const PackagesSection = () => {
               </ul>
             </div>
           </div>
-          <div className='flex px-[60px] py-[43px]'>
+          <div className='flex px-[60px] py-[43px] sm:flex-col sm:px-[20px]'>
             <div className='flex flex-col'>
               <div className='text-secondary-main-red tracking-[3px] text-2xl font-light uppercase suave-text'>
                 ADDT’L MERCHANDISE

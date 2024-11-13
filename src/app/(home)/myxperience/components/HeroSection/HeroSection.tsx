@@ -81,13 +81,13 @@ const HeroSection = () => {
         initial='hidden'
         animate={controls}
         variants={fadeInFromTop}
-        className='flex flex-col gap-[10px] items-center absolute bottom-[15%] w-full max-w-[1400px] px-4 text-center'
+        className='flex flex-col gap-[10px] items-center absolute bottom-[15%] w-full max-w-[1400px] px-4 text-center md:max-w-[calc(100%-100px)] md:px-[15px]'
       >
         <div className='flex flex-col gap-[17px] items-center'>
-          <h1 className='text-4xl text-white suave-text text-[60px] leading-[90px]'>MYXPERIENCE</h1>
+          <h1 className='text-4xl text-white suave-text text-[60px] leading-[90px] md:text-[55px] sm:text-[28px]'>MYXPERIENCE</h1>
           <div className='w-[78px] border border-white'></div>
         </div>
-        <p className='text-[21px] font-semibold leading-[3.544rem] text-white'>
+        <p className='text-[21px] font-semibold leading-[3.544rem] text-white md:leading-[30px] md:text-[20px] sm:text-[20px] sm:leading-[20px]'>
           Make Your Mark with MYX Blend Bar! Our MYXologists are here to help you create your perfect lipstick blends! No matter
           the <br /> occasion, MYX Blend Bar has your lips covered! It&apos;s time for you to Choose It, MYX It &amp; Make It
           Yours!
