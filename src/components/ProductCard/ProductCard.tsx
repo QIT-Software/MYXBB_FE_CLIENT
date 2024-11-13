@@ -68,7 +68,7 @@ const ProductCard = ({ product }: TProductCard) => {
         <div className='flex flex-col gap-5 flex-shrink'>
           <div className='flex gap-4 max-w-max w-full'>
             <div className='uppercase min-w-[90px]'>Name</div>
-            <div className='font-semibold truncate'>{product.name}</div>
+            <div className='font-semibold truncate max-w-[100px]'>{product.name}</div>
           </div>
           <div className='flex  gap-4'>
             <div className='uppercase min-w-[90px]'>Category</div>

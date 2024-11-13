@@ -11,7 +11,7 @@ const AboutPage = () => {
           <div className='flex flex-col gap-4 items-center relative'>
             <Image src={'/images/lips-bg.webp'} alt={'lips bg'} width={405} height={230} className='object-cover' />
             <div className='absolute top-[50%] z-10 flex flex-col items-center justify-center sm:top-[75%]'>
-              <h1 className='uppercase text-gray-700 tracking-[5px] text-[48px] font-light suave-text md:text-[36px] md:text-center sm:text-[24px]'>
+              <h1 className='uppercase  sm:text-center text-gray-700 tracking-[5px] text-[48px] font-light suave-text md:text-[36px] md:text-center sm:text-[24px]'>
                 About MYX Blend bar
               </h1>
               <div className='w-[78px] border border-secondary-main-red'></div>
@@ -31,7 +31,13 @@ const AboutPage = () => {
             height={145}
             className='object-cover absolute left-[55px] top-[40px] md:left-[30px] sm:left-[15px] sm:top-[30px]'
           />
-          <Image src={'/images/slide-five.webp'} alt={'about-image-one'} width={1015} height={550} className='object-cover' />
+          <Image
+            src={'/images/slide-five.webp'}
+            alt={'about-image-one'}
+            width={1015}
+            height={550}
+            className='object-cover min-h-[393px]'
+          />
           <h3 className='suave-text text-[30px] font-light absolute left-[55px] bottom-[40px] max-w-[905px] w-full text-white uppercase md:text-[24px] md:px-[30px] md:py-[40px] md:left-0 md:bottom-0 sm:bottom-0 sm:left-0 sm:px-[15px] sm:py-[30px] sm:text-[18px]'>
             Lipstick is more than rouge, it`&apos;s a fashion statement, an expression, and an invaluable asset that can transform
             your look.
