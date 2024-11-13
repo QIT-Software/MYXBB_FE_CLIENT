@@ -85,6 +85,7 @@ const AddressBookPage = () => {
   })
 
   const shipping = watch('shipping_address')
+
   const billing = watch('billing_address')
 
   useEffect(() => {
