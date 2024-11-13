@@ -148,7 +148,7 @@ const CategoryPage = () => {
     <div className='h-auto'>
       <BreadCrumbs paths={paths} title={categoryDisplayName} />
       <div className='w-full flex items-center justify-center min-h-full py-[4.375rem]'>
-        <div className='flex flex-col items-center justify-center gap-5 max-w-[1200px] w-full'>
+        <div className='flex flex-col items-center justify-center gap-5 max-w-[1200px] w-full md:px-4 sm:px-4'>
           <div className='w-full flex items-center justify-between'>
             <div>
               <Select
@@ -167,7 +167,7 @@ const CategoryPage = () => {
                   products.count
                 } results`}
               </div>
-              <div className='flex text-gray-850'>
+              <div className='flex text-gray-850 md:hidden sm:hidden'>
                 <div
                   className='border flex items-center justify-center w-[41px] h-[41px] cursor-pointer'
                   onClick={() => setIsGrid(true)}

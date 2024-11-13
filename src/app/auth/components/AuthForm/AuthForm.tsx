@@ -121,11 +121,11 @@ const AuthForm = () => {
                 placeholder='Please enter your password'
                 type={showPassword ? 'text' : 'password'}
                 id='password'
-                maxLength={20}
+                maxLength={100}
                 {...register('password', {
                   required: 'Password is required',
                   maxLength: {
-                    value: 20,
+                    value: 100,
                     message: 'Password must be less than 20 characters',
                   },
                   minLength: {

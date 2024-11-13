@@ -21,7 +21,7 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
         {cartItems.map((item: any) => (
           <tr key={item.product_id} className='border-b'>
             {/* Product */}
-            <td className='py-[25px] px-[5px] flex text-[15px] items-center gap-4'>
+            <td className='py-[25px] px-[5px] flex text-[15px] items-center gap-4 sm:gap-1'>
               <MyxIcon
                 name='close'
                 className='size-5 text-secondary-dark-gray opacity-30 cursor-pointer'
@@ -35,7 +35,7 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
                 className='w-[60px] h-[60px]object-cover'
               />
               <div>
-                <Link href={'/'} className='text-secondary-dark-gray font-normal hover:text-primary-hover-red'>
+                <Link href={'/'} className='text-secondary-dark-gray font-normal hover:text-primary-hover-red truncate'>
                   {item.name}
                 </Link>
               </div>
@@ -60,7 +60,7 @@ const CartTable = ({ cartItems, onRemoveItem, onQuantityChange }: any) => {
             </td>
 
             {/* Subtotal */}
-            <td className='p-4 text-[15px]'>${(price(item) * item.quantity).toFixed(2)}</td>
+            <td className='p-4 text-[15px] sm:p-1'>${(price(item) * item.quantity).toFixed(2)}</td>
           </tr>
         ))}
       </tbody>
