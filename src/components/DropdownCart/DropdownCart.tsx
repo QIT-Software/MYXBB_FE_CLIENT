@@ -16,7 +16,7 @@ const DropdownCart = ({ cartItems, totalAmount, onMouseEnter, onMouseLeave, remo
   const router = useRouter()
   return (
     <div
-      className='absolute right-0 top-full mt-0 w-[300px] bg-gray-950 text-white p-5 '
+      className='absolute right-0 top-full mt-0 w-[300px] !z-20 bg-gray-950 text-white p-5 '
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
