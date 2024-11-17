@@ -36,7 +36,13 @@ export const servicesApi = mainApi.injectEndpoints({
       }),
       providesTags: [{ type: 'Location', id: 'LIST' }],
     }),
+    getCardsAmounts: builder.query({
+      query: () => ({
+        url: '/orders/merch/gift-card-amounts/',
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const { useGetServicesQuery, useGetLocationsQuery, useGetProductsQuery, useGetSelectedMerchQuery } = servicesApi
+export const { useGetServicesQuery, useGetLocationsQuery, useGetProductsQuery, useGetSelectedMerchQuery, useGetCardsAmountsQuery } = servicesApi
