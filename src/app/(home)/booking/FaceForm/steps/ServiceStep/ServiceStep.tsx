@@ -12,6 +12,7 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
   control: (provided, state) => ({
     ...provided,
     width: '176px',
+
     minHeight: '40px',
     marginTop: '0',
     display: 'flex',
@@ -129,8 +130,8 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
     }
   }, [locations, servicesList])
   return (
-    <div className='flex flex-col gap-[1.688rem]'>
-      <div className='flex flex-col items-center gap-10 pt-6'>
+    <div className='flex flex-col gap-[1.688rem] sm:w-full'>
+      <div className='flex flex-col items-center gap-10 pt-6 sm:gap-5'>
         <div className={cn('text-[1.063rem] text-primary-black', { 'text-primary-status-red': isFace })}>
           PLEASE SELECT A PACKAGE
         </div>
@@ -138,7 +139,7 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
           Booking more than 10?
         </Link>
       </div>
-      <div className='flex gap-[0.875rem] w-[34.125rem]'>
+      <div className='flex gap-[0.875rem] sm:flex-col'>
         <div className='flex flex-col gap-1 items-center'>
           <Label text='Location' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Controller
@@ -195,7 +196,7 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
         </div>
       </div>
       <div className='flex items-center justify-center'>
-        <div className='w-1/3 flex flex-col gap-1'>
+        <div className='w-1/3 flex flex-col gap-1 sm:w-1/2'>
           <Label text='Date' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
           <Controller
             name='date'

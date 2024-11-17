@@ -136,8 +136,8 @@ const FaceForm = ({ isFace }: TFaceForm) => {
   return (
     <>
       <AuthDialog open={showForm} handleClose={() => setShowForm(false)} />
-      <div className='flex flex-col gap-[1.2rem] items-center'>
-        <div className='flex font-bold text-sm leading-[1.625rem] text-primary-gray'>
+      <div className='flex flex-col gap-[1.2rem] items-center sm:w-full'>
+        <div className='flex font-bold text-sm leading-[1.625rem] text-primary-gray sm:hidden'>
           {/* Step 1 - Service */}
           <div className='flex flex-col gap-1 items-center'>
             <div className={currentStep >= 0 ? 'text-primary-status-red' : ''}>1. Service</div>
@@ -167,9 +167,9 @@ const FaceForm = ({ isFace }: TFaceForm) => {
           </div>
         </div>
 
-        <div className='flex flex-col font-bold items-center gap-[1.6rem] text-[1.063rem] text-primary-black'>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+        <div className='flex flex-col font-bold items-center gap-[1.6rem] text-[1.063rem] text-primary-black sm:w-full'>
+          <form onSubmit={handleSubmit(onSubmit)} className='sm:w-full'>
+            <div className='sm:w-full'>
               {currentStep === 0 && <ServiceStep isFace={isFace} control={control} setValue={setValue} errors={errors} />}
               {currentStep === 1 && (
                 <TimeStep isFace={isFace} watch={watch} setValue={setValue} register={register} errors={errors} />

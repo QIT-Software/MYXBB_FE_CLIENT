@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div
       className={cn(
-        `w-full bg-secondary-black-blue h-full sm:px-[15px] sm:py-10`,
+        `w-full bg-secondary-black-blue h-full sm:px-[15px] sm:py-5`,
         pathname === '/' ? 'max-h-[21.313rem] py-16 sm:max-h-auto' : 'max-h-[3.75rem py-[1.125rem] sm:max-h-auto'
       )}
     >
@@ -17,7 +17,7 @@ const Footer = () => {
         {pathname === '/' ? (
           <Image src={'/images/footer-image.webp'} alt='logo' width={77} height={40} className='sm:w-[60px] sm:h-[30px]' />
         ) : (
-          <Image src={'/images/site-logo.png'} alt='logo' width={150} height={24} className='sm:w-[60px] sm:h-[30px]' />
+          <Image src={'/images/site-logo.png'} alt='logo' width={150} height={24} className='sm:w-[90px] sm:h-[25px]' />
         )}
         {pathname === '/' && (
           <>

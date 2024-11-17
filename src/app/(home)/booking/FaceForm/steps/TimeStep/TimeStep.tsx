@@ -53,7 +53,7 @@ const TimeStep = ({ watch, setValue, errors, isFace }: TTimeStep) => {
         </Link>
       </div>
       <div>
-        <div className='flex gap-10'>
+        <div className='flex gap-10 sm:flex-col'>
           <RedCalender
             disabled={(date: any) => isBefore(startOfDay(date), today)}
             selected={selectedDate}
@@ -62,7 +62,7 @@ const TimeStep = ({ watch, setValue, errors, isFace }: TTimeStep) => {
               setValue('time', '')
             }}
           />
-          <div className='max-w-[7.25rem] w-full h-full'>
+          <div className='max-w-[7.25rem] w-full h-full sm:flex sm:flex-col'>
             <RadioGroup value={selectedTime} onValueChange={time => setValue('time', time)} className='flex flex-col gap-1'>
               {times.length ? (
                 times.map((time: string) => (
