@@ -45,4 +45,10 @@ export const servicesApi = mainApi.injectEndpoints({
   }),
 })
 
-export const { useGetServicesQuery, useGetLocationsQuery, useGetProductsQuery, useGetSelectedMerchQuery, useGetCardsAmountsQuery } = servicesApi
+export const {
+  useGetServicesQuery,
+  useGetLocationsQuery,
+  useGetProductsQuery,
+  useGetSelectedMerchQuery,
+  useGetCardsAmountsQuery,
+} = servicesApi
