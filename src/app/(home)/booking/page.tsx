@@ -2,10 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import FaceForm from './FaceForm/FaceForm'
-import { Button } from '@/components/ui/Button/Button'
-import AuthDialog from '@/app/auth/components/AuthDialog/AuthDialog'
-import { ScrollUpButton } from '@radix-ui/react-select'
-import ScrollToTopButton from '@/components/ScrollToTopButton/ScrollToTopButton'
+
+export const metadata = {
+  title: 'MYX Blend Bar',
+  description: 'Welcome to the MYX Blend Bar - the perfect blend of style and luxury.',
+}
 
 const BookingPage = () => {
   return (

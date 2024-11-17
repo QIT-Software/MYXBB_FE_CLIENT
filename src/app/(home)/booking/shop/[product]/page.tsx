@@ -15,7 +15,7 @@ import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { skip } from 'node:test'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import Select, { StylesConfig } from 'react-select'
@@ -150,6 +150,14 @@ const ProductPage = () => {
   const handleImageClick = imageUrl => {
     setMainImage(imageUrl)
   }
+
+  useEffect(() => {
+    if (selectedProduct?.name) {
+      document.title = `${selectedProduct.name} - MYX Blend Bar`
+    } else {
+      document.title = 'Product Details - MYX Blend Bar'
+    }
+  }, [selectedProduct])
 
   return (
     <div className='h-auto'>

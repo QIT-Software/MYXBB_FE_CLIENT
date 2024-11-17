@@ -1,7 +1,11 @@
-'use client'
 import { MyxIcon } from '@/components/icons'
 import Image from 'next/image'
 import React from 'react'
+
+export const metadata = {
+  title: 'About - MYX Blend Bar',
+  description: 'Welcome to the MYX Blend Bar - the perfect blend of style and luxury.',
+}
 
 const AboutPage = () => {
   return (

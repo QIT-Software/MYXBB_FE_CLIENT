@@ -1,4 +1,3 @@
-'use client'
 import { Libre_Franklin, Open_Sans, Inter } from 'next/font/google'
 import '../../styles/globals.css'
 import { Providers } from '@/redux/provider'
@@ -9,6 +8,10 @@ import { CustomToastProvider } from '@/components/CustomToast/CustomToast'
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '600', '200', '500', '900'] })
 
+export const metadata = {
+  title: 'MYX Blend Bar',
+  description: 'Welcome to the MYX Blend Bar - the perfect blend of style and luxury.',
+}
 export default function RootLayout({
   children,
 }: Readonly<{

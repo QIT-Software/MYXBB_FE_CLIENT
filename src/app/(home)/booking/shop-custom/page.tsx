@@ -2,7 +2,7 @@
 import { MyxIcon } from '@/components/icons'
 import ShopButton from '@/components/ShopButton/ShopButton'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import { useGetProductsQuery } from '@/api/Services'
 import LipstickBlock from '../../components/LipstickBlock/LipstickBlock'
@@ -14,8 +14,24 @@ import GIftCardBlock from '../../components/GIftCardBlock/GIftCardBlock'
 import ClipLoader from 'react-spinners/ClipLoader'
 
 const CustomShopPage = () => {
+  useEffect(() => {
+    document.title = 'Shop - MYX Blend Bar'
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        'Explore the MYX Blend Bar shop and discover our unique lipstick, lip gloss, bundles, and more.'
+      )
+    } else {
+      const newMetaDescription = document.createElement('meta')
+      newMetaDescription.name = 'description'
+      newMetaDescription.content =
+        'Explore the MYX Blend Bar shop and discover our unique lipstick, lip gloss, bundles, and more.'
+      document.head.appendChild(newMetaDescription)
+    }
+  }, [])
+
   const { data: products, isLoading } = useGetProductsQuery({ is_for_shop: true })
-  console.log(products, 'products')
   return (
     <div className='flex flex-col py-[4.375rem] w-full'>
       <div className='flex items-center justify-center px-[3.125rem] md:px-4 sm:px-4'>
@@ -25,7 +41,6 @@ const CustomShopPage = () => {
             <div className='z-[1] absolute top-[37%] left-[50%] translate-x-[-50%] translate-y-[-50%] max-w-[190px] w-full border-b border-primary-gray'></div>
           </div>
 
-          {/* primary item */}
           {isLoading ? (
             <div>
               <ClipLoader color={'red'} loading={true} size={50} />
