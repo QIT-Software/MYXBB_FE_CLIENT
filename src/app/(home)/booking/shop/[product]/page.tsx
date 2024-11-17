@@ -1,6 +1,6 @@
 //@ts-nocheck
 'use client'
-import { useGetSelectedMerchQuery } from '@/api/Services'
+import { useGetCardsAmountsQuery, useGetSelectedMerchQuery } from '@/api/Services'
 import { getCategoryDisplayName } from '@/api/utils/GetCategory'
 import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/RelatedProductCard'
@@ -14,7 +14,8 @@ import { TOption } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import React, { useState } from 'react'
+import { skip } from 'node:test'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import Select, { StylesConfig } from 'react-select'
@@ -49,19 +50,20 @@ const ProductPage = () => {
 
   const product = params.product
   const { data: selectedProduct } = useGetSelectedMerchQuery({ id: product })
-
-  console.log(selectedProduct, 'selectedProduct')
   const isGiftCard = selectedProduct?.category === 'gift_cards'
+  const { data: amounts } = useGetCardsAmountsQuery({ skip: !isGiftCard })
 
   const [quantity, setQuantity] = useState(1)
   const [recipientEmail, setRecipientEmail] = useState('')
   const [emailError, setEmailError] = useState<string | null>(null)
   const disabledCart = isGiftCard ? !recipientEmail || emailError : false
 
+  const sortedAmounts = amounts?.length ? [...amounts].sort((a, b) => a - b) : []
+  const min = sortedAmounts[0]
+  const max = sortedAmounts[sortedAmounts.length - 1]
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-
-    // Перевіряємо, чи введене значення є числом і більше за 1
     if (/^\d*$/.test(value)) {
       const numericValue = Number(value)
       setQuantity(numericValue > 0 ? numericValue : 1)
@@ -129,12 +131,12 @@ const ProductPage = () => {
     { label: selectedProduct?.name, href: '#' },
   ]
 
-  const availableOptions = [50, 80, 150, 200]
-
-  const shippingStateOptions = availableOptions.map(value => ({
-    value: value.toString(),
-    label: `$${value}`,
-  }))
+  const shippingStateOptions =
+    amounts?.length > 0 &&
+    amounts.map(value => ({
+      value: value.toString(),
+      label: `$${value}`,
+    }))
 
   const [selectedValue, setSelectedValue] = useState<number | null>(50)
 
@@ -148,6 +150,14 @@ const ProductPage = () => {
   const handleImageClick = imageUrl => {
     setMainImage(imageUrl)
   }
+
+  useEffect(() => {
+    if (selectedProduct?.name) {
+      document.title = `${selectedProduct.name} - MYX Blend Bar`
+    } else {
+      document.title = 'Product Details - MYX Blend Bar'
+    }
+  }, [selectedProduct])
 
   return (
     <div className='h-auto'>
@@ -198,7 +208,10 @@ const ProductPage = () => {
 
               <div className='flex flex-col gap-[15px] w-max'>
                 {isGiftCard ? (
-                  <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>$50.00 - $200.00</div>
+                  <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>
+                    {' '}
+                    ${min.toFixed(2)} - ${max.toFixed(2)}
+                  </div>
                 ) : (
                   <div className='text-secondary-dark-gray font-bold text-[1.25rem]'>${selectedProduct?.price}</div>
                 )}

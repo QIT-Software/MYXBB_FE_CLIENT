@@ -28,7 +28,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control, setShowForm, 
               {showForm ? 'Cancel' : 'Login'}
             </Button>
           </div>
-          <div className='flex gap-3 w-full'>
+          <div className='flex gap-3 w-full sm:flex-col'>
             <div className='flex flex-col gap-1 w-full items-center'>
               <Label text='First name' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
               <Input
@@ -76,7 +76,7 @@ const DetailsStep = ({ register, errors, watch, setValue, control, setShowForm, 
               />
             </div>
           </div>
-          <div className='flex gap-3'>
+          <div className='flex gap-3 sm:flex-col sm:w-full'>
             <div className='flex flex-col gap-1 items-center'>
               <Label text='Phone' className='!text-primary-status-red !text-sm !font-bold leading-[1.6rem]' />
               <Controller
