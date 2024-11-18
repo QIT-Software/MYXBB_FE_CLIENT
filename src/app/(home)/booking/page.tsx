@@ -16,7 +16,7 @@ const BookingPage = () => {
         style={{ backgroundImage: "url('/images/booking-bg.webp')" }}
       ></div>
       <div className='flex bg-primary-brown justify-center pt-[2.188rem] px-[3.75rem] pb-[7.5rem] sm:px-[15px] sm:py-[35px]'>
-        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col sm:flex-col sm:p-0'>
+        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col sm:flex-col sm:px-[15px]'>
           <div className='sm:w-full'>
             <Image
               src={'/images/face-myx-booking.webp'}
@@ -33,7 +33,7 @@ const BookingPage = () => {
         </div>
       </div>
       <div className='flex justify-center bg-primary-black pt-[2.188rem] px-[3.75rem] pb-[7.5rem] sm:px-[15px] sm:py-[35px]'>
-        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col sm:flex-col sm:p-0'>
+        <div className='px-[0.938rem] py-[0.625rem] flex gap-[1.875rem] md:flex-col sm:flex-col sm:px-[15px]'>
           <div className='sm:w-full'>
             <Image src={'/images/myx-lips-booking.webp'} alt='logo' width={685} height={511} />
           </div>
