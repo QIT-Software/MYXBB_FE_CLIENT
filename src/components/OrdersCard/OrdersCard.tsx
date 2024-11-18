@@ -42,7 +42,7 @@ const OrderCard = ({ order }: any) => {
   }
   return (
     <div className='border p-4 border-gray-200 rounded'>
-      <div className='md:hidden'>
+      <div className='md:hidden sm:hidden'>
         <div className='flex justify-between items-center'>
           <div className='grid grid-cols-6 gap-4 items-center'>
             <div className='flex flex-col gap-2 min-w-[100px]'>
@@ -118,8 +118,8 @@ const OrderCard = ({ order }: any) => {
         )}
       </div>
       {/* MOBILE */}
-      <div className='hidden md:flex md:w-full md:justify-between md:flex-col'>
-        <div className='md:flex md:w-full md:justify-between items-start'>
+      <div className='hidden md:flex md:w-full md:justify-between md:flex-col sm:flex sm:flex-col sm:w-full sm:justify-between'>
+        <div className='md:flex sm:flex md:w-full sm:w-full md:justify-between sm:justify-between items-start'>
           <div className='flex  flex-col gap-4 items-center'>
             <div className='flex gap-2 items-start w-full'>
               <div className='uppercase min-w-[140px] text-sm items-start'>Orders</div>

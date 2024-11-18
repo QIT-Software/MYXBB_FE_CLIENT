@@ -13,9 +13,7 @@ const NotFoundLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Providers>
       <html lang='en'>
-        <body className={libre_franklin.className}>
-          {children}
-        </body>
+        <body className={libre_franklin.className}>{children}</body>
       </html>
     </Providers>
   )
