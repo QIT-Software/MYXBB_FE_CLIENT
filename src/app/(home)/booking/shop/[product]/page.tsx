@@ -6,14 +6,16 @@ import BreadCrumbs from '@/app/(home)/components/BreadCrumbs/BreadCrumbs'
 import RelatedProductCard from '@/app/(home)/components/RelatedProductCard/RelatedProductCard'
 import RelatedProducts from '@/app/(home)/components/RelatedProducts/RelatedProducts'
 import ReviewForm from '@/app/(home)/components/ReviewForm/ReviewForm'
+import ShareButtons from '@/app/(home)/components/ShareButtons/ShareButtons'
 import { showToast } from '@/components/CustomToast/CustomToast'
 import DropdownCart from '@/components/DropdownCart/DropdownCart'
+import { MyxIcon } from '@/components/icons'
 import { Input } from '@/components/ui/Input/Input'
 import { triggerCartUpdate } from '@/redux/slices/user/userSlice'
 import { TOption } from '@/types/types'
 import { getFromStorage, setToStorage } from '@/utils/storage'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { skip } from 'node:test'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -46,6 +48,7 @@ const customStyles: StylesConfig<{ value: string | number; label: string }> = {
 
 const ProductPage = () => {
   const params = useParams()
+  const pathname = usePathname()
   const dispatch = useDispatch()
 
   const product = params.product
@@ -61,6 +64,11 @@ const ProductPage = () => {
   const sortedAmounts = amounts?.length ? [...amounts].sort((a, b) => a - b) : []
   const min = sortedAmounts[0]
   const max = sortedAmounts[sortedAmounts.length - 1]
+
+  // Generate the dynamic product URL
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+  const productUrl = `${baseUrl}${pathname}`
+  console.log(productUrl, 'productUrl')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -271,26 +279,10 @@ const ProductPage = () => {
                 Category: {getCategoryDisplayName(selectedProduct?.category)}
               </div>
 
-              {/* <div className='flex flex-col gap-2.5'>
+              <div className='flex flex-col gap-2.5'>
                 <div className='text-secondary-dark-gray font-bold'>Share this product</div>
-                <div className='flex gap-1'>
-                  <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
-                    <MyxIcon name='twitter' className='size-4' />
-                  </div>
-                  <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
-                    <MyxIcon name='pinterest' className='size-4' />
-                  </div>
-                  <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
-                    <MyxIcon name='linkedin' className='size-4' />
-                  </div>
-                  <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
-                    <MyxIcon name='whatsapp' className='size-4' />
-                  </div>
-                  <div className='cursor-pointer w-[50px] h-[30px] flex items-center justify-center border border-secondary-light-blue/3'>
-                    <MyxIcon name='facebookShare' className='size-4' />
-                  </div>
-                </div>
-              </div> */}
+                <ShareButtons productName={selectedProduct?.name} productUrl={productUrl} />
+              </div>
             </div>
           </div>
           <div className='flex flex-col gap-[60px]'>
