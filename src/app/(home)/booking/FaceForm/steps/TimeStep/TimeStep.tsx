@@ -62,8 +62,12 @@ const TimeStep = ({ watch, setValue, errors, isFace }: TTimeStep) => {
               setValue('time', '')
             }}
           />
-          <div className='max-w-[7.25rem] w-full h-full sm:flex sm:flex-col'>
-            <RadioGroup value={selectedTime} onValueChange={time => setValue('time', time)} className='flex flex-col gap-1'>
+          <div className='max-w-[7.25rem] w-full h-full sm:flex'>
+            <RadioGroup
+              value={selectedTime}
+              onValueChange={time => setValue('time', time)}
+              className='flex flex-col gap-1'
+            >
               {times.length ? (
                 times.map((time: string) => (
                   <div
