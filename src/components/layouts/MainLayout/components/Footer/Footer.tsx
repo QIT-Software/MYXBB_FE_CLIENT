@@ -1,6 +1,7 @@
 import { MyxIcon } from '@/components/icons'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
@@ -38,9 +39,15 @@ const Footer = () => {
               </div>
             </div>
             <div className='flex gap-6'>
-              <MyxIcon name='grayInstagram' className='w-6 h-6 cursor-pointer' />
-              <MyxIcon name='grayFacebook' className='w-6 h-6 cursor-pointer' />
-              <MyxIcon name='grayTwitter' className='w-6 h-6 cursor-pointer' />
+              <Link href={'https://www.instagram.com/myxblendbar/'}>
+                <MyxIcon name='grayInstagram' className='w-6 h-6 cursor-pointer' />
+              </Link>
+              <Link href={'https://www.facebook.com/MYXBlendBarDallas/'}>
+                <MyxIcon name='grayFacebook' className='w-6 h-6 cursor-pointer' />
+              </Link>
+              <Link href={'https://x.com/MYXBlendBar/'}>
+                <MyxIcon name='grayTwitter' className='w-6 h-6 cursor-pointer' />
+              </Link>
             </div>
           </>
         )}

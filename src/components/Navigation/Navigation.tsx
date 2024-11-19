@@ -26,25 +26,25 @@ const Navigation = ({ isScrolled }: TNavigationProps) => {
       </ul>
       <div className='text-sm flex font-bold pl-10 gap-[5px]'>
         <Link
-          href={'/'}
+          href={'https://www.facebook.com/MYXBlendBarDallas/'}
           className='w-[30px] h-[30px] bg-primary-hover-red rounded-full flex items-center justify-center hover:bg-white hover:text-primary-hover-red transition-all duration-100'
         >
           <MyxIcon name='facebookLetter' className='w-[16px] h-[16px]' />
         </Link>
         <Link
-          href={'/'}
+          href={'https://x.com/MYXBlendBar/'}
           className='w-[30px] h-[30px] border-full bg-primary-hover-red rounded-full flex items-center justify-center hover:bg-white hover:text-primary-hover-red transition-all duration-100'
         >
           <MyxIcon name='twitter' className='w-[15px] h-[15px]' />
         </Link>
         <Link
-          href={'/'}
+          href={'https://www.instagram.com/myxblendbar/'}
           className='w-[30px] h-[30px] border-full bg-primary-hover-red rounded-full flex items-center justify-center hover:bg-white hover:text-primary-hover-red transition-all duration-100'
         >
           <MyxIcon name='instagram' className='w-[15px] h-[15px]' />
         </Link>
         <Link
-          href={'/'}
+          href={'https://youtu.be/wHYwFtSkSJk?feature=shared/'}
           className='w-[30px] h-[30px] border-full bg-primary-hover-red rounded-full flex items-center justify-center hover:bg-white hover:text-primary-hover-red transition-all duration-100'
         >
           <MyxIcon name='youtube' className='w-[15px] h-[15px]' />
