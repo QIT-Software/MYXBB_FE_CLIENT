@@ -46,23 +46,29 @@ const CustomShopPage = () => {
               <ClipLoader color={'red'} loading={true} size={50} />
             </div>
           ) : (
-            <div className='flex justify-center items-center max-w-[1200px] w-full gap-7 md:flex-col sm:flex-col'>
-              <div className='flex w-1/2'>
-                <Image src={products.featured_product.avatar} alt='custom shop' width={585} height={585} />
-              </div>
-              <div className='w-1/2 flex flex-col gap-[2.188rem] text-center'>
-                <div className='flex flex-col gap-2.5'>
-                  <h1 className='suave-text text-[3.125rem] text-center text-primary-black font-bold'>
-                    {products.featured_product.name}
-                  </h1>
-                  <p className='text-[1.25rem] font-bold text-primary-black'>Our Miracle Lip Perfecter.</p>
-                  <p className='text-2xl font-bold text-primary-gray'>{products.featured_product.description}</p>
+            <>
+              {products?.featured_products ? (
+                <div className='flex justify-center items-center max-w-[1200px] w-full gap-7 md:flex-col sm:flex-col'>
+                  <div className='flex w-1/2'>
+                    <Image src={products?.featured_product.avatar} alt='custom shop' width={585} height={585} />
+                  </div>
+                  <div className='w-1/2 flex flex-col gap-[2.188rem] text-center'>
+                    <div className='flex flex-col gap-2.5'>
+                      <h1 className='suave-text text-[3.125rem] text-center text-primary-black font-bold'>
+                        {products?.featured_product.name}
+                      </h1>
+                      <p className='text-[1.25rem] font-bold text-primary-black'>Our Miracle Lip Perfecter.</p>
+                      <p className='text-2xl font-bold text-primary-gray'>{products?.featured_product.description}</p>
+                    </div>
+                    <div className='flex items-center justify-center'>
+                      <ShopButton link={`/booking/shop/${products?.featured_product.id}`} />
+                    </div>
+                  </div>
                 </div>
-                <div className='flex items-center justify-center'>
-                  <ShopButton link={`/booking/shop/${products.featured_product.id}`} />
-                </div>
-              </div>
-            </div>
+              ) : (
+                <></>
+              )}
+            </>
           )}
           <div className='flex flex-col gap-[7.5rem] max-w-[1200px] w-full pt-[7.5rem]'>
             <LipstickBlock />
