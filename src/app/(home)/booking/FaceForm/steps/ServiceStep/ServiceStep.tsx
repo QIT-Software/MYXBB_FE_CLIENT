@@ -122,8 +122,8 @@ const ServiceStep = ({ control, setValue, errors, isFace }: TServiceStepProps) =
         value: service.id,
       }))
 
-      const myxFilteredServices = transformedServices.filter((service: any) => !service.label.startsWith('FACE'))
-      const faceFilteredServices = transformedServices.filter((service: any) => service.label.startsWith('FACE'))
+      const myxFilteredServices = transformedServices.filter((service: any) => !service.label.startsWith('Face'))
+      const faceFilteredServices = transformedServices.filter((service: any) => service.label.startsWith('Face'))
 
       setMyxServices(myxFilteredServices)
       setFaceServices(faceFilteredServices)
