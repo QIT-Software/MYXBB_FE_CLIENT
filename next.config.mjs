@@ -31,15 +31,6 @@ const nextConfig = {
    domains: ['api.prod.myxblendbardev.site'],
 
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/profile',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
 }
 
 export default nextConfig
