@@ -28,7 +28,7 @@ const nextConfig = {
   },
   images: {
 
-    domains: ['api.dev.myxblendbardev.site', 'api.staging.myxblendbardev.site'],
+   domains: ['api.prod.myxblendbardev.site'],
 
   },
   // async redirects() {
