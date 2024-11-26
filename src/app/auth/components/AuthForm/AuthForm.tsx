@@ -71,31 +71,31 @@ const AuthForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col gap-1'>
-            <Label text='Email or Phone number' />
+            <Label text='Username or Email' />
             <Input
-              placeholder='Please enter your e-mail or phone number'
+              placeholder='Please enter your username or email'
               type='text'
               id='email'
               {...register('email', {
-                required: 'Email or phone number is required',
+                required: 'Username or email is required',
                 validate: value => {
                   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-                  const isPhone = /^\+?[0-9]{10,15}$/.test(value)
+                  const isUsername = /^[A-Za-z0-9@+_-]+$/.test(value)
                   const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
 
                   if (!noCyrillic) {
-                    return 'Email or phone number must not contain Cyrillic characters'
+                    return 'Username or email must not contain Cyrillic characters'
                   }
 
-                  if (isEmail || isPhone) {
+                  if (isEmail || isUsername) {
                     return true
                   }
 
-                  return 'Please enter a valid email address or phone number'
+                  return 'Please enter a valid username or email'
                 },
               })}
               className={`mt-1 block w-full px-3 py-2 border border-gray-300
-                 rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
+     rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
             />
             {errors.email && <span className='text-red-500 text-xs'>{errors.email.message}</span>}
           </div>
