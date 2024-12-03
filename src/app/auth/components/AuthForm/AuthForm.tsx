@@ -80,7 +80,7 @@ const AuthForm = () => {
                 required: 'Username or email is required',
                 validate: value => {
                   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-                  const isUsername = /^[A-Za-z0-9@+_-]+$/.test(value)
+                  const isUsername = /^[A-Za-z0-9 @+_-]+$/.test(value)
                   const noCyrillic = /^[^\u0400-\u04FF]+$/.test(value)
 
                   if (!noCyrillic) {
@@ -95,7 +95,7 @@ const AuthForm = () => {
                 },
               })}
               className={`mt-1 block w-full px-3 py-2 border border-gray-300
-     rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
+ rounded-md shadow-sm focus:outline-none sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
             />
             {errors.email && <span className='text-red-500 text-xs'>{errors.email.message}</span>}
           </div>
